@@ -13,8 +13,8 @@ domain_names = c(
 	'Events',
 	'Radio formats',        # 10
 	'Music',
-	'Art (Abor.)',
-	'Art (Impr.)',
+	'Aborig. art',
+	'Impress. art',
 	'Sentences',
 	'Travel',               # 15
 	'Marijuana',
@@ -26,11 +26,11 @@ domain_names = c(
 	'Beer',
 	'Cars',
 	'Restaurants',
-	'Layovers',      # 25
-	'Payments',
+	'Itineraries I',      # 25
+	'Payoffs',
 	'Phone plans',
 	'Hotel rooms',
-	'Itineraries',
+	'Itineraries II',
 	'Televisions',          # 30
 	'Coffee',
 	'Charity')
@@ -181,4 +181,3 @@ dm_table = as_tibble(melt(dm_array)) %>%
 	pivot_wider(names_from = var_name, values_from = value)
 
 save(dma_array, dma_table, dm_array, dm_table, file='dma_tables.RData')
-

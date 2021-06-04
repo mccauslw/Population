@@ -1,3 +1,5 @@
+library(tidyverse)
+
 load(file='dma_tables.RData')
 
 dma_table = mutate(dma_table, model_ftr = factor(model))
