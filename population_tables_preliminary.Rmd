@@ -1,0 +1,274 @@
+---
+title: "Tables for my own interest, population experiment"
+author: "William McCausland"
+date: '2018-08-08'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r tables, echo=FALSE}
+domain.names = c(
+  'Prior',
+	'Male stars',           # 1
+	'Female stars',
+	'Films',
+	'Star pairs',
+	'Pizzas',               # 5
+	'Juices',
+	'Colours',
+	'Colour Combinations',
+	'Events',
+	'Radio formats',        # 10
+	'Musical artists',
+	'Aboriginal art',
+	'Impressionist art',
+	'Sentences',
+	'Travel',               # 15
+	'Marijuana',
+	'Latitude',
+	'Dots',
+	'Triangles',
+	'Population',           # 20
+	'Surface area',
+	'Beer',
+	'Cars',
+	'Restaurants',
+	'Flight layovers',      # 25
+	'Future payments',
+	'Phone plans',
+	'Hotel rooms',
+	'Two-flight itineraries',
+	'Televisions',          # 30
+	'Coffee',
+	'Charity')
+
+result.table = read.table('Tables/population.txt')
+row.names(result.table) = domain.names
+```
+
+```{r prior.table, echo=FALSE}
+pt = data.frame(id = 0:3, row.names = 'id')
+#pt$a0 = c(1.50, 1.50, 1.50, 2.25, 2.25, 3.00, 3.00, 3.75, 4.50)
+#pt$b0 = c(2.00,  8/5,  4/3,  4/3,  8/7,  8/7,    1,  8/9, 0.8)
+#pt$aA = c(0.50, 1.00, 1.50, 0.75, 1.25, 0.50, 1.00, 0.75, 0.50)
+#pt$bA = pt$b0
+pt$a0 = c(2.00, 2.00, 2.50, 2.75)
+pt$b0 = c(4.00, 3.00, 3.00, 3.00)
+pt$aA = c(0.25, 1.00, 0.50, 0.50)
+pt$bA = c(4.00, 3.00, 3.00, 3.00)
+pt$Ela = pt$a0 / (pt$a0 + pt$aA)
+pt$Eal = pt$a0 * pt$b0 + pt$aA * pt$bA
+pt$Val = pt$a0 * pt$b0^2 + pt$aA * pt$bA^2
+pt$sdal = sqrt(pt$Val)
+pt$Vla = pt$a0 * pt$aA / ((pt$a0 + pt$aA)^2 * (pt$a0 + pt$aA + 1))
+pt$sdla = sqrt(pt$Vla)
+knitr::kable(pt, digits = 3)
+al0 = seq(0, 10, by=0.01)
+plot(al0, dgamma(al0, pt$a0[1], scale=pt$b0[1]), 'l', col='red', ylim=c(0,0.3))
+for (i in 2:4) {
+  lines(al0, dgamma(al0, pt$a0[i], scale=pt$b0[i]))
+}
+lines(al0, dgamma(al0, pt$a0[1], scale=pt$b0[1]), 'l', col='red')
+alA = seq(0, 5, by=0.01)
+plot(alA, dgamma(alA, pt$aA[1], scale=pt$bA[1]), 'l', col='red', ylim=c(0,4))
+for (i in 2:4) {
+  lines(alA, dgamma(alA, pt$aA[i], scale=pt$bA[i]))
+}
+lines(alA, dgamma(alA, pt$aA[1], scale=pt$bA[1]), 'l', col='red')
+
+al = seq(0, 25, by=0.01)
+plot(al, dgamma(al, pt$a0[1] + pt$aA[1], scale=pt$b0[1]), 'l', col='red', ylim=c(0,0.2))
+for (i in 2:4) {
+  lines(al, dgamma(al, pt$a0[i] + pt$aA[i], scale=pt$bA[i]))
+}
+
+la = seq(0, 1, by=0.001)
+plot(la, dbeta(la, pt$a0[1], pt$aA[1]), 'l', col='red', ylim=c(0,3))
+for (i in 2:4) {
+	lines(la, dbeta(la, pt$a0[i], pt$aA[i]))
+}
+```
+
+\pagebreak
+
+```{r w.B}
+#knitr::kable(result.table[,c('B1', 'Be1', 'B2', 'Be2', 'B3', 'Be3', 'B4', 'Be4', 'B5', 'Be5', 'B6', 'Be6', 'B7', 'Be7', 'B8', 'Be8')], digits=c(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2))
+knitr::kable(result.table[,c('B1', 'Be1', 'B2', 'Be2', 'B3', 'Be3')], digits=c(2,2,2,2,2,2))
+```
+
+* prior favouring high lambda is complementary with imposing ru
+
+\pagebreak
+
+```{r binary.Pu}
+knitr::kable(result.table[,c('wstuP', 'wstuPe', 'mstuP', 'mstuPe', 'sstuP', 'sstuPe', 'tiuP', 'tiuPe')], digits = c(3,3,3,3,6,6,3,3))
+```
+
+* Errors are acceptable for wst, mst, ti, but not for sst
+* Remarkably high probabilities for TI (but how many probabilities are outside [1/3,2/3])
+
+\pagebreak
+
+```{r binary.Ps}
+knitr::kable(result.table[,c('wstsP', 'wstsPe', 'mstsP', 'mstsPe', 'sstsP', 'sstsPe', 'tisP', 'tisPe')], digits = c(3,3,3,3,6,6,3,3))
+```
+
+* High posterior probability of TI is remarkably robust.
+* Errors for sst are much better for simple than for uniform model.
+
+\pagebreak
+
+```{r multi.Ps}
+knitr::kable(result.table[,c('regsP', 'regsPe', 'rusP', 'rusPe', 'mulsP', 'mulsPe')], digits = c(3,3,3,3,6,6))
+```
+
+* Prior probability is based on 144 draws out of 800000 independent draws. A bit noisy.
+
+\pagebreak
+
+```{r binary.bu}
+knitr::kable(result.table[,c('wstub', 'wstube', 'mstub', 'mstube', 'sstub', 'sstube', 'tiub', 'tiube')], digits = 3)
+```
+
+\pagebreak
+
+```{r binary.bs}
+knitr::kable(result.table[,c('wstsb', 'wstsbe', 'mstsb', 'mstsbe', 'sstsb', 'sstsbe', 'tisb', 'tisbe')], digits = 3)
+```
+
+\pagebreak
+
+```{r multi.bs}
+knitr::kable(result.table[,c('regsb', 'regsbe', 'rusb', 'rusbe', 'mulsb', 'mulsbe')], digits = 3)
+```
+
+* Prior simulation is weak link in standard errors for MI log Bayes factors.
+
+\pagebreak
+
+```{r alpha}
+#knitr::kable(result.table[,c('al1', 'ale1', 'al2', 'ale2', 'al3', 'ale3', 'al4', 'ale4', 'alu', 'alue')], digits=3)
+knitr::kable(result.table[,c('al1', 'ale1', 'al2', 'ale2', 'al3', 'ale3', 'als', 'alse', 'alu', 'alue')], digits=3)
+```
+
+* Prior results nail theoretical values.
+
+\pagebreak
+
+```{r lambda}
+#knitr::kable(result.table[,c('la1', 'lae1', 'la2', 'lae2', 'la3', 'lae3', 'la4', 'lae4', 'lau', 'laue')], digits=3)
+knitr::kable(result.table[,c('la1', 'lae1', 'la2', 'lae2', 'la3', 'lae3', 'las', 'lase', 'lau', 'laue')], digits=3)
+```
+
+\pagebreak
+
+```{r alpha.q}
+knitr::kable(result.table[,c('als0.05', 'als0.05e', 'als0.25', 'als0.25e', 'als0.50', 'als0.50e', 'als0.75', 'als0.75e', 'als0.95', 'als0.95e')], digits=3)
+```
+
+\pagebreak
+
+```{r lambda.q}
+knitr::kable(result.table[,c('las0.05', 'las0.05e', 'las0.25', 'las0.25e', 'las0.50', 'las0.50e', 'las0.75', 'las0.75e', 'las0.95', 'las0.95e')], digits=3)
+```
+
+\pagebreak
+
+```{r wst.robust}
+#knitr::kable(result.table[,c('wstb1', 'wstb2', 'wstb3', 'wstb4', 'wstb5', 'wstb6', 'wstb7', 'wstb8', 'wstub', 'wstube', 'wstsb', 'wstsbe')], digits=3)
+knitr::kable(result.table[,c('wstb1', 'wstb2', 'wstb3', 'wstub', 'wstube', 'wstsb', 'wstsbe')], digits=3)
+```
+
+\pagebreak
+
+```{r mst.robust}
+#knitr::kable(result.table[,c('mstb1', 'mstb2', 'mstb3', 'mstb4', 'mstb5', 'mstb6', 'mstb7', 'mstb8', 'mstub', 'mstube', 'mstsb', 'mstsbe')], digits=3)
+knitr::kable(result.table[,c('mstb1', 'mstb2', 'mstb3', 'mstub', 'mstube', 'mstsb', 'mstsbe')], digits=3)
+```
+
+\pagebreak
+
+```{r sst.robust}
+#knitr::kable(result.table[,c('sstb1', 'sstb2', 'sstb3', 'sstb4', 'sstb5', 'sstb6', 'sstb7', 'sstb8', 'sstub', 'sstube', 'sstsb', 'sstsbe')], digits=3)
+knitr::kable(result.table[,c('sstb1', 'sstb2', 'sstb3', 'sstub', 'sstube', 'sstsb', 'sstsbe')], digits=3)
+```
+
+\pagebreak
+
+```{r ti.robust}
+#knitr::kable(result.table[,c('tib1', 'tib2', 'tib3', 'tib4', 'tibe5', 'tib6', 'tib7', 'tib8', 'tiub', 'tiube', 'tisb', 'tisbe')], digits=3)
+knitr::kable(result.table[,c('tib1', 'tib2', 'tib3', 'tiub', 'tiube', 'tisb', 'tisbe')], digits=3)
+```
+
+\pagebreak
+
+```{r reg.robust}
+#knitr::kable(result.table[,c('regb1', 'regb2', 'regb3', 'regb4', 'regb5', 'regb6', 'regb7', 'regb8', 'regub', 'regube', 'regsb', 'regsbe')], digits=3)
+knitr::kable(result.table[,c('regb1', 'regb2', 'regb3', 'regub', 'regube', 'regsb', 'regsbe')], digits=3)
+```
+
+\pagebreak
+
+```{r ru.robust}
+#knitr::kable(result.table[,c('rub1', 'rub2', 'rub3', 'rub4', 'rub5', 'rub6', 'rub7', 'rub8', 'ruub', 'ruube', 'rusb', 'rusbe')], digits=3)
+knitr::kable(result.table[,c('rub1', 'rub2', 'rub3', 'ruub', 'ruube', 'rusb', 'rusbe')], digits=3)
+```
+
+\pagebreak
+
+```{r mul.robust}
+#knitr::kable(result.table[,c('mulb1', 'mulb2', 'mulb3', 'mulb4', 'mulb5', 'mulb6', 'mulb7', 'mulb8', 'mulub', 'mulube', 'mulsb', 'mulsbe')], digits=3)
+knitr::kable(result.table[,c('mulb1', 'mulb2', 'mulb3','mulub', 'mulube', 'mulsb', 'mulsbe')], digits=3)
+```
+
+\pagebreak
+
+```{r wst.P.robust}
+#knitr::kable(result.table[,c('wstP1', 'wstP2', 'wstP3', 'wstP4', 'wstP5', 'wstP6', 'wstP7', 'wstP8', 'wstuP', 'wstuPe', 'wstsP', 'wstsPe')], digits=3)
+knitr::kable(result.table[,c('wstP1', 'wstP2', 'wstP3', 'wstuP', 'wstuPe', 'wstsP', 'wstsPe')], digits=3)
+```
+
+\pagebreak
+
+```{r mst.P.robust}
+#knitr::kable(result.table[,c('mstP1', 'mstP2', 'mstP3', 'mstP4', 'mstP5', 'mstP6', 'mstP7', 'mstP8', 'mstuP', 'mstuPe', 'mstsP', 'mstsPe')], digits=3)
+knitr::kable(result.table[,c('mstP1', 'mstP2', 'mstP3', 'mstuP', 'mstuPe', 'mstsP', 'mstsPe')], digits=3)
+```
+
+\pagebreak
+
+```{r sst.P.robust}
+#knitr::kable(result.table[,c('sstP1', 'sstP2', 'sstP3', 'sstP4', 'sstP5', 'sstP6', 'sstP7', 'sstP8', 'sstuP', 'sstuPe', 'sstsP', 'sstsPe')], digits=3)
+knitr::kable(result.table[,c('sstP1', 'sstP2', 'sstP3', 'sstuP', 'sstuPe', 'sstsP', 'sstsPe')], digits=3)
+```
+
+\pagebreak
+
+```{r ti.P.robust}
+#knitr::kable(result.table[,c('tiP1', 'tiP2', 'tiP3', 'tiP4', 'tiP5', 'tiP6', 'tiP7', 'tiP8', 'tiuP', 'tiuPe', 'tisP', 'tisPe')], digits=3)
+knitr::kable(result.table[,c('tiP1', 'tiP2', 'tiP3', 'tiuP', 'tiuPe', 'tisP', 'tisPe')], digits=3)
+```
+
+\pagebreak
+
+```{r reg.P.robust}
+#knitr::kable(result.table[,c('regP1', 'regP2', 'regP3', 'regP4', 'regP5', 'regP6', 'regP7', 'regP8', 'regsP', 'regsPe')], digits=3)
+knitr::kable(result.table[,c('regP1', 'regP2', 'regP3', 'regsP', 'regsPe')], digits=3)
+```
+
+\pagebreak
+
+```{r ru.P.robust}
+#knitr::kable(result.table[,c('ruP1', 'ruP2', 'ruP3', 'ruPe4', 'ruP5', 'ruP6', 'ruP7', 'ruP8', 'rusP', 'rusPe')], digits=3)
+knitr::kable(result.table[,c('ruP1', 'ruP2', 'ruP3', 'rusP', 'rusPe')], digits=3)
+```
+
+\pagebreak
+
+```{r mul.P.robust}
+#knitr::kable(result.table[,c('mulP1', 'mulP2', 'mulP3', 'mulP4', 'mulP5', 'mulP6', 'mulP7', 'mulP8', 'mulsP', 'mulsPe')], digits=3)
+knitr::kable(result.table[,c('mulP1', 'mulP2', 'mulP3', 'mulsP', 'mulsPe')], digits=3)
+```

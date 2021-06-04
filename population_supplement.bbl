@@ -1,0 +1,34 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Bard, Robertson, and Sorace]{Bard, Robertson, and
+  Sorace}{1996}{BardRobeSora96}
+Bard, E.~G., Robertson, D.,  {\small and} Sorace, A.  (1996). `Magnitude
+  Estimation of Linguistic Acceptability', \emph{Language}, 72(1): 32--68.
+
+\harvarditem[Benzion, Rapoport, and Yagil]{Benzion, Rapoport, and
+  Yagil}{1989}{BenzRapoYagi89}
+Benzion, U., Rapoport, A.,  {\small and} Yagil, J.  (1989). `Discount Rates
+  Inferred from Decisions: An Experimental Study', \emph{Management Science},
+  35: 270--84.
+
+\harvarditem[Huber, Payne, and Puto]{Huber, Payne, and
+  Puto}{1982}{HubePaynPuto82}
+Huber, J., Payne, J.~W.,  {\small and} Puto, C.  (1982). `Adding Asymmetrically
+  Dominated Alternatives: Violations of Regularity and the Similarity
+  Hypothesis', \emph{Journal of Consumer Research}, 9: 90--98.
+
+\harvarditem[Wedell and Pettibone]{Wedell and Pettibone}{1996}{WedePett96}
+Wedell, D.~H.,  {\small and} Pettibone, J.~C.  (1996). `Using Judgments to
+  Understand Decoy Effects in Choice', \emph{Organization Behavior and Human
+  Decision Processes}, 67(3): 326---344.
+
+\end{thebibliography}

@@ -1,0 +1,560 @@
+\documentclass[11pt,letter]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{epstopdf}
+\usepackage{setspace}
+\usepackage{currfile}
+\usepackage[abbr]{harvard}
+\usepackage[pagewise]{lineno}
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{shadecolor}{rgb}{0.9,0.9,0.9}
+\usepackage{tcolorbox}
+\usepackage{gensymb}
+\usepackage{pdfpages}
+\usepackage{graphics}
+
+\DeclareMathOperator{\Be}{Be}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage{authblk}
+
+%\setpagewiselinenumbers
+%\modulolinenumbers[5]
+%\linenumbers
+%\doublespace
+%\setstretch{1.5}
+
+\title{Supplement to ``Testing axioms of stochastic discrete choice using population choice probabilities''}
+\author[1]{William J. McCausland\thanks{william.j.mccausland@umontreal.ca, File: \texttt{\currfilename}, Very preliminary.}}
+\author[2]{A.A.J. Marley \thanks{ajmarley@uvic.ca}}
+\author[3]{Clintin Davis-Stober}
+\affil[1]{Universit\'e de Montr\'eal}
+\affil[2]{University of Victoria}
+\affil[3]{University of Missouri}
+
+\renewcommand\Authands{ and }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This is a supplement.
+\end{abstract}
+
+\section{Domains}\label{s:domains}
+
+\pagebreak
+
+\subsection*{Male stars}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/male_stars}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Male_Stars.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Male_stars.pdf}
+
+\pagebreak
+
+\subsection{Female stars}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/female_stars}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Female_Stars.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Female_stars.pdf}
+
+\pagebreak
+
+\subsection{Films}
+%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/films}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Films.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Films.pdf}
+
+\pagebreak
+
+\subsection{Star pairs}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/star_pairs}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Star_Pairs.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Star_pairs.pdf}
+
+\pagebreak
+
+\subsection{Pizzas}
+%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/pizzas}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Pizzas.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Pizzas.pdf}
+
+\pagebreak
+
+\subsection{Juices}
+%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/juices}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Juices.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Juices.pdf}
+
+\pagebreak
+
+\subsection{Colours}
+%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/colours}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Colours.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Colours.pdf}
+
+\pagebreak
+
+\subsection{Color pairs}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/colour_pairs}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Colour_Pairs.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Colour_Pairs.pdf}
+
+\pagebreak
+
+\subsection{Events}
+%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/events}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Events.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Events.pdf}
+
+\pagebreak
+
+\subsection{Radio formats}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/radio}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Radio_Formats.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Radio_formats.pdf}
+
+\pagebreak
+
+\subsection{Musical artists}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/music}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Musical_Artists.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Musical_artists.pdf}
+
+\pagebreak
+
+\subsection{Aboriginal art}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/aboriginal_art}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Aboriginal_Art.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Aboriginal_art.pdf}
+
+\pagebreak
+
+\subsection{Impressionist art}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/impressionist_art}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Impressionist_Art.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Impressionist_art.pdf}
+
+\pagebreak
+
+\subsection{Sentences}
+%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/sentences}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Sentences.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Sentences.pdf}
+
+\pagebreak
+
+\subsection{Travel}
+%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/travel}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Travel.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Travel.pdf}
+
+\pagebreak
+
+\subsection{Marijuana}
+%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/marijuana}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Marijuana.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Marijuana.pdf}
+
+\pagebreak
+
+\subsection{Latitude}
+%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/latitude}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Latitude.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Latitude.pdf}
+
+\pagebreak
+
+\subsection{Scatterplots}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/dots}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Dots.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Dots.pdf}
+
+\pagebreak
+
+\subsection{Triangles}
+%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/triangles}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Triangles.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Triangles.pdf}
+
+\pagebreak
+
+\subsection{Population}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/population}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Population.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Population.pdf}
+
+\pagebreak
+
+\subsection{Surface area}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/area}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Surface_Area.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Surface_area.pdf}
+
+\pagebreak
+
+\subsection{Beer}
+%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/beer}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Beer.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Beer.pdf}
+
+\pagebreak
+
+\subsection{Cars}
+%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/cars}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Cars.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Cars.pdf}
+
+\pagebreak
+
+\subsection{Restaurants}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/restaurants}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Restaurants.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Restaurants.pdf}
+
+\pagebreak
+
+\subsection{Layovers}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/layovers}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Flight_Layovers.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Flight_layovers.pdf}
+
+\pagebreak
+
+\subsection{Delayed Choice}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/delayed_choice}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Future_Payments.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Future_payments.pdf}
+
+\pagebreak
+
+\subsection{Phone plans}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/phone_plans}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Phone_Plans.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Phone_plans.pdf}
+
+\pagebreak
+
+\subsection{Hotel rooms}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/hotel_rooms}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Hotel_Rooms.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Hotel_rooms.pdf}
+
+\pagebreak
+
+\subsection{Objects with multiple attributes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Flight itineraries}
+
+\input{Domain_tex/itinararies}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Two-Flight_Itineraries.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Two-flight_itineraries.pdf}
+
+\pagebreak
+
+\subsection{Televisions}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/televisions}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Televisions.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Televisions.pdf}
+
+\pagebreak
+
+\subsection{Coffee}
+%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/coffee}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Coffee.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Coffee.pdf}
+
+\pagebreak
+
+\subsection{Charity}
+%%%%%%%%%%%%%%%%%%%%
+
+\input{Domain_tex/charity}
+
+\subsubsection*{Random screenshot}
+
+\includegraphics[width=15cm]{Population_study_design/screenshot_Charity.png}
+
+\subsubsection*{Observed binary and ternary choices}
+
+\includegraphics[width=15cm]{./Population_study_data/Simplexes/Charity.pdf}
+
+\pagebreak
+
+\section{Participant comments}
+
+The following is a complete list of comments given by participants at the end of the experiment in reponse to a prompt asking if the participant had 
+
+\begin{small}
+\input{Population_study_data/feedback.txt}
+\end{small}
+
+
+\bibliographystyle{oupecon}
+\bibliography{bibliography}
+
+\end{document}

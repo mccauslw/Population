@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: among.aux
+The style file: oupecon.bst
+Database file #1: bibliography.bib
+Done.
+You've used 15 entries,
+            2351 wiz_defined-function locations,
+            718 strings with 7106 characters,
+and the built_in function-call counts, 7271 in all, are:
+= -- 732
+> -- 384
+< -- 0
++ -- 125
+- -- 111
+* -- 649
+:= -- 1408
+add.period$ -- 17
+call.type$ -- 15
+change.case$ -- 88
+chr.to.int$ -- 14
+cite$ -- 15
+duplicate$ -- 254
+empty$ -- 455
+format.name$ -- 133
+if$ -- 1398
+int.to.chr$ -- 2
+int.to.str$ -- 0
+missing$ -- 17
+newline$ -- 57
+num.names$ -- 90
+pop$ -- 66
+preamble$ -- 1
+purify$ -- 88
+quote$ -- 0
+skip$ -- 236
+stack$ -- 0
+substring$ -- 434
+swap$ -- 43
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 1
+type$ -- 159
+warning$ -- 0
+while$ -- 88
+width$ -- 0
+write$ -- 191
