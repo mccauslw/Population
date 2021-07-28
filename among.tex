@@ -416,9 +416,8 @@ Random partitions, positions and trial order are mutually independent.
 
 \subsection{Graphical Illustrations}
 
-Figures \ref{f:Dzero} through \ref{f:Dzero} illustrate binary and ternary choice probabilities, as they relate to regularity and the multiplicative inequality, for the various domains.
-(Note to reader. The data from our experiment is not yet collected. Figure \ref{f:Dzero} shows data from a real experiment, where choice objects are lotteries, but not the experiment described here. We do this in order to give an idea of the figures we intend to show.)
-There is one figure for each domain, and each figure consists of 10 panels, with each panel corresponding to one of the ten tripleton choice sets from that domain.
+Figure \ref{f:colours} illustrates binary and ternary choice probabilities, as they relate to regularity and the multiplicative inequality, for the ``Colours'' domain.
+The figure consists of 10 panels, with each panel corresponding to one of the ten tripleton choice sets from that domain.
 
 Each panel features an equilateral triangle, with vertices labelled with three of the choice objects from the domain.
 Take the first panel as an example, where the vertices are labelled $a$ (bottom left) $b$ (top) and $c$ (bottom right).
@@ -433,19 +432,11 @@ Throughout, we reserve hollow dots for binary probabilities and solid dots for t
 The blue triangle in each figure gives necessary conditions on the ternary probability, given the three binary probabilities, for regularity to hold: ternary probabilities within the blue triangle satisfy $P_A(a) \leq \min(p(a,b), p(a,c)$, $P_A(b) \leq \min(p(b,a), p(b,c))$ and $P_A(c) \leq \min(p(c,a), p(c,b))$.
 Similarly, the red triangle gives necessary conditions on the ternary probability, give the binary probabilities, for the multiplicative inequality to hold: here the conditions are $P_A(a) \geq p(a,b) p(a,c)$, $P_A(b) \geq p(b,a), p(b,c)$ and $P_A(c) \geq p(c,a), p(c,b)$.
 
-\begin{quotation}
-	Figures for each domain here. Add information on WST, MST, SST, TI to diagrams.
-\end{quotation}
-
 \begin{figure}
-	\caption{Binary and ternary probabilities for the lottery domain.}\label{f:Dzero}
+	\caption{Binary and ternary probabilities for the Colours domain.}\label{f:colours}
 	\centering
-	\includegraphics[width=16cm]{Figures/multi_aggregate_triples.pdf}
+	\includegraphics[width=16cm]{./Population_study_data/Simplexes/Colours.pdf}
 \end{figure}
-
-\begin{quotation}
-	Comment on graphical results here.
-\end{quotation}
 
 \subsection{Evaluating axioms using formal model comparison tools}
 
@@ -468,30 +459,7 @@ Each of these priors is symmetric with respect to choice objects and has full su
 We compute prior and posterior probabilities of axioms numerically using the similation methods described in \citeasnoun{McCaMarl14}.
 We compute numerical standard errors of prior and posterior probabilities using the overlapping batch mean method described in \citeasnoun{FlegJone10} and combine these standard errors to compute standard errors for Bayes factors using the delta method.
 
-Table \ref{t:BF} shows log Bayes factors in favour of the various axioms, by domain and axiom.
-\begin{table}
-	\centering
-	\caption{Log Bayes factor in favour of axioms, by domain and axiom}\label{t:BF}
-	\begin{tabular}{cccccccc}
-		Domain & WST & MST & SST & TI & Reg & RU & Mul \\
-		\hline
-		Male stars & - & - & - & - & - & - & - \\
-		Female stars & - & - & - & - & - & - & - \\
-		Films & - & - & - & - & - & - & - \\
-		etc. \\
-		\hline
-	\end{tabular}
-\end{table}
-
-\begin{quotation}
-	Comment on Bayes factors here.
-\end{quotation}
-
 \section{Conclusions}\label{s:conclude}
-
-\begin{quotation}
-	Conclusions here.
-\end{quotation}
 
 \appendix
 
