@@ -39,7 +39,7 @@
 %\doublespace
 %\setstretch{1.5}
 
-\title{Testing axioms of stochastic discrete choice using population choice probabilities}
+\title{Testing axioms of stochastic discrete choice using population choice probabilities}{}
 \author[1]{William J. McCausland\thanks{william.j.mccausland@umontreal.ca, File: \texttt{\currfilename}, Very preliminary.}}
 \author[2]{A.A.J. Marley \thanks{ajmarley@uvic.ca}}
 \author[3]{Clintin Davis-Stober}
@@ -73,7 +73,7 @@ We distinguish between two different interpretations of a RCS.
 An {\em individual} RCS governs the choices of a single individual; a {\em population} RCS, those of a random sample of individuals from a population.
 Note that if each individual in a population is governed by an individual RCS then the population RCS will be a convex combination of individual RCSs: each population choice distribution $P_A$, $A \subseteq T$ is a mixture---with random sampling from the population being the common mixing distribution---of the various individual distributions $P_A$.
 
-In situations where more than one choice is observed, we complete the probabilistic model by assuming that choices are statistically independent across trials, and that for each choice set $A$, the same $P_A(\cdot)$ governs every choice from $A$.
+In situations where choice is repeated, we complete the probabilistic model by assuming that choices are statistically independent across trials, and that for each choice set $A$, the same $P_A(\cdot)$ governs every choice from $A$.
 Following others, we refer to these two assumptions together as the iid assumption; note that ``identically distributed'' applies separately to each choice set while ``independent'' applies globally.
 
 There are good reasons to be skeptical of these assumptions in experiments featuring within-subject or mixed within/between designs; respondents may be learning or their attention may be waning during the course of the experiment.
@@ -133,7 +133,7 @@ which violates the multiplicative inequality since $P_{\{x,y,z\}}(y) = 1/2 < p(y
 		7 & & $\frac{1}{4}$ & & $\frac{1}{4}$ & $\frac{1}{4}$ & & $\frac{1}{4}$ & $\frac{1}{4}$ & $\frac{3}{4}$ & $\frac{1}{2}$ & $\frac{1}{4}$ & $\frac{1}{2}$ \\
 		\hline
 	\end{tabular}\caption{Two aggregations of individual choice probabilities.
-	Each line gives a random preference (columns $\pi_{xyz}$ through $\pi_{zyx}$) and the induced RCS (columns $p(x,y)$ through $P_T(x)$).
+	Each line gives a random preference (columns $\pi_{xyz}$ through $\pi_{zyx}$) and the induced RCS (columns $p(x,y)$ through $P_T(y)$).
 	The individual random preferences and RCS's in lines 1, 2 and 3 aggregate (with mixing probabilities $p_i$) to the population random preference and RCS in line 4; likewise, lines 5 and 6 aggregate to line 7.)}\label{t:notconvex}
 \end{table}
 
@@ -200,7 +200,7 @@ We will consider both {\em encompassing} models, where the prior density $f(P)$ 
 This makes the model as non-parametric as any - in a continuous data context, what we do would be considered non-parametric.
 
 All the axioms we consider are restrictions on choice probabilities.
-A particular axiom is identified with a region $\Lambda \in \Delta$ where the axiom holds.
+A particular axiom is identified with a region $\Lambda \subseteq \Delta$ where the axiom holds.
 We will use the notation $\Lambda$ to represent the region defined by a generic axiom, subscripting to represent a particular axiom.
 Thus $\Lambda_{\mathrm{sst}}$ is the subset of $\Delta$ where strong stochastic transitivity holds.
 All axioms we consider have positive Lebesque mesure in $\Delta$, which implies that the prior probabilities of the axioms holding are greater than zero.
@@ -386,7 +386,7 @@ Figure \ref{f:screenshots} shows a screenshot of a domain with pictures and one 
 	\begin{center}
 	\includegraphics[width=15cm]{Population_study_design/screenshot_Travel.png}
 	\includegraphics[width=15cm]{Population_study_design/screenshot_Coffee.png}
-	\caption{A screenshot for the ``Travel'' domain, in which respondents select pictures, and a screenshot for the ``Coffee'' domain, in which respondents select radio buttons. In the experiment, these photographs are in colour.}\label{f:screenshots}
+	\caption{A screenshot for the ``Travel'' domain, in which respondents select pictures, and a screenshot for the ``Coffee'' domain, in which respondents select radio buttons. In the experiment and in electronic versions of this paper, these photographs are in colour.}\label{f:screenshots}
 	\end{center}
 \end{figure}
 
@@ -704,7 +704,7 @@ Following usual practice, we exclude similarity relations for two objects in whi
 
 \section{Comments of respondents}
 
-\bibliographystyle{oupecon}
+\bibliographystyle{agsm}
 \bibliography{bibliography}
 
 \end{document}
