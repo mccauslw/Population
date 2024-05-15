@@ -1,0 +1,320 @@
+---
+title: "Testing axioms of stochastic discrete choice using population choice probabilities"
+author:
+- William McCausland^[Université de Montréal (Economics)]
+- Tony Marley^[University of Victoria (Psychology)]
+- Clint Davis-Stober^[University of Missouri (Psychology)]
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: beamer_presentation
+header-includes:
+- \usepackage{amssymb}
+- \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.pos='H')
+```
+
+## A simple discrete choice experiment
+
+* "Which of the following colours do you like best"?
+
+|Red|Purple|Pink|Total|
+|---|------|----|-----|
+| 19|    15|   6|   40|
+| 21|    19|    |   40|
+| 29|      |  12|   40|
+|   |    37|   3|   40|
+
+## Representing this data 
+
+```{r posterior, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
+library(MASS)
+library(klaR)
+library(Smisc, quietly=TRUE)
+source('R Simplices/simplex.R')
+
+binary.pch=1
+ternary.pch=20
+
+triplot(label=c('Red', 'Purple', 'Pink'))
+
+pxy = 21/40
+pyx = 1-pxy
+pxz = 28/40
+pzx = 1-pxz
+pyz = 37/40
+pzy = 1-pyz
+PTx = 19/40
+PTy = 15/40
+PTz = 6/40
+
+# Sides of triangle
+tripoints(pxy, pyx, 0.0, pch=binary.pch)
+tripoints(0.0, pyz, pzy, pch=binary.pch)
+tripoints(pxz, 0.0, pzx, pch=binary.pch)
+
+text(tritrafo(pxy, pyx, 0.0), pos=2, "21 red, 19 purple")
+text(tritrafo(0.0, pyz, pzy), pos=4, "37 purple, 3 pink")
+text(tritrafo(pxz, 0.0, pzx), pos=1, "28 red, 12 pink")
+
+# Interior
+triperplines(PTx, PTy, PTz, pch=ternary.pch, lcol='grey')
+text(tritrafo(PTx, PTy, PTz), pos=4, "19 red, 15 purple, 6 pink")
+```
+
+## Bayesian inference for choice probabilities, without theory
+
+The unknowns: four probability spaces:
+
+1. $P_{\{\mathit{Red},\mathit{Purple}\}}(\mathit{Red})$, $P_{\{\mathit{Red},\mathit{Purple}\}}(\mathit{Purple})$
+1. $P_{\{\mathit{Purple},\mathit{Pink}\}}(\mathit{Purple})$, $P_{\{\mathit{Purple},\mathit{Pink}\}}(\mathit{Pink})$
+1. $P_{\{\mathit{Red},\mathit{Pink}\}}(\mathit{Red})$, $P_{\{\mathit{Red},\mathit{Pink}\}}(\mathit{Pink})$
+1. $P_{\{\mathit{Red},\mathit{Purple},\mathit{Pink}\}}(\mathit{Red})$, $P_{\{\mathit{Red},\mathit{Purple},\mathit{Pink}\}}(\mathit{Purple})$, $P_{\{\mathit{Red},\mathit{Purple},\mathit{Pink}\}}(\mathit{Pink})$.
+
+A prior with independent probability spaces:
+
+- Four probability spaces are mutually independent,
+- Binary probabilities are $\mathrm{Be}(\frac{\alpha}{2}, \frac{\alpha}{2})$.
+- Ternary probability is $\mathrm{Di}(\frac{\alpha}{3}, \frac{\alpha}{3}, \frac{\alpha}{3})$.
+
+We will take $\alpha = 2$ in the following examples.
+
+## High posterior density (HPD) regions with probability 0.95
+
+```{r simplex, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
+r.quantile <- function(alpha, beta, normalized=FALSE) {
+  ld.max = max.d.Di(beta, log=TRUE)
+  m = exp(mu.d.Di(beta, 2, log=TRUE) - c(1,2)*ld.max)
+  r = m[2]/m[1]
+  den = r*(1-m[1]) - m[1]*(1-r)
+  theta1 = m[1]*(1-r)/den;
+  theta2 = (1-m[1])*(1-r)/den
+  q = qbeta(alpha, theta1, theta2)
+  if (normalized) q else q * exp(ld.max)
+}
+
+f.Di <- function(p1, p2, beta, log=FALSE) {
+  # Compute log normalization constant
+  ln.f = lgamma(sum(beta)) - sum(lgamma(beta))
+  # Compute the complementary probability p3, then evaluate the log density kernel
+  # Guard against complex values due to p1+p2>1 by taking max with 0.
+  p3 = pmax(0, 1-p1-p2)
+  ln.f = ln.f + (beta[1]-1)*log(p1) + (beta[2]-1)*log(p2) + (beta[3]-1)*log(p3)
+  if (log) ln.f else exp(ln.f)
+}
+
+max.d.Di <- function(beta, log=FALSE) {
+  # Compute normalization constant
+  ln.d.max = lgamma(sum(beta)) - sum(lgamma(beta))
+  # Compute log density kernel at mode
+  ln.d.max = ln.d.max + sum((beta-1)*log(beta-1))
+  ln.d.max = ln.d.max - (sum(beta)-length(beta))*log(sum(beta)-length(beta))
+  if (log) ln.d.max else exp(ln.d.max)
+}
+
+mu.d.Di <- function(beta, n.mu, log=FALSE) {
+  ln.common = lgamma(sum(beta)) - sum(lgamma(beta))
+  log.mu = rep(0, n.mu);
+  for (j in 1:n.mu) {
+    ln.j.factor = sum(lgamma((j+1)*beta-j))
+    ln.j.factor = ln.j.factor - lgamma((j+1)*sum(beta)-length(beta)*j)
+    log.mu[j] = (j+1)*ln.common + ln.j.factor
+  }
+  if (log) log.mu else exp(log.mu)
+}
+
+# Plot HPD in barycentric coordinates
+alpha = 2 # McCausland and Marley parameter
+beta = c(19+alpha/3, 15+alpha/3, 6+alpha/3)
+p1 <- p2 <- seq(0, 1, by=0.001) # Grid of points
+f <- outer(p1, p2, FUN=f.Di, beta) # Evaluation on grid
+q.d = r.quantile(0.05, beta, FALSE)
+cl = contourLines(p1, p2, f, levels = q.d) # Contour for beta approximation
+tripl = triplot(label=c('Red', 'Purple', 'Pink'))
+polygon(tritrafo(cl[[1]]$x, cl[[1]]$y), col='lightgreen')
+tripoints(PTx, PTy, PTz, pch=ternary.pch)
+
+# Plot binary probability HPD intervals on sides of triangle
+# Left side: suppose (p1, p2) ~ Be(21+alpha/2, 19+alpha/2)
+int <- hpd(function(x) dbeta(x, 21+alpha/2, 19+alpha/2), c(0, 1), cdf = function(x) pbeta(x, 21+alpha/2, 19+alpha/2), prob=0.95)
+lines(tritrafo(c(int$lower, int$upper), c(1-int$lower,1-int$upper)), lwd=4)
+# Right side: suppose (p2, p3) ~ Be(37+alpha/2, 3+alpha/2)
+int <- hpd(function(x) dbeta(x, 37+alpha/2, 3+alpha/2), c(0, 1), cdf = function(x) pbeta(x, 37+alpha/2, 3+alpha/2), prob=0.95)
+lines(tritrafo(c(0,0), c(int$lower,int$upper)), lwd=4)
+# Bottom side: suppose (p1, p3) ~ Be(28+alpha/2, 12+alpha/2)
+int <- hpd(function(x) dbeta(x, 28+alpha/2, 12+alpha/2), c(0, 1), cdf = function(x) pbeta(x, 28+alpha/2, 12+alpha/2), prob=0.95)
+lines(tritrafo(c(int$lower, int$upper), c(0,0)), lwd=4)
+tripoints(pxy, pyx, 0.0, pch=binary.pch)
+tripoints(0.0, pyz, pzy, pch=binary.pch)
+tripoints(pxz, 0.0, pzx, pch=binary.pch)
+```
+
+## Bringing theory to bear: random utility/preference
+
+* $P_A(x)$ is the probability that an individual drawn from a population chooses item $x$ when presented with finite choice set $A$.
+
+* A *random choice structure* for a master set $T$ specifies $P_A(x)$, all $x \in A \subseteq T$.
+
+* $\Delta$ is the set of all random choice structures on $T$.
+
+* Falmagne (1978): A random choice structure $P$ can be induced by a random utility model iff for all $x \in A \subseteq T$,
+$$\sum_{B \colon A \subseteq B \subseteq T} (-1)^{|B \backslash A|} P_B(x) \geq 0.$$
+
+* Let $\Lambda$ be the set of random choice structures satisfying random utility; we will test the hypothesis $P \in \Lambda \subset \Delta$ against $P \in \Delta$.
+
+## Two priors with the same marginals
+
+![Two priors with the same marginals](./Figures/RCM_JSM_figure1.pdf)
+
+## Two posterior distributions
+
+* Two different priors with same marginals:
+    * left, $\lambda=0$, independence across choice sets
+    * right, $\lambda=1$, support is random utility region.
+
+```{r scatter, echo=FALSE, message=FALSE, warning=FALSE}
+t = read.table('~/Results/RCM_population/population_colour3')
+op = par(mfrow=c(1, 2), mar = c(4, 4, 0.5, 0.5))
+tripl = triplot(label=c('Red', 'Purple', 'Pink'))
+polygon(tritrafo(cl[[1]]$x, cl[[1]]$y), col='lightgreen')
+tripoints(PTx, PTy, PTz, pch=ternary.pch)
+# Left side
+int <- hpd(function(x) dbeta(x, 21+alpha/2, 19+alpha/2), c(0, 1), cdf = function(x) pbeta(x, 21+alpha/2, 19+alpha/2), prob=0.95)
+lines(tritrafo(c(int$lower, int$upper), c(1-int$lower,1-int$upper)), lwd=4)
+# Right side: suppose (p2, p3) ~ Be(37+alpha/2, 3+alpha/2)
+int <- hpd(function(x) dbeta(x, 37+alpha/2, 3+alpha/2), c(0, 1), cdf = function(x) pbeta(x, 37+alpha/2, 3+alpha/2), prob=0.95)
+lines(tritrafo(c(0,0), c(int$lower,int$upper)), lwd=4)
+# Bottom side: suppose (p1, p3) ~ Be(28+alpha/2, 12+alpha/2)
+int <- hpd(function(x) dbeta(x, 28+alpha/2, 12+alpha/2), c(0, 1), cdf = function(x) pbeta(x, 28+alpha/2, 12+alpha/2), prob=0.95)
+lines(tritrafo(c(int$lower, int$upper), c(0,0)), lwd=4)
+tripoints(pxy, pyx, 0.0, pch=binary.pch)
+tripoints(0.0, pyz, pzy, pch=binary.pch)
+tripoints(pxz, 0.0, pzx, pch=binary.pch)
+
+tripl = triplot(label=c('Red', 'Purple', 'Pink'))
+#tripoints(t$P1, t$P2, pch=ternary.pch) # Scatterplot
+a = c(0.2, 0.1)
+b = c(0.8, 0.7)
+n = c(100,100)
+h = (b-a)/n
+kde = kde2d(t$P1, t$P2, lims = c(a[1], b[1], a[2], b[2]), h=0.05, n=n)
+al.est = sum(h[1]*h[2]*kde$z*(kde$z < 3.65))
+q = quantile(t$p12, c(0.025, 0.975))
+lines(tritrafo(c(q[[1]], q[[2]]), c(1-q[[1]],1-q[[2]])), lwd=4)
+q = quantile(t$p23, c(0.025, 0.975))
+lines(tritrafo(c(0,0), c(q[[1]],q[[2]])), lwd=4)
+q = quantile(t$p13, c(0.025, 0.975))
+lines(tritrafo(c(q[[1]], q[[2]]), c(0,0)), lwd=4)
+tripoints(pxy, pyx, 0.0, pch=binary.pch)
+tripoints(0.0, pyz, pzy, pch=binary.pch)
+tripoints(pxz, 0.0, pzx, pch=binary.pch)
+
+cl = contourLines(kde, levels = 3.65) # Contour for beta approximation
+polygon(tritrafo(cl[[1]]$x, cl[[1]]$y), col='lightgreen')
+tripoints(PTx, PTy, PTz, pch=ternary.pch)
+```
+
+## Experimental design
+
+We want to test, for population probabilities, the random utility condition, no more and no less.
+
+We ran an experiment with these features:
+
+1. Several different choice domains (consumer choice, taste, judgement) of five objects
+    - Trying to say something general about choice.
+
+1. Between subject design for each choice domain
+    - Choices are plausibly independent (globally) and identically distributed (choice set by choice set).
+
+1. Collect choice data for *all* subsets with at least two elements of a universe of objects.
+    - Expose *all* implications of random utility (and other conditions) to possible falsification.
+
+## A consumer choice example
+
+![Coffee](./Population_study_design/screenshot_Coffee.png)
+
+## A simple taste example
+
+![Colours](./Population_study_design/screenshot_Colours.png)
+
+## A judgement example
+
+![Events](./Population_study_design/screenshot_Events.png)
+
+## A visual example
+
+![Travel](./Population_study_design/screenshot_Travel.png)
+
+## Testing conditions on $P$ using Bayes factors
+
+Definitions:
+
+* $\Lambda$ is the region where random utility (or some other condition) holds.
+
+* $Y$ is data, $y$ the observed data.
+
+The Bayes factor in favour of the restricted model against the encompassing model is
+$$ \mathrm{BF} \equiv \frac{\Pr[Y=y|P \in \Lambda]}{\Pr[Y=y]} = \frac{\Pr[P \in \Lambda|Y=y]}{\Pr[P \in \Lambda]}. $$
+
+We use a hierarchical prior, with priors for
+
+* $\alpha$, governing how likely probabilities are near 0 or 1,
+* $\lambda$, governing the dependence of probabilities across choice sets.
+
+## Log Bayes factors, first 16 domains
+
+```{r pr.table, echo=FALSE, fig.height=5, fig.align='center'}
+domain.names = c(
+  'Prior',
+	'Male stars',           # 1
+	'Female stars',
+	'Films',
+	'Star pairs',
+	'Pizzas',               # 5
+	'Juices',
+	'Colours',
+	'Colour Combinations',
+	'Events',
+	'Radio formats',        # 10
+	'Musical artists',
+	'Aboriginal art',
+	'Impressionist art',
+	'Sentences',
+	'Travel',               # 15
+	'Marijuana',
+	'Latitude',
+	'Dots',
+	'Triangles',
+	'Population',           # 20
+	'Surface area',
+	'Beer',
+	'Cars',
+	'Restaurants',
+	'Flight layovers',      # 25
+	'Future payments',
+	'Phone plans',
+	'Hotel rooms',
+	'Two-flight itineraries',
+	'Televisions',          # 30
+	'Coffee',
+	'Charity')
+
+result.table = read.table('Tables/population_single_model.txt')
+row.names(result.table) = domain.names
+alpha.table = result.table[,c('alpha0.05est', 'alpha0.25est', 'alpha0.50est', 'alpha0.75est', 'alpha0.95est')]
+lambda.table = result.table[,c('lambda0.05est', 'lambda0.25est', 'lambda0.50est', 'lambda0.75est', 'lambda0.95est')]
+BF.table = result.table[,c('wst.BF', 'mst.BF', 'sst.BF', 'reg.BF', 'ru.BF', 'mul.BF')]
+knitr::kable(BF.table[2:17,], col.names = c('WST','MST','SST','Reg','RU','MI'), digits = c(1,1,1,1,1))
+```
+
+## Log Bayes factors, other 16 domains
+
+```{r BF.table, echo=FALSE, fig.height=5, fig.align='center'}
+knitr::kable(BF.table[18:33,], col.names = c('WST','MST','SST','Reg','RU','MI'), digits = c(1,1,1,1,1))
+```
+
+## Conclusions
+
+1. For each choice domain, random utility is favoured, although never strongly.
+1. Overall evidence in favour of random utility is compelling.

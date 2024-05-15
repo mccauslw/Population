@@ -1,0 +1,11 @@
+\begin{tcolorbox}
+Which one of the following colours do you like best?
+
+\begin{enumerate}[label=\alph*.]
+	\item Red
+	\item Purple
+	\item Pink
+	\item Blue
+	\item Green
+\end{enumerate}
+\end{tcolorbox}

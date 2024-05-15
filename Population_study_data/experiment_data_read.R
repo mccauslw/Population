@@ -1,5 +1,5 @@
 library(bitops)
-setwd("~/Dropbox/_RCM/Population_study_data")
+setwd("~/Git_repos/Population/Population_study_data")
 t = read.csv("Experimental_Data_Final_n1042.csv")
 n.lines = dim(t)[1]
 
@@ -12,10 +12,10 @@ domain.names = c(
 	'Pizzas',               # 5
 	'Juices',
 	'Colours',
-	'Colour Combinations',
+	'Colour pairs',
 	'Events',
-	'Radio formats',        # 10
-	'Musical artists',
+	'Radio',                # 10
+	'Music',
 	'Aboriginal art',
 	'Impressionist art',
 	'Sentences',
@@ -25,15 +25,15 @@ domain.names = c(
 	'Dots',
 	'Triangles',
 	'Population',           # 20
-	'Surface area',
+	'Area',
 	'Beer',
 	'Cars',
 	'Restaurants',
-	'Flight layovers',      # 25
-	'Future payments',
+	'Layovers',             # 25
+	'Delayed choice',
 	'Phone plans',
 	'Hotel rooms',
-	'Two-flight itineraries',
+	'Itineraries',
 	'Televisions',          # 30
 	'Coffee',
 	'Charity')
@@ -74,7 +74,7 @@ for (line in 1:n.lines) {
   ## Add one to the appropriate choice count given the information for this trial
   all.choice[domain, set, choice] = all.choice[domain, set, choice]+1
 }
-save(all.choice, file='~/Dropbox/Data/Population choice data/all_choice.RData')
+save(all.choice, file='~/Git_repos/Population/Population_study_data/all_choice.RData')
 count.totals = rowSums(all.choice, dims=2)
 
 # Generate C code
@@ -110,7 +110,7 @@ file.contents = sprintf("%s\n%s\n\nstatic int population_counts[%i][%i][%i] =\n{
 cat(file.contents, file="RCM_population.c")
 
 library(klaR)
-source('~/Dropbox/_RCM/R Simplices/simplex.R')
+source('~/Git_repos/Population/simplex.R')
 triple.list = list(c(1, 2, 3), c(1, 2, 4), c(1, 2, 5), c(1, 3, 4), c(1, 3, 5),
                    c(1, 4, 5), c(2, 3, 4), c(2, 3, 5), c(2, 4, 5), c(3, 4, 5))
 # Create simplex figures for each domain
@@ -131,7 +131,8 @@ for (domain in 1:n.domains) {
     nT = all.choice[domain, T, x] + all.choice[domain, T, y] + all.choice[domain, T, z]
     PTx = all.choice[domain, T, x] / nT
     PTy = all.choice[domain, T, y] / nT
-    plot.axioms(pxy, pyz, pxz, PTx, PTy, label=triple.list[[triple]], binary.pch=1, ternary.pch=20)
+    label=letters[triple.list[[triple]]]
+    plot.axioms(pxy, pyz, pxz, PTx, PTy, label=label, binary.pch=1, ternary.pch=20)
   }
   dev.off()
 }

@@ -1,0 +1,14 @@
+\begin{tcolorbox}
+Which movie star would you choose to have lunch with?
+
+\begin{enumerate}[label=\alph*.]
+	\item Tom Hanks
+	\item Kevin Spacey
+	\item Morgan Freeman
+	\item Leonardo DiCaprio
+	\item Christian Bale
+\end{enumerate}
+\end{tcolorbox}
+
+The source for this domain is the website ```ranker.com```, accessed June 4, 2017.
+The choices are the top five actors in the list "The best actors working today".

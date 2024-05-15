@@ -1,0 +1,14 @@
+\begin{tcolorbox}
+Which one of the following would you choose?
+
+\begin{enumerate}[label=\alph*.]
+	\item \$200 credited to your bank account immediately.
+	\item \$245 credited to your bank account in six months.
+	\item \$255 credited to your bank account in one year.
+	\item \$315 credited to your bank account in two years.
+	\item \$465 credited to your bank account in four years.
+\end{enumerate}
+\end{tcolorbox}
+
+This domain is loosely based on an experiment by citeasnoun{BenzRapoYagi89}, in which respondents are asked to assign present values equivalent to the receipt of \$200 at time horizons of 0.5, 1, 2 and 4 years.
+Based on implied discount factors at various terms, we constructed five choice objects designed to have approximately the same present value equivalent.

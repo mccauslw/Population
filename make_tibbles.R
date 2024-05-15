@@ -42,7 +42,7 @@ n_domains_extend = length(domain_names_extend)
 n_models = 3
 n_models_extend = 4
 
-axiom_names = c('none', 'wst', 'mst', 'sst', 'ti', 'reg', 'ru', 'mul')
+axiom_names = c('none', 'WST', 'MST', 'SST', 'TI', 'Reg', 'RU', 'MI')
 n_axioms = length(axiom_names)
 
 # Array for information that depends on domain, model and axiom

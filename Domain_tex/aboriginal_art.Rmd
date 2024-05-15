@@ -1,0 +1,15 @@
+\begin{tcolorbox}
+Which one of the following examples of Australian aboriginal art do you like the best?
+
+\begin{enumerate}[label=\alph*.]
+\item\includegraphics[width=3cm]{~/Git_repos/Population/Population_study_design/Aboriginal_art1.jpg}
+
+\item\includegraphics[width=3cm]{~/Git_repos/Population/Population_study_design/Aboriginal_art2.jpg}
+
+\item\includegraphics[width=3cm]{~/Git_repos/Population/Population_study_design/Aboriginal_art3.jpg}
+
+\item\includegraphics[width=3cm]{~/Git_repos/Population/Population_study_design/Aboriginal_art4.jpg}
+
+\item\includegraphics[width=3cm]{~/Git_repos/Population/Population_study_design/Aboriginal_art5.jpg}
+\end{enumerate}
+\end{tcolorbox}

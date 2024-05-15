@@ -1,0 +1,17 @@
+\begin{tcolorbox}
+Which one of the following flight itineraries would you choose?
+All involve two flights, with one layover between them.
+
+\begin{tabular}{cccc}
+\hline
+ID & Total inflight time & Layover time & Total itinerary time \\ \hline
+a. & 4:00 & 1:00 & 5:00 \\ 
+b. & 3:24 & 1:48 & 5:12 \\ 
+c. & 3:15 & 2:00 & 5:15 \\ 
+d. & 3:06 & 2:12 & 5:18 \\ 
+e. & 2:30 & 3:00 & 5:30 \\ \hline
+\end{tabular}
+\end{tcolorbox}
+
+The fourth panel of Figure \ref{f:CE} shows the choice objects in attribute space.
+Table \ref{t:CE} shows the relations of dominance, similarity and betweenness among objects associated with context effects.

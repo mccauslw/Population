@@ -1,0 +1,16 @@
+\begin{tcolorbox}
+Which one of the following cities do you think is furthest north?
+
+\begin{enumerate}[label=\alph*.]
+	\item Warsaw, Poland
+	\item London, United Kingdom
+	\item Vancouver, Canada
+	\item Paris, France
+	\item Seattle, United States
+\end{enumerate}
+\end{tcolorbox}
+
+The five cities of this domain have a latitude close to 50 degrees north.
+In the above list, they are ordered from furthest north to furthest south.
+According to Wikipedia, their latitudes are, respectively, $52 \degree 14^\prime N$, $51 \degree 30^\prime N$, $49 \degree 15^\prime N$, $48 \degree 51^\prime N$ and $47 \degree 36^\prime N$.
+There are two potential asymmetric dominance effects, with Vancouver being fairly obviously north of Seattle and London being fairly obviously north of Paris.

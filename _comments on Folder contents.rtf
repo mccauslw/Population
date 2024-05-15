@@ -1,0 +1,86 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww14060\viewh17080\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Notes on folder contents\
+\
+among.[tex,pdf]\
+\
+Main paper\
+\
+dma_tables.RData\
+\
+Domain_tex/\
+\
+.Rmd (2024) and .tex (2021) versions of various domains\
+\
+Figures/\
+\
+Current figures in paper\
+\
+figures.R\
+\
+Creates bcp.pdf figure only\
+\
+make_figures.R\
+\
+Uses dma_tables.RData, creates binary_BF.pdf and multiple_BF.pdf figures\
+\
+make_tibbles.R\
+\
+Uses ~/Results/RCM_population tables to create tibble dma_array for dma_tables.RData\
+\
+population_tables_preliminary.[Rmd, pdf]\
+\
+Title is \'93Tables for my own interest, population experiment\'94, file dates before 2024 are 2021.\
+First table gives prior specifications, with a0, b0, aA, bA and moments of alpha and lambda.\
+Prior specification 0 seems to be an umbrella prior suitable for importance sampling.\
+There are graphs of implied densities of al0, alA and alpha and lambda.\
+After this, there are a lot of tables of posterior moments.\
+B1, Be1, B2, Be2, B3, Be3\
+wstuP, wstuPe, similar for mst, sst, ti (these are prior and posterior probabilities (with errors) of axioms for \'93uniform\'94 model)\
+wstsP, wstsPe, otherwise the same (these are prior and posterior probabilities of axioms for \'93simple\'94 model)\
+regsP, regsPe, similar for ru, mul (prior and post probs, multi-choice axioms, simple model)\
+wstub, wstube, similar for mst, sst, ti (log bayes factors and errors, uniform model)\
+wstsb, wstsbe, similar for mst, sst, ti (same, simple model)\
+Mean and error of alpha for models 1, 2, 3, simple and uniform model\
+Same for lambda\
+Quantiles for alpha, simple model\
+Quantiles for lambda, simple model\
+wstb1, wstb2, wstb3, wstub, wstube, wstsb, wstsbe (Bayes factors for various models\
+\'85 (for other axioms)\
+wstP1, wstP2, wstP3, wstuP, wstuPe, wstsP, wstsPe (Post probabilities for various models)\
+\'85 (for other axioms)\
+\
+population_read.R\
+\
+Tables for alpha, lambda and axiom probabilities for the single model\
+\
+population_robust.R\
+\
+Creates Tables/population_robust.txt (not there)\
+\
+population_single_model.R\
+\
+Creates Tables/poplulation_single_model.txt\
+\
+Population_study_data\
+\
+Has original data, feedback files, RCM_population.c, simplex figures\
+\
+Population_study_design\
+\
+Has old stuff related to creation of experiment, screenshots\
+\
+Simplex.R\
+\
+Functions for barycentric plots\
+\
+population.R\
+\
+Takes as input raw simulation files in ~/Results/RCM_population\
+Writes in ~/Dropbox/_Population/Tables/population.txt\
+}

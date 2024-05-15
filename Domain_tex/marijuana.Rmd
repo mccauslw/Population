@@ -1,0 +1,13 @@
+This question elicits policy preferences.
+
+\begin{tcolorbox}
+Which one of the following marijuana policies would you choose?
+
+\begin{enumerate}[label=\alph*.]
+	\item Possession by, and sales to adults are both legal; sales to minors are illegal.
+	\item Possession by, and sales to adults are both illegal but neither is a criminal offense; sales to minors are a criminal offense.
+	\item Possession is illegal but not criminal; all sales are a criminal offense.
+	\item Possession and sales are criminal offenses, with a small number of medical exceptions.
+	\item Possession and sales are criminal offenses, without exception.
+\end{enumerate}
+\end{tcolorbox}
