@@ -69,12 +69,12 @@
 \section{Introduction}
 
 Discrete choice models are used extensively in economics, marketing, psychology and other disciplines.
-Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times affect the probabilities of choosing various transportation options.
-This paper contributes to a distinct and more abstract research agenda that collects evidence for or against various axioms on choice probabilities.
-An example of such an axiom is the {\em regularity} condition, which states that for all \menus{} $A$ and $B$ from a universe of objects such that $A \subseteq B$, the probability of choosing $x \in A$ when \menu{} $A$ is presented is greater than the probability of choosing $x$ when $B$ is presented.
+Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options, in \citeasnoun{Trai78}.
+Here, we contribute to a distinct and more abstract research agenda that collects evidence for or against various axioms on choice probabilities, without regard to object attributes.
+An example of such an axiom is the {\em regularity} condition, which states that for all \menus{} $A$ and $B$ from a universe of objects such that $A \subseteq B$, the probability of choosing $x \in A$ when \menu{} $A$ is presented is no less than the probability of choosing $x$ when $B$ is presented.
 The other axioms we consider here are defined in Appendix \ref{s:axioms}.
-One important objective of this research agenda is to find axioms that are empirically plausible across a wide variety of choice domains.
-To this end, we abstract away from idiosyncratic features of different domains and treat choice objects in a given domain as {\em a priori} indistinguishable.
+One important objective of this research agenda is to find axioms that are empirically plausible across a wide variety of choice domains, which is important for theory refinement and development.
+To this end, we abstract away from object attributes and treat choice objects in a given universe as {\em a priori} identical.
 In different analyses, choice data observed over several trials may be the choices of a single decision maker or the choices of decision makers randomly selected from a population.
 
 This paper advances this abstract choice research agenda by contributing new experimental data and some preliminary empirical analysis.
@@ -90,7 +90,7 @@ Third, the experiment features a strictly between-subject design.
 Each participant faces exactly one \menu{} from each domain.
 This makes plausible the standard assumption that choices are independent, and on each \menu{} identically distributed.
 
-We provide a preliminary empirical analysis using a testing ground for discrete choice axioms developed in two previous papers.
+We provide an empirical analysis using a testing ground for discrete choice axioms developed in two previous papers.
 \citeasnoun{McCaMarl13} develops a non-parametric model for the system of choice probabilities on a domain.
 \citeasnoun{McCaMarl14} provides methods for posterior simulation of parameters and choice probabilities and for testing axioms using Bayes factors.
 For each domain, we measure the evidence for or against each the seven discrete choice axioms defined in Appendix \ref{s:axioms}.
@@ -119,10 +119,10 @@ In a strictly between-subject design, however, with no communication between par
 Various axioms, conditions, properties and hypotheses about probabilistic choice behaviour can be expressed as restrictions over the various choice probabilities of a RCS.
 Henceforth, we will use the term axiom as a generic term to include all of these.
 Examples, all defined in Appendix \ref{s:axioms}, include weak, moderate and strong stochastic transitivity, regularity, the triangle inequality, random utility (or the Block-Marschak inequality) and the multiplicative inequality.
-See \citeasnoun{LuceSupp65} for the various forms of stochastic transitivity, the triangle inequality and regularity.
+See \citeasnoun{LuceSupp65} for the various forms of stochastic transitivity, the triangle inequality and regularity; and \citeasnoun{McCaMarl13} for a summary of the logical relationships among all these axioms.
 \citeasnoun{BlocMars60} show that the Block-Marschak inequalities are necessary for random utility and 
 \citeasnoun{Falm78} shows they are sufficient.
-The multiplicative inequality is due to \citeasnoun{SattTver76}, who show that it is a testable implication of the Elimination by Aspects (EBA) model described in \citeasnoun{Tver72a} and \citeasnoun{Tver72b} and the independent random utility model.
+The multiplicative inequality is due to \citeasnoun{SattTver76}, who show that it is a testable implication of the independent random utility model and also of the Elimination by Aspects (EBA) model described in \citeasnoun{Tver72b} and \citeasnoun{Tver72a}.
 \citeasnoun{Tver72b} shows that the Block-Marschak inequalities and moderate stochastic transitivity are also necessary conditions for, and thus testable implications of EBA.
 
 Whether or not an axiom applies to a population RCS and whether or not it applies to individual RCSs are both of interest, but they are distinct questions.
@@ -135,9 +135,9 @@ each of these axioms consists of a set of simultaneous linear inequalities, and 
 
 However, there are other axioms that can hold for every individual in a population but not the population itself.
 This is true of weak, moderate and strong stochastic transitivity, and the multiplicative inequality.
-We provide two counterexamples where a set of individual RCSs satisfying an axiom (or axioms) aggregate to population RCS's that do not.
-In both counterexamples, all individual RCS's are induced by random preferences.
-Thus, failure of aggregation is possible even if we require the individual RCSs to be induced by random preference.
+We provide two counterexamples where a set of individual RCSs satisfying an axiom (or axioms) aggregate to population RCSs that do not.
+In both counterexamples, all individual RCSs are explicitly constructed as the choice probabilities resulting from an agent choosing the highest ranked object according to a  random ranking.
+Thus, failure of aggregation is possible even if we require the individual RCSs to be well behaved in this sense.
 
 Table \ref{t:notconvex} shows the two counterexamples. 
 Lines 1, 2 and 3 give degenerate ranking and choice probabilities for three individuals (or equiprobable types of individuals) in a population.
@@ -169,20 +169,23 @@ which violates the multiplicative inequality since $P_{\{x,y,z\}}(y) = 1/2 < p(y
 		7 & & $\frac{1}{4}$ & & $\frac{1}{4}$ & $\frac{1}{4}$ & & $\frac{1}{4}$ & $\frac{1}{4}$ & $\frac{3}{4}$ & $\frac{1}{2}$ & $\frac{1}{4}$ & $\frac{1}{2}$ \\
 		\hline
 	\end{tabular}\caption{Two aggregations of individual choice probabilities.
-	Each line gives a random preference (columns $\pi_{xyz}$ through $\pi_{zyx}$) and the induced RCS (columns $p(x,y)$ through $P_T(y)$).
-	The individual random preferences and RCS's in lines 1, 2 and 3 aggregate (with mixing probabilities $p_i$) to the population random preference and RCS in line 4; likewise, lines 5 and 6 aggregate to line 7.)}\label{t:notconvex}
+	Each line gives a random ranking (in columns $\pi_{xyz}$ through $\pi_{zyx}$, where for example $\pi_{xyz}$ is the probability of the ranking $x, y, z$) and the implied RCS (columns $p(x,y)$ through $P_T(y)$).
+	The individual random rankings and RCS's in lines 1, 2 and 3 aggregate (with mixing probabilities $p_i$) to the population random ranking and RCS in line 4; likewise, lines 5 and 6 aggregate to line 7.)}\label{t:notconvex}
 \end{table}
 
 While some axioms and conditions involve binary choice probabilities only, (e.g. weak, moderate and strong stochastic transitivity, the triangle inequality) other axioms involve multiple choice probabilities.
 Regularity, the multiplicative inequality and the Block-Marschak inequalities jointly constrain all choice probabilities on doubleton and larger \menus{}.
-It is easy to see from the definitions of these axioms that in each case, if we are given an RCS satisfying the axiom and an arbitrary $A \subseteq T$ with at least two elements, we can alway modify $P_A(\cdot)$ in such a way that the modified RCS violates the axiom.
+It is easy to see from the definitions of these axioms that in each case, if we are given an RCS satisfying the axiom and an arbitrary $A \subseteq T$ with at least two elements, we can always modify $P_A(\cdot)$ in such a way that the modified RCS violates the axiom.
 This illustrates the importance of collecting choice data for all doubleton and larger menus of a domain.
 
 \subsection{Context effects}
 
-In Psychology, the term ``context effect'' refers broadly to an effect of the environment on the perception of stimuli.
-It also refers more narrowly, in psychology, marketing and economics, to the effect that the \menu{} of available options has on consumers' preferences, and not just their choices.
-Three well documented context effects are relevant to the subject of stochastic discrete choice: the asymmetric dominance, similarity and compromise effects.
+One of the stated objectives of our experimental design is to include a wide variety of choice domains.
+To this end, we include choice domains designed to elicit anomalous behaviour, in the form of three well documented ``context effects'': the asymmetric dominance, similarity and compromise effects.
+In Appendix \ref{s:domains}, where we describe the choice domains in detail, we describe how some of the domains are designed to elicit these effects.
+
+Here we describe versions of each of the three effects.
+Other versions of each of these context effects have been proposed, and they have different aggregation properties and different implications on whether systems of choice probabilities satisfy regularity, random utility (the Block Marschak conditions) and other conditions not considered here, like \possessivecite{Kran67} simple scalability.
 
 The asymmetric dominance effect (sometimes known as the attraction effect) was introduced by \citeasnoun{HubePaynPuto82}, and is defined up to a dominance relation on the universe of choice objects.
 In pertains to choice environments with three objects: a ``target'' $x$, a ``competitor'' $y$ and a ``decoy''$z$; $x$ ``dominates'' $z$, but $y$ does not; neither $x$ nor $y$ dominates the other.
@@ -210,9 +213,6 @@ The weak effect is said to occur when $x|y|z$ and the following inequalities, fr
 The inequality on the left holds if adding the object $z$ to the \menu{} $\{x,y\}$, making $y$ a ``compromise'' between $x$ and $z$, raises the relative probability of choosing $y$, compared to $x$.
 The inequality on the right is similar, except that $x$ is added to $\{y,z\}$, again making $y$ a ``compromise'' between $x$ and $z$.
 
-Other versions of each of these context effects have been proposed, and they have different aggregation properties and different implications on whether systems of choice probabilities satisfy regularity, random utility (the Block Marschak conditions) and other conditions not considered here, like simple scalability.
-See \citeasnoun{StobMarlMcCaTurn23} for details and further discussion.
-
 \section{Models}\label{s:models}
 
 In this section we describe models for stochastic discrete choice data, models we will use to test various axioms.
@@ -226,19 +226,18 @@ For example, if we have a Bayesian discrete choice model $M$ with prior density 
 Evaluation of $f_M({\bf x})$ at the observed value ${\bf x}_{\mathrm{obs}}$ gives the {\em marginal likelihood} $f_M({\bf x}_{\mathrm{obs}})$ of the data, a number that measures the predictive performance of $M$ for the observed ${\bf x}_{\mathrm{obs}}$.
 Since it makes no reference to any unknown quantities, such as $P$, it can be interpreted as the out-of-sample prediction record of $M$ for the observed data ${\bf x}_{\mathrm{obs}}$.
 
-To test axioms, we will compare {\em encompassing} models, Bayesian discrete choice models where the prior density $f(P)$ has full support on $\Delta$, with {\em constrained} models, where one of the axioms has been imposed.
-Each axiom we consider is identified with a region $\Lambda \subseteq \Delta$ where the axiom holds.
+To test axioms, we will compare {\em encompassing} models, Bayesian discrete choice models where the prior density $f(P)$ has full support on $\Delta$, with {\em constrained} models, where the axiom of interest limits the support of $f(P)$ to the region $\Lambda \subseteq \Delta$ where the axiom holds.
 We will use subscripts to denote regions associated with particular axioms, so that $\Lambda_{\mathrm{SST}}$, for example, is the subset of $\Delta$ where strong stochastic transitivity holds.
 A constrained model is a Bayesian discrete model whose prior density over $\Delta$ is the truncation of the prior density in an encompassing model to $\Lambda$.
 We will test axioms by computing Bayes factors---explained below---comparing constrained with encompassing models.
 We will provide prior sensitivity analysis by comparing these Bayes factors across a set of encompassing models.
 
 Other studies have tested axioms by computing Bayes factors in favour of a constrained model against an encompassing model, including \citeasnoun{CavaDavi14}, \citeasnoun{DaviBrowCava15}, \citeasnoun{MyunKaraIver05} and \citeasnoun{ZwilCavaRege11}.
-These used simple non-hierarchical priors on $P$ where the $P_A(\cdot)$ are {\em a priori} independent and uniformly distributed.
+These used simple non-hierarchical priors on $P$ where the $P_A(\cdot)$ are {\em a priori} stochastically independent and uniformly distributed.
 They analysed data featuring binary choice (or ternary choice where indifference between two objects is an option available to participants) and binary choice axioms.
-Priors where the $P_A(\cdot)$ are {\em a priori} independent are feasible for testing weak and moderate stochastic transitivity and the triangle inequality, because the implied prior probabilities of the axioms are high enough to measure using straightforward Monte Carlo.
+Prior distributions where the $P_A(\cdot)$ are {\em a priori} stochastically independent are feasible for testing weak and moderate stochastic transitivity and the triangle inequality, because the implied prior probabilities of the axioms are high enough to measure using straightforward Monte Carlo.
 Strong stochastic transitivity, which is considerably more restrictive, as well as axioms that constrain all choice probabilities, not just the binaries, such as regularity, the multiplicative inequality and the Block-Marschak inequalities, tend to have much lower prior probability.
-For such axioms, it is important to introduce some dependence among the various choice probability vectors $P_A(\cdot)$.
+For such axioms, it is important to introduce some stochastic dependence among the various choice probability vectors $P_A(\cdot)$.
 
 For the encompassing models, we use the prior distributions for $P$ described in \citeasnoun{McCaMarl13}, defined up to the values of two parameters, $\alpha \in (0,\infty)$ and $\lambda \in [0,1]$.
 We will denote the prior density as $f(P|\alpha,\lambda)$.
@@ -269,11 +268,11 @@ The result is the marginal density
 \]
 Again, the marginal likelihood $f_M({\bf x}_{\mathrm{obs}})$ is obtained by evaluating this at the observed choice dataset ${\bf x}_{\mathrm{obs}}$.
 
-Following \citeasnoun{McCaMarl14} and \citeasnoun{McCaStobMarlParkBrow20}, we specify an encompassing model using a hierarchical prior distribution for $P$ consisting of the prior density $f(P|\alpha,\lambda)$ and a prior distribution of $(\alpha,\lambda)$ where $\alpha$ and $\lambda$ are {\em a priori} independent, $\alpha \sim \mathrm{Ga}(a_1 + a_2, b)$ and $\lambda \sim \mathrm{Be}(a_1,a_2)$.
+Following \citeasnoun{McCaMarl14} and \citeasnoun{McCaStobMarlParkBrow20}, we specify an encompassing model using a hierarchical prior distribution for $P$ consisting of the prior density $f(P|\alpha,\lambda)$ and a prior distribution of $(\alpha,\lambda)$ where $\alpha$ and $\lambda$ are {\em a priori} independent, $\alpha$ has a Gamma distribution with shape parameter $a_1 + a_2$ and rate parameter $b$, $\lambda$ has a Beta distribution with shape parameters $a_1$ and $a_2$.
 Like those papers, we use various choices of the hyper-parameter vector $(a_1,a_2,b)$, to illustrate the sensitivity of results to the choice of encompassing model.
 However, the particular choices of $(a_1,a_2,b)$ we use here are different.
 In part, this is because the present paper is concerned with population, rather than individual choice.
-Anticipating some heterogeneity across individuals, we shift prior weight towards higher values of $\alpha$, and therefore more moderate choice probabilities.
+Anticipating some heterogeneity across individuals, we shift prior weight towards higher values of $\alpha$, and therefore away from choice probabilities close to zero or one.
 Also, we learned from the analysis of these previous experiments that results were fairly insensitive to the prior for $\alpha$, and that values of $\lambda$ close to one were strongly favoured.
 Accordingly, we use the same prior for $\alpha$ for each encompassing model and put more prior weight on values of $\lambda$ closer to one than in \citeasnoun{McCaMarl14} and \citeasnoun{McCaStobMarlParkBrow20}.
 
@@ -308,7 +307,7 @@ For any given choice dataset, our principal inferential objective is to test var
 A secondary inferential objective, not pursued extensively here, is to describe the posterior distribution of $P$ and the parameters $\alpha$ and $\lambda$ of the encompassing or the constrained models.
 Both inferential exercises are based on posterior simulation methods outlined in \citeasnoun{McCaMarl14}.
 
-The posterior distribution $\alpha,\lambda,P|{\bf x}$, represents what we learn, relative to the prior distribution of $\alpha$, $\lambda$ and $P$, from the choice dataset {\bf x}.
+The posterior distribution $\alpha,\lambda,P|{\bf x}_\mathrm{opt}$, represents what we learn, relative to the prior distribution of $\alpha$, $\lambda$ and $P$, from the choice dataset ${\bf x}_\mathrm{opt}$.
 The posterior distribution is analytically intractable and we use Markov chain Monte Carlo (MCMC) methods to obtain a large posterior sample targeting the posterior distribution.
 The posterior sample does not consist of independent draws, but there are standard methods for quantifying simulation error; that is, the difference between posterior sample moments and their population counterparts.
 We use the overlapping batch means (OBM) method, whose properties are described in \citeasnoun{FlegJone10}, to compute the numerical standard error of posterior sample means.
@@ -317,29 +316,29 @@ We compute Bayes factors for all model comparisons.
 Suppose we are comparing any two Bayesian discrete choice models $M$ and $M'$, and we observe a choice dataset ${\bf x}$.
 Then the posterior odds ratio giving the relative posterior probabilities of $M$ and $M'$ can be expressed as
 \[
-  \frac{\Pr[M|{\bf x}]}{\Pr[M'|{\bf x}]} = \frac{\Pr[M]}{\Pr[M']}
+  \frac{\Pr[M|{\bf x}_\mathrm{opt}]}{\Pr[M'|{\bf x}_\mathrm{opt}]} = \frac{\Pr[M]}{\Pr[M']}
   \cdot
-  \frac{f_{M}({\bf x})}{f_{M'}({\bf x})}
+  \frac{f_{M}({\bf x}_\mathrm{opt})}{f_{M'}({\bf x}_\mathrm{opt})}
   %\frac{\Pr[{\bf x}|M]}{\Pr[{\bf x}|M']}
 \]
 This result follows easily from Bayes' rule and does not depend on how many models are under consideration.
 The expression on the right hand side is the product of two factors.
 The first is the prior odds ratio and the second is a ratio of marginal likelihoods called the {\em Bayes factor}---see \citeasnoun{Berg85} or \citeasnoun{BernSmit94}.
-The marginal likelihoods $f_{M}({\bf x})$ and $f_{M'}({\bf x})$ are the probabilities of observing the choice data ${\bf x}$ if the models $M$ and $M'$ (respectively) are true.
-The ratio measures the relative out-of-sample predictive performance of the two models, with a value greater than one favouring model $M$.
+The marginal likelihoods $f_{M}({\bf x}_\mathrm{opt})$ and $f_{M'}({\bf x}_\mathrm{opt})$ are the probabilities of observing the choice data ${\bf x}_\mathrm{opt}$ if the models $M$ and $M'$ (respectively) are true.
+The ratio measures the relative out-of-sample predictive performance of the two models, with a value greater t{}han one favouring model $M$.
 
 In the special case where the denominator model is an encompassing model $M_e$ and the numerator model is the constrained model $M_c$ obtained by truncating the density $f_{M_e}(P)$ associated with $M_e$ to the region $\Lambda$ defining an axiom, then the Bayes factor becomes
 \begin{equation}\label{e:BF}
-  \frac{f_{M_c}({\bf x})}{f_{M_e}({\bf x})} =
-  \frac{\Pr_{M_e}[{\bf X} = {\bf x}|P \in \Lambda]}{\Pr_{M_e}[{\bf X} = {\bf x}]} = \frac{\Pr_{M_e}[P \in \Lambda|{\bf X} = {\bf x}]}{\Pr_{M_e}[P \in \Lambda]}.
+  \frac{f_{M_c}({\bf x}_\mathrm{opt})}{f_{M_e}({\bf x}_\mathrm{opt})} =
+  \frac{\Pr_{M_e}[{\bf X} = {\bf x}_\mathrm{opt}|P \in \Lambda]}{\Pr_{M_e}[{\bf X} = {\bf x}_\mathrm{opt}]} = \frac{\Pr_{M_e}[P \in \Lambda|{\bf X} = {\bf x}_\mathrm{opt}]}{\Pr_{M_e}[P \in \Lambda]}.
 \end{equation}
 
-The second equation of \eqref{e:BF} follows from Bayes' rule; the far right hand side of \eqref{e:BF} is the ratio of posterior to prior probability of the axiom holding according to the encompassing model.
+The second equation of \eqref{e:BF} follows from Bayes' rule; see \citeasnoun{KlugHoij07}; the far right hand side of \eqref{e:BF} is the ratio of posterior to prior probability of the axiom holding according to the encompassing model.{}
 A large numerator indicates an axiom that is highly probable in light of the data; a small denominator indicates that an axiom is restrictive.
 This ratio also suggests a practical way of computing approximations of Bayes factors: since the probability of an event is just the expectation of an indicator function for the event, we can approximate numerator and denominator using Monte Carlo methods.
 
 We compute prior and posterior probabilities of axioms numerically using the simulation methods described in \citeasnoun{McCaMarl14}.
-We compute numerical standard errors of prior and posterior probabilities using the OBM method and combine these standard errors to compute standard errors for Bayes factors using the delta method.
+We compute numerical standard errors of prior and posterior probabilities using the OBM method and combine these standard errors to compute standard errors for Bayes factors using the delta method, introduced in \citeasnoun{Kell28}.
 
 \section{Experimental Design}\label{s:design}
 
@@ -463,9 +462,8 @@ Finally, we report posterior quantiles of $\alpha$ and $\lambda$ for the various
 \subsection{Engagement of participants}
 
 Evidence for a high level of engagement on the part of participants comes from written feedback, timing information, and the responses to questions where the objectively ``correct'' answer is known to most people.
-Most of the feedback left by participants was positive and the person responsible for programming and hosting the experiment reported that the level of positive feedback was exceptional.
-Comments included ``Totally enjoyed this survey!'', ``Thank you for this enjoyable, and different, survey experience.'' and ``It was a great survey.  Thank you.''
-The complete list of feedback comments, including a few negative ones, is reproduced in the experimental supplement, and takes up eight pages.
+Most of the feedback left by participants was positive and many indicated a high level of interest.
+All feedback from participants is available in the experimental supplement.
 The median participant took $18.75s$ per domain; three quarters of them took longer than $13.31s$ per domain.
 The domain ``Latitude'', where participants are prompted with the question ``Which one of the following cities do you think is furthest north'' is one of the domains whose elements have an objective order.
 In this domain, there are two pairs of cities where the objective order of latitude should be familiar to most people: one is ``London, United Kingdom'' and ``Paris, France''; the other is ``Vancouver, Canada'' and ``Seattle, United States''.
@@ -534,10 +532,10 @@ The evidence is fairly robust to the choice of encompassing model.
 For regularity and random utility, the evidence is weaker, but more consistent across choice domains.
 In most cases, the log Bayes factors either favour random utility and regularity over the encompassing models, or are very close to zero, representing little evidence either way.
 Across domains and encompassing models, the evidence in favour of random utility is very similar to the evidence in favour of regularity, which is a necessary condition for random utility.
-In most cases, the evidence in favour of regularity is greater than that in favour of random utility, indicating some evidence against the higher order features of regularity, but this evidence is quite weak.
-For individual domains, the evidence in favour of random utility and regularity are at best slight, but collectively, the evidence in favour of random utility and regularity are much stronger.
+In most cases, the evidence in favour of regularity is greater than that in favour of random utility, indicating some evidence against the higher order features of random utility, but this evidence is quite weak.
+For individual domains, the evidence in favour of random utility and regularity are at best slight, but collectively, the evidence is much stronger: the log Bayes factor in favour of regularity holding jointly across domains is the sum over domains of the log Bayes factors in favour of regularity, and likewise for random utility.
 In both Figures \ref{f:binary_BF} and \ref{f:multiple_BF}, the variation in predictive performance of an axiom across underlying encompassing model is much less than the variation in that across the encompassing models themselves.
-This reveals a kind of substitutability between imposing the axiom and increasing the prior dependence of $P_A(\cdot)$ across \menus{} $A$, as measured by $\lambda$.
+This suggests similar implications for observables between imposing the axiom and increasing the prior dependence of $P_A(\cdot)$ across \menus{} $A$, as measured by $\lambda$.
 
 \begin{figure}
 	\begin{center}
@@ -565,7 +563,8 @@ It is not very surprising then, that in this population choice experiment, binar
 
 \begin{table}
   \input{Tables/bin_table.tex}
-  \caption{Bayes factors in favour of binary choice axioms, relative to encompassing models $M_b$ and $M_3$, by domain}
+  \caption{Log Bayes factors in favour of binary choice axioms, relative to encompassing models $M_b$ and $M_3$, by domain.
+  The largest numerical standard errors for the six columns are 0.011, 0.090, 0.004, 0.014, 0.043 and 0.001.}
   \label{t:bin}
 \end{table}
 
@@ -590,7 +589,7 @@ The posterior quantiles of $\lambda$ for $p=0.75$ and $p=0.95$ are very close to
 This concentration of posterior probability very near $\lambda = 1$ is similar to what \citeasnoun{McCaStobMarlParkBrow20} found for a large majority of the 140 participants in the within-subject experiment described there.
 However, while there were a few exceptions in that previous experiment, there are no domains in the present experiment that are exceptional in this regard.
 This gives strong evidence for a kind of posterior dependence of the $P_A(\cdot)$ across \menus{} $A$ of a kind that is related to random utility.
-In some sense, putting higher prior probability mass near $\lambda = 1$ on the one hand, and imposing random utility on the other, are substitutes: Figure \ref{f:multiple_BF} above shows that for every domain, the Bayes factors in favour of random utility (the three black squares in each panel) vary much less across the three underlying encompassing models than the Bayes factors in favour of the encompassing models themselves (the black circles).
+In some sense, putting higher prior probability mass near $\lambda = 1$ on the one hand, and imposing random utility on the other, have similar implications for observables: Figure \ref{f:multiple_BF} above shows that for every domain, the Bayes factors in favour of random utility (the three black squares in each panel) vary much less across the three underlying encompassing models than the Bayes factors in favour of the encompassing models themselves (the black circles).
 
 \begin{table}
   \input{Tables/lambda_q_table.tex}
@@ -623,7 +622,7 @@ However, in most cases there is weak evidence in favour of weak stochastic trans
 Evidence for or against moderate and especially strong stochastic transitivity tends to be stronger and more variable.
 Clearly, these are not promising candidates for axioms that hold widely, but the fact that strong stochastic transitivity is strongly favoured for some domains is intriguing and raises the question of what features these domains might have in common.
 The triangle inequality has very high posterior probability for most of these domains, but this is largely to do with the anodyne fact that observed binary choice proportions are quite moderate, as we might expect them to be for population level data due to the moderating effect of aggregation.
-We conclude that testing the triangle inequality at the population level data is challenging.
+We conclude that even if the triangle inequality makes sense for population choice probabilities, it will not have much empirical traction for many choice environments.
 
 Evidence for regularity and random utility is fairly consistent across choice domains.
 Together with the triangle inequality, which is a necessary condition for both, these are the axioms considered here that correspond to convex regions of the space of RCSs, and which therefore aggregate across individuals.
