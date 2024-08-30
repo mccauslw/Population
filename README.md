@@ -75,3 +75,8 @@ in \~/Dropbox/\_Population/Tables/population.txt`
 
 - Screenshots
 - Old stuff related to creation of experiment
+
+#### Supplementary materials folder
+
+- Supplementary materials described in paper. See README.txt in that folder.
+- Includes human readable data, screenshots, domain descriptions, ethics approval document, consent form, recruitment procedures.
