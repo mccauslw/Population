@@ -21,10 +21,6 @@ Supplemental materials for "A population choice experiment for testing axioms of
 
 - Description of recruitment and compensation procedures used by SSI
 
-6. Submitted description of experiment.pdf
-
-- Description of experiment as submitted for ethics approval
-
-7. ssi-2017-panel-book.pdf
+6. ssi-2017-panel-book.pdf
 
 - SSI's Global panel book for 2017, the year of the experiment

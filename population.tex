@@ -37,19 +37,19 @@
 }
 \usepackage{authblk}
 
-%\setpagewiselinenumbers
-%\modulolinenumbers[5]
-%\linenumbers
-%\doublespace
-%\setstretch{1.5}
+\setpagewiselinenumbers
+\modulolinenumbers[5]
+\linenumbers
+\doublespace
+\setstretch{1.5}
 
 \title{A population choice experiment for testing axioms of stochastic discrete choice}{}
-\author[1]{William J. McCausland\thanks{Corresponding author, william.j.mccausland@umontreal.ca, ORCID: 0000-0002-9896-235X.}}
+\author[1]{William J. McCausland\thanks{Corresponding author, william.j.mccausland@umontreal.ca, ORCID: 0000-0002-9896-235X. Data and code are publicly available at the Github repository \texttt{https://github.com/mccauslw/Population}.}}
 \author[2]{A.A.J. Marley}
 \author[3]{Clintin P. Davis-Stober\thanks{ORCID: 0000-0002-6836-6979}}
-\affil[1]{D\'epartement de sciences \'economiques and CIREQ, Universit\'e de Montr\'eal}
-\affil[2]{Department of Psychology, University of Victoria}
-\affil[3]{Department of Psychological Sciences; MU Institute for Data Science and Informatics, University of Missouri}
+\affil[1]{D\'epartement de sciences \'economiques and CIREQ, Universit\'e de Montr\'eal, Canada}
+\affil[2]{Department of Psychology, University of Victoria, Canada}
+\affil[3]{Department of Psychological Sciences; MU Institute for Data Science and Informatics, University of Missouri, U.S.A.}
 
 \renewcommand\Authands{ and }
 
@@ -59,6 +59,7 @@
 
 \begin{abstract}
 	We conducted an experiment suitable for testing axioms of stochastic discrete choice, including regularity, random utility and various forms of stochastic transitivity, for population level choice probabilities.
+	Participants are representative of the Canadian adult population.
 	The experiment features 32 different choice domains, including fine art, travel itineraries, and pizza toppings.
 	For each domain, there is a set of five related objects, and for each of its 26 doubleton and larger subsets, we observe the choices of 40 participants.
 	This allows us to measure population probabilities with some precision; since we do this for all non-degenerate \menus{} of a given domain, we expose every implication of each of the axioms to possible falsification.
@@ -67,12 +68,6 @@
 	Key words: Discrete choice, Choice axioms, Choice experiment, Context effects, Random utility, Bayesian inference \\
 	JEL codes: C11, C12, C15, C35, C91, D01, D90.
 \end{abstract}
-
-\section*{Statements and Declarations}
-
-The authors gratefully acknowledge funding by the Social Sciences and Humanities Research Council of Canada in the form of Insight grand SSHRC 435-2012-0451 to the University of Victoria for Marley and McCausland.
-
-The authors have no relevant financial or non-financial interests to disclose.
 
 \section{Introduction}
 
@@ -331,7 +326,7 @@ Then the posterior odds ratio giving the relative posterior probabilities of $M$
 \]
 This result follows easily from Bayes' rule and does not depend on how many models are under consideration.
 The expression on the right hand side is the product of two factors.
-The first is the prior odds ratio and the second is a ratio of marginal likelihoods called the {\em Bayes factor}---see \citeasnoun{Berg85} or \citeasnoun{BernSmit94}.
+The first is the prior odds ratio and the second is a ratio of marginal likelihoods called the {\em Bayes factor}---see \citeasnoun{Berg85} or \citeasnoun{BernSmit94} for further explanation.
 The marginal likelihoods $f_{M}({\bf x}_\mathrm{opt})$ and $f_{M'}({\bf x}_\mathrm{opt})$ are the probabilities of observing the choice data ${\bf x}_\mathrm{opt}$ if the models $M$ and $M'$ (respectively) are true.
 The ratio measures the relative out-of-sample predictive performance of the two models, with a value greater t{}han one favouring model $M$.
 
@@ -341,7 +336,7 @@ In the special case where the denominator model is an encompassing model $M_e$ a
   \frac{\Pr_{M_e}[{\bf X} = {\bf x}_\mathrm{opt}|P \in \Lambda]}{\Pr_{M_e}[{\bf X} = {\bf x}_\mathrm{opt}]} = \frac{\Pr_{M_e}[P \in \Lambda|{\bf X} = {\bf x}_\mathrm{opt}]}{\Pr_{M_e}[P \in \Lambda]}.
 \end{equation}
 
-The second equation of \eqref{e:BF} follows from Bayes' rule; see \citeasnoun{KlugHoij07}; the far right hand side of \eqref{e:BF} is the ratio of posterior to prior probability of the axiom holding according to the encompassing model.{}
+The second equation of \eqref{e:BF} follows from Bayes' rule; see \citeasnoun{KlugHoij07} for details; the far right hand side of \eqref{e:BF} is the ratio of posterior to prior probability of the axiom holding according to the encompassing model.{}
 A large numerator indicates an axiom that is highly probable in light of the data; a small denominator indicates that an axiom is restrictive.
 This ratio also suggests a practical way of computing approximations of Bayes factors: since the probability of an event is just the expectation of an indicator function for the event, we can approximate numerator and denominator using Monte Carlo methods.
 
@@ -352,14 +347,17 @@ We compute numerical standard errors of prior and posterior probabilities using 
 
 The experiment consisted of an internet survey conducted between August 10, 2017 and August 31, 2017.
 A total of 1042 participants completed the survey.
+Supplemental materials related to the experiment, including all electronic files named in this section are available in the folder ``Supplementary materials'' of the Github repository at \texttt{https://github.com/mccauslw/Population}.
 
 Participants were recruited by Survey Sampling International (SSI) from their Canadian panel, designed to be representative of the Canadian adult population.
-According to the SSI Global Panel Book 2017, available in the in the folder ``Supplementary materials'' of the Github repository \texttt{https://github.com/mccauslw/Population}, the Canadian panel consists of 577,356 members.
+According to the SSI Global Panel Book 2017, \texttt{ssi-2017-panel-book.pdf}, the Canadian panel consists of 577,356 members.
 SSI screens potential members for reliability and requires that all participants be at least 18 years of age.
 They also carefully verify the identity of their participants for each survey.
 The Canadian panel is 42\% male and 58\% female and has the following age distribution: the percentage of members in the age range 18-24 is 36\%; 25-34, 25\%; 35-54, 26\%; 55 and older, 13\%.
 Compensation of participants includes cash and other rewards.
-Also in the same folder of the Github repository, a document describes in more detail the recruitment and compensation procedures followed by SSI, although some of the information about these procedures is proprietary.
+A copy of the consent form that participants must complete before participating in the experiment is in the file \texttt{Consent\_form.pdf}.
+A copy of the Certifical of Approval issued by Human Research Ethics Board at the University of Victoria is in the file \texttt{Certificate\_of\_approval.pdf}.
+A document describing in more detail the recruitment and compensation procedures followed by SSI is in the file \texttt{Recruitment\_compensation\_procedures.pdf}.
 
 We chose not to impose any additional restrictions on our sample of participants.
 However, since invited participants must complete the survey to be included in the sample, there is some self-selection.
@@ -458,6 +456,9 @@ A progress bar indicates progress through the experiment.
 	\caption{A screenshot for the ``Travel'' domain, in which participants select pictures, and a screenshot for the ``Coffee'' domain, in which participants select radio buttons. In the experiment and in electronic versions of this paper, these photographs are in colour.}\label{f:screenshots}
 	\end{center}
 \end{figure}
+
+Data and code will be made available at the Github repository \texttt{https://github.com/mccauslw/Population}\footnote{The data and code are there now. Before eventual publication, we will be creating an R package for reproducing the results of the paper. This will have better and more standard documentation and will facilitate the reproduction of the analyses on readers' own computers.}
+
 
 \section{Results}\label{s:results}
 
@@ -882,6 +883,27 @@ Following usual practice, we exclude similarity relations for two objects in whi
 \subsubsection{Charity}
 
 \input{Domain_tex/charity}
+
+\section*{Statements and Declarations}
+
+\subsection*{Authors' Contribution Statement}
+
+McCausland contributed to conceptualization, data curation, formal analysis, funding acquisition, investigation, project administration, software, visualization and writing (initial draft, review and editing).
+Marley contributed to the conceptualization, funding acquisition, investigation, project administration, and writing-review and editing.
+Davis-Stober contributed to the conceptualization, investigation, and writing - review and editing.
+
+\subsection*{Acknowledgements}
+
+The authors thank the Institute for Choice at the University of South Australia for programming and hosting the survey, Survey Sampling International for recruiting participants, and the participants themselves.
+They also thank audiences at various conferences for insightful questions and helpful suggestions.
+
+\subsection*{Competing Interests}
+
+The authors declare none.
+
+\subsection*{Financial Support}
+
+This work was supported by the Social Sciences and Humanities Research Council of Canada under Insight grant SSHRC 435-2012-0451 to the University of Victoria for Marley and McCausland.
 
 \bibliographystyle{agsm}
 \bibliography{bibliography}
