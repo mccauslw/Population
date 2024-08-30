@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Population
 
 Repository for research on discrete choice probabilities for population
@@ -34,56 +28,44 @@ Marley and Clintin Davis-Stober.
 -   Files population_tables_preliminary.[Rmd, pdf] are source and pdf
     for this document.
 
-Title is “Tables for my own interest, population experiment”, file dates
-before 2024 are 2021. First table gives prior specifications, with a0,
-b0, aA, bA and moments of alpha and lambda. Prior specification 0 seems
-to be an umbrella prior suitable for importance sampling. There are
-graphs of implied densities of al0, alA and alpha and lambda. After
-this, there are a lot of tables of posterior moments. B1, Be1, B2, Be2,
-B3, Be3 wstuP, wstuPe, similar for mst, sst, ti (these are prior and
-posterior probabilities (with errors) of axioms for “uniform” model)
-wstsP, wstsPe, otherwise the same (these are prior and posterior
-probabilities of axioms for “simple” model) regsP, regsPe, similar for
-ru, mul (prior and post probs, multi-choice axioms, simple model) wstub,
-wstube, similar for mst, sst, ti (log bayes factors and errors, uniform
-model) wstsb, wstsbe, similar for mst, sst, ti (same, simple model) Mean
-and error of alpha for models 1, 2, 3, simple and uniform model Same for
-lambda Quantiles for alpha, simple model Quantiles for lambda, simple
-model wstb1, wstb2, wstb3, wstub, wstube, wstsb, wstsbe (Bayes factors
-for various models … (for other axioms) wstP1, wstP2, wstP3, wstuP,
-wstuPe, wstsP, wstsPe (Post probabilities for various models) … (for
-other axioms)
+Title of this document is “Tables for my own interest, population experiment”.
+First table gives prior specifications, with a0, b0, aA, bA and moments of alpha and lambda.
+Prior specification 0 is an umbrella prior suitable for importance sampling.
+There are graphs of implied densities of al0, alA and alpha and lambda.
+After this, there are a lot of tables of posterior moments.
 
-make_tibbles.R
+    - B1, Be1, B2, Be2, B3, Be3 wstuP, wstuPe, similar for mst, sst, ti (these are prior and posterior probabilities (with numerical standard errors) of axioms for “uniform” model)
+    - wstsP, wstsPe, otherwise the same (these are prior and posterior probabilities of axioms for “simple” model)
+    - regsP, regsPe, similar for ru, mul (prior and post probs, multi-choice axioms, simple model)
+    - wstub, wstube, similar for mst, sst, ti (log bayes factors and errors, uniform model)
+    - wstsb, wstsbe, similar for mst, sst, ti (same, simple model)
+    - Mean and numerical standard error of alpha for models 1, 2, 3, simple and uniform model
+    - Same for lambda
+    - Quantiles for alpha, simple model
+    - Quantiles for lambda, simple model
+    - wstb1, wstb2, wstb3, wstub, wstube, wstsb, wstsbe (Bayes factors
+for various models (for other axioms)
+    - wstP1, wstP2, wstP3, wstuP, wstuPe, wstsP, wstsPe (Post probabilities for various models) (for other axioms)
 
-Uses \~/Results/RCM_population tables to create tibble dma_array for
-dma_tables.RData
+#### R Code
 
-population_read.R
+- `make_tibbles.R` uses \~/Results/RCM_population tables to create tibble dma_array for dma_tables.RData
 
-Tables for alpha, lambda and axiom probabilities for the single model
+- `population_read.R` creates tables for alpha, lambda and axiom probabilities for the single model
 
-population_robust.R
+- `population_robust.R` creates Tables/population_robust.txt (not there)
 
-Creates Tables/population_robust.txt (not there)
+- `population_single_model.R` creates Tables/poplulation_single_model.txt
 
-population_single_model.R
+- `population.R` takes as input raw simulation files in \~/Results/RCM_population Writes
+in \~/Dropbox/\_Population/Tables/population.txt`
 
-Creates Tables/poplulation_single_model.txt
+- `Simplex.R` has functions for barycentric plots
 
-Population_study_data
+#### Population_study_data folder
 
-Has original data, feedback files, RCM_population.c, simplex figures
+- Original data, feedback files, `RCM_population.c`, simplex figures
 
-Population_study_design
+#### Population_study_design folder
 
 Has old stuff related to creation of experiment, screenshots
-
-Simplex.R
-
-Functions for barycentric plots
-
-population.R
-
-Takes as input raw simulation files in \~/Results/RCM_population Writes
-in \~/Dropbox/\_Population/Tables/population.txt
