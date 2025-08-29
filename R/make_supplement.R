@@ -10,9 +10,8 @@ domain_names <- dimnames(RanCh::MMS_2019_counts)[[1]]
 domain_filenames <- gsub(" ", "_", tolower(domain_names))
 
 all_domains_data <- c()
-#for (i in seq_along(domain_names)) {
-for (i in seq(15, 32)) {
-    outname <- sprintf("domain_%02d_%s.pdf", i, domain_filenames[i])
+for (i in seq_along(domain_names)) {
+  outname <- sprintf("domain_%02d_%s.pdf", i, domain_filenames[i])
   rmarkdown::render(here("Rmarkdown", "domain_template.Rmd"),
                     output_file = here("documents", outname),
                     clean = TRUE,

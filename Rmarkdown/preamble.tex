@@ -1,0 +1,26 @@
+% --- Citation setup ---
+\usepackage{natbib}           % Load natbib first
+\usepackage[english]{babel}   % Then babel (avoids warning)
+
+% Define \citeasnoun if not already available
+\newcommand{\citeasnoun}[1]{\citeauthor{#1}~(\citeyear{#1})}
+
+% --- Response box style ---
+\usepackage{tcolorbox}
+\tcbset{
+  myresponse/.style={
+    colback=gray!10,
+    colframe=gray!60,
+    boxrule=0.4pt,
+    arc=2pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+  }
+}
+
+% --- Other packages you listed ---
+\usepackage{enumitem}   % For fine control of list spacing
+\usepackage{gensymb}    % For degree symbols etc.
+\usepackage{booktabs}   % For nicer tables

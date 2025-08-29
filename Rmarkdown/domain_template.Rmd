@@ -2,12 +2,9 @@
 title: "Description and choice data for the domain \"`r params$domain_name`\""
 output: 
   pdf_document:
-    extra_dependencies:
-      babel: ["english"]
-      tcolorbox: null
-      enumitem: null
-      gensymb: null
-      booktabs: null
+    citation_package: none
+    includes:
+      in_header: preamble.tex
 params:
   i: 0
   domain_name: "colours"
@@ -25,10 +22,16 @@ The prompt question and the universe of five response options in the choice doma
 The labels $a$, $b$, $c$, $d$ and $e$ were not displayed during the experiment and are indicated here to allow cross-referencing with data tables and visualizations below and results in the paper.
 
 ```{r echo=FALSE, results='asis'}
-domain_Rmd_filename <- here("paper/domain_tex",
-                            sprintf("%s.tex", params$domain_filename))
-out <- knitr::knit_child(domain_Rmd_filename, quiet = TRUE)
-knitr::asis_output(out)
+#domain_Rmd_filename <- here("paper/domain_tex",
+#                            sprintf("%s.tex", params$domain_filename))
+#out <- knitr::knit_child(domain_Rmd_filename, quiet = TRUE)
+#knitr::asis_output(out)
+
+#knitr::asis_output(readr::read_file(
+#  here("paper/domain_tex", sprintf("%s.tex", params$domain_filename))
+#))
+
+knitr::asis_output(sprintf("\\input{../paper/domain_tex/%s.tex}", params$domain_filename))
 ```
 
 The following figure is a screenshot from the actual experiment, with one of the 26 possible menus for this domain.
@@ -67,3 +70,5 @@ The upward-pointed (red) triangle shows the set of ternary choice proportions co
 RanCh::bin_tern_MR_plot_all(params$N)
 ```
 
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
