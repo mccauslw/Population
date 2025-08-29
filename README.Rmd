@@ -1,0 +1,159 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Population
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This repository contains
+
+- The current version of the research **paper** "A population choice experiment for testing axioms of stochastic discrete choice", by William McCausland, A. A. J.
+Marley and Clintin Davis-Stober.
+- Research materials related to the experiment described in the paper.
+- **Additional reports in PDF form with ...
+- R scripts (`.R`) and R Markdown files (`.Rmd`) used to generate figures and tables in the paper and to build the additional reports. These use routines and data in the R package `RanCh` and simulations run in C but are otherwise self contained.
+
+The repository includes the following key components:
+
+### `paper/`
+
+This folder includes
+
+- The **LaTeX source** file for the paper, `population.tex`
+- A `figures/` sub-folder containing R-generated PDF figures in the paper
+- A `tables/` sub-folder containing the paper's tables as LaTeX files
+- The final compiled **PDF version** of the paper, `population.pdf`
+
+### `documents/`
+
+### `R/`
+
+### `Rmarkdown/`
+
+## Installation
+
+You can install the development version of Population from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("mccauslw/Population")
+```
+
+## Notes on the contents of this repository
+
+### Main paper, figures, tables
+
+-   Folder `Domain_tex/` gives R markdown (.Rmd, 2024) and LaTeX (.tex,
+    2021) versions of various domain descriptions
+
+-   `figures.R` creates `bcp.pdf` figure only
+
+-   `make_figures.R` creates figures `binary_BF.pdf` and
+    `multiple_BF.pdf` using dma_tables.RData simulation summary data.
+
+-   Folder `Tables/` contains .tex files for inclusion in main paper
+
+-   `population_read.R` creates tables for alpha, lambda and axiom probabilities for the single model
+
+-   `population_robust.R` creates Tables/population_robust.txt (not there)
+
+-   `population_single_model.R` creates Tables/poplulation_single_model.txt
+
+### Document with preliminary tables and graphics
+
+-   Files population_tables_preliminary.[Rmd, pdf] are source and pdf
+    for this document.
+
+Title of this document is “Tables for my own interest, population experiment”.
+Prior specification 0 is an umbrella prior suitable for importance sampling.
+
+Tables are
+
+    - Prior specifications, with a0, b0, aA, bA and moments of alpha and lambda.
+    - Figures showing implied densities of al0, alA and alpha and lambda.
+    - B1, Be1, B2, Be2, B3, Be3
+    - wstuP, wstuPe, similar for mst, sst, ti (post probs (with nse) for “uniform” model)
+    - wstsP, wstsPe, etc. Same probabilities for “simple” model
+    - regsP, regsPe, similar for ru, mul (post probs, multi-choice axioms, simple model)
+    - wstub, wstube, similar for mst, sst, ti (log BFs and errors, uniform model)
+    - wstsb, wstsbe, similar for mst, sst, ti (same, simple model)
+    - Mean and numerical standard error of alpha for models 1, 2, 3, simple and uniform model
+    - Same for lambda
+    - Quantiles for alpha, simple model
+    - Quantiles for lambda, simple model
+    - wstb1, wstb2, wstb3, wstub, wstube, wstsb, wstsbe (BF for various models)
+    - similar tables for other axioms
+    - wstP1, wstP2, wstP3, wstuP, wstuPe, wstsP, wstsPe (Post probs for various models)
+    - similar tables for other axioms
+
+### Other R Code
+
+- `population.R` takes as input raw simulation files in \~/Results/RCM_population Writes
+in \~/Dropbox/\_Population/Tables/population.txt`
+
+- `dma_tables.RData` contains R data with simulation summaries
+
+- `make_tibbles.R` uses \~/Results/RCM_population tables to create tibble dma_array for dma_tables.RData
+
+- `Simplex.R` has functions for barycentric plots
+
+### Population_study_data folder
+
+- Original data, feedback files, `RCM_population.c`, simplex figures
+
+### Population_study_design folder
+
+- Screenshots
+- Old stuff related to creation of experiment
+
+### Supplementary materials folder
+
+- Supplementary materials described in paper. See README.txt in that folder.
+- Includes human readable data, screenshots, domain descriptions, ethics approval document, consent form, recruitment procedures.
+
+### Reproducibility Notes
+
+To reproduce results in the paper and supplementary materials
+
+1. Install and load the devtools package if necessary, then install and load the RanCh package and this (`SMCRandomPref') repository. This needs to be done only once.
+```R
+install.packages("devtools")
+library(devtools)
+install_github("mccauslw/RanCh")
+install_github("mccauslw/SMCRandomPref")
+```
+2. Load the RanCh package.
+```R
+library(RanCh)
+```
+3. Run the ...script `/R/create_docs_figures_tables.R` in this repository. This performs sequential Marlo Carlo simulation for all choice domains, generates the figures and tables of the paper and generates the additional reports.
+
+Notes:
+
+- All documents are **prebuilt** and tracked via GitHub. Following these steps is only necessary to reproduce the results.
+- The simulation seed is set in `/R/create_docs_figures_tables.R` so that results can be reproduced exactly. Change the seed to another value for fresh simulations.
+- File paths are relative to the project root, and the [`here`](https://CRAN.R-project.org/package=here) package is used when applicable.
+
+---
+
+### ✉ Contact
+
+For questions or suggestions, feel free to reach out via [GitHub Issues](https://github.com/mccauslw/SMCRandomPref/issues) or email me directly at [william.j.mccausland@umontreal.ca](mailto:william.j.mccausland@umontreal.ca)
+
+---
+
+*Last updated: `r format(Sys.Date(), '%B %d, %Y')`*
+

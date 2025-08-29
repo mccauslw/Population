@@ -1,0 +1,69 @@
+---
+title: "Description and choice data for the domain \"`r params$domain_name`\""
+output: 
+  pdf_document:
+    extra_dependencies:
+      babel: ["english"]
+      tcolorbox: null
+      enumitem: null
+      gensymb: null
+      booktabs: null
+params:
+  i: 0
+  domain_name: "colours"
+  domain_filename: "colours"
+  N: 0
+---
+
+\graphicspath{
+  {../experiment/figures/}       % figures used in experiment
+}
+
+## Description of the choice domain `r params$i`, ```r params$domain_name```
+
+The prompt question and the universe of five response options in the choice domain ```r params$domain_name``` are as follows.
+The labels $a$, $b$, $c$, $d$ and $e$ were not displayed during the experiment and are indicated here to allow cross-referencing with data tables and visualizations below and results in the paper.
+
+```{r echo=FALSE, results='asis'}
+domain_Rmd_filename <- here("paper/domain_tex",
+                            sprintf("%s.tex", params$domain_filename))
+out <- knitr::knit_child(domain_Rmd_filename, quiet = TRUE)
+knitr::asis_output(out)
+```
+
+The following figure is a screenshot from the actual experiment, with one of the 26 possible menus for this domain.
+
+```{r, echo=FALSE}
+screen_shot_filename <- sprintf("screenshot_%s.png", params$domain_filename)
+Rmd_string <- sprintf("![Screenshot for domain %s](%s)",
+                      params$domain_name, here("experiment/screenshots",
+                                               screen_shot_filename))
+knitr::asis_output(Rmd_string)
+```
+
+\pagebreak
+
+## Choice data for domain `r params$i`, `r params$domain_name`
+
+Table \ref{t:count_prop} shows choice counts and choice proportions for this choice domain.
+For each menu $A$ and each object $x \in \{a,b,c,d,e\}$, $N_A(x)$ is the number of participants who chose object $x$ from menu $A$ and $\hat P_A(x)$ is the corresponding proportion of participants who chose $x$ from $A$.
+When $x \notin A$, a dash is displayed.
+
+\begin{table}\centering
+```{r data_table, echo=FALSE, results='asis'}
+count_proportion_table(params$N)
+```
+\caption{Observed choice counts and proportions.}
+\label{t:count_prop}
+\end{table}
+
+The following figure displays choice proportions for all doubleton and tripleton menus in Barycentric coordinates.
+See a full description of this graphical representation in the paper.
+Each panel shows choice proportions for all doubleton and tripleton menus of a different tripleton subset of $\{a,b,c,d,e\}$.
+The downward-pointed (blue) triangle shows the set of ternary choice proportions that are compatible with regularity and the three binary choice proportions, on the corresponding tripleton.
+The upward-pointed (red) triangle shows the set of ternary choice proportions compatible with the multiplicative inequality and the three binary choice proportions.
+
+```{r simplex_plots, echo=FALSE, fig.width=8, fig.height=10}
+RanCh::bin_tern_MR_plot_all(params$N)
+```
+
