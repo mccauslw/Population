@@ -16,7 +16,14 @@
 \usepackage{tcolorbox}
 \usepackage{gensymb}
 \usepackage{array,booktabs}
-
+\usepackage{enumitem}
+\setlist[itemize]{
+  itemsep=3pt,       % spacing between items
+  topsep=3pt,        % space before/after the whole list
+  parsep=0pt,        % paragraph spacing inside an item
+  partopsep=0pt,     % extra space when list starts a paragraph
+  before=\setlength{\baselineskip}{12pt}  % line spacing within items
+}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}  % or inconsolata if you prefer
 \renewcommand{\ttdefault}{lmtt}  % force Latin Modern Typewriter
@@ -71,11 +78,11 @@
   We run an experiment covering 32 different choice domains, including fine art, cars and pizza.
   For each domain, there is a set of 5 related objects, and 26 \menus{}---the subsets of two or more objects.
   We measure population level choice probabilities by presenting each \menu{} to 40 participants and observing their choices of an object.
-  The point of the experiment is to test axioms of stochastic discrete choice for population level choice probabilities, and it is well suited for testing axioms, like regularity, random utility and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
+  The purpose of the experiment is to test axioms of stochastic discrete choice for population level choice probabilities, over a wide variety of choice domains. It is well suited for testing axioms, like regularity, random utility and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
 	Each participant faces exactly one \menu{} from each domain; for between-subject designs like this, the assumption that choices are independent across trials, and on each \menu{}, identically distributed, is plausible.
 	Participants are representative of the Canadian adult population.
 	For each domain and each of the three axioms above, we report Bayes factors giving evidence for or against the axiom.
-	Evidence supports regularity and random utility, for each domain; evidence for the multiplicative inequality is mixed.
+	Evidence supports regularity and random utility across all domains; for the multiplicative inequality, evidence ranges from favorable to strongly unfavorable.
 	\\
 	Key words: Discrete choice, Choice axioms, Choice experiment, Context effects, Random utility, Bayesian inference \\
 	JEL codes: C11, C12, C15, C35, C91, D01, D90.
@@ -85,10 +92,11 @@
 
 Discrete choice models are used extensively in economics, marketing, psychology and other disciplines.
 Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options, in \citeasnoun{Trai78}.
-Here, we contribute to a distinct and more abstract research agenda that collects evidence for or against, as the case may be, various axioms on choice probabilities, without regard to object attributes.
+Here, we contribute to a distinct and more abstract research agenda that collects evidence for or against, as the case may be, various axioms on choice probabilities, without regard to object attributes, across a wide variety of choice environments.
 An example of such an axiom is the {\em regularity} condition, which states that for all \menus{} $A$ and $B$ from a universe of objects such that $A \subseteq B$, the probability of choosing $x \in A$ when \menu{} $A$ is presented is no less than the probability of choosing $x$ when $B$ is presented.
+Most would find it counterintuitive if you could make an option more likely to be chosen by providing additional options, whatever the choice domain.
 %Two other axioms we consider here are defined below.
-One important objective of this research agenda is to find axioms that are empirically plausible across a wide variety of choice domains, which is important for theory refinement and development.
+One important objective of this research agenda is to find axioms that are empirically plausible across a wide variety of choice domains, which is important for the development and refinement of descriptive theories of choice.
 To this end, we abstract away from object attributes and treat choice objects in a given universe as {\em a priori} indistinguishable: before observing choices among objects, all we know about an object is its index, allowing us to follow the object across all the \menus{} that include it.
 In different analyses, choice data observed over several trials may be a sequence of choices made a single decision maker or the choices of a sample of decision makers randomly selected from a population.
 
@@ -123,9 +131,9 @@ We will write $T = \{a,b,c,d,e\}$ for a generic universe with five elements; for
 One of the 26 menus is $\{a,b\}$; $P_{\{a,b\}}(a)$ and $P_{\{a,b\}}(b)$ are the probabilities of choosing Red and Purple from the menu consisting of these two options.
 We learn something about these probabilities from the experiment: 21 participants chose Red and 19 chose Purple, as we can see in the first row of Table \ref{t:colours_table} of Section \ref{s:results}, which tabulates choice counts for each of the 26 \menus{} of the ``Colours'' domain.
 Denote the observed proportion of times that an object $x$ is chosen from a \menu{} $A$, $x \in A \subseteq T$, by $\hat P_A(x)$.
-For example, we compute the obversed choice proportions $\hat P_{\{a,b\}}(a) = 0.525$ and $\hat P_{\{a,b\}}(b) = 0.525$ for the ``Colours'' domain.
+For example, we compute the observed choice proportions $\hat P_{\{a,b\}}(a) = 0.525$ and $\hat P_{\{a,b\}}(b) = 0.525$ for the ``Colours'' domain.
 
-Let $\Delta$ be the space of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of choice probabilites and a set of equalities requiring choice probabilities on each \menu{} to add up to one.
+Let $\Delta$ be the space of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of choice probabilites and the requirement that choice probabilities on each \menu{} add up to one.
 
 We distinguish between two different interpretations of a RCS.
 An {\em individual} RCS governs the choices of a single individual; a {\em population} RCS, those of a random sample of individuals from a population.

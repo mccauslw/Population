@@ -5,6 +5,7 @@ library(tidyverse)
 library(knitr)
 library(pdftools)
 library(RanCh)
+library(here)
 
 domain_names <- dimnames(RanCh::MMS_2019_counts)[[1]]
 domain_filenames <- gsub(" ", "_", tolower(domain_names))

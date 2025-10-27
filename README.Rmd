@@ -20,11 +20,10 @@ knitr::opts_chunk$set(
 
 This repository contains
 
-- The current version of the research **paper** "A population choice experiment for testing axioms of stochastic discrete choice", by William McCausland, A. A. J.
-Marley and Clintin Davis-Stober.
+- The current version of the research **paper** "A population choice experiment for testing axioms of stochastic discrete choice", by William McCausland, A. A. J. Marley and Clintin Davis-Stober.
 - Research materials related to the experiment described in the paper.
-- **Additional reports in PDF form with ...
-- R scripts (`.R`) and R Markdown files (`.Rmd`) used to generate figures and tables in the paper and to build the additional reports. These use routines and data in the R package `RanCh` and simulations run in C but are otherwise self contained.
+- **Additional reports** in PDF form with ...
+- **R scripts** (`.R`) and **R Markdown files** (`.Rmd`) used to generate figures and tables in the paper and to build the additional reports. These use routines and data in the R package `RanCh` and simulations run in C but are otherwise self contained.
 
 The repository includes the following key components:
 
@@ -32,16 +31,42 @@ The repository includes the following key components:
 
 This folder includes
 
-- The **LaTeX source** file for the paper, `population.tex`
+- The **LaTeX source** files for the paper, `population.tex` and bibliography.bib.
 - A `figures/` sub-folder containing R-generated PDF figures in the paper
 - A `tables/` sub-folder containing the paper's tables as LaTeX files
+- A `domain_tex/` sub-folder containing descriptions of choice domains used in the experiment. (This material is used not only in the paper but also in the additional reports.)
 - The final compiled **PDF version** of the paper, `population.pdf`
+
+### `experiment/`
+
+This folder includes
+
+- A `documents/` sub-folder containing documents related to the experiment, including
+    - `Certificate_of_approval.pdf`, a certificate of ethics approval for Tony Marley from the University of Victoria.
+    - `Consent_form.pdf` and `Consent_form.docx`, the text of the consent agreement approved by participants in the experiment
+    - `Recruitment_Compensation_procedures.pdf`, a description of recruitment and compensation procedures used by SSI
+    - `ssi-2017-panel-book.pdf`, SSI's Global panel book for 2017, the year of the experiment.
+- A `screenshots/` sub-folder containing sample screenshots for each domain, as seen by participants in the experiment
+- A `design/` sub-folder with miscellaneous documents related to the experimental design.
+- A `figures/` sub-folder with graphics used in the experiment, including R code for reproducing some of the figures.
 
 ### `documents/`
 
+This folder contains
+
+- For each choice domain, a document describing the domain, a sample screenshot from the domain, a table of count and proportions data from the experiment, and a data visualization device for displaying choice proportions from menus of size two and three.
+- A document containing a complete list of comments from the participants in the experiment
+
 ### `R/`
 
+- `make_figures.R` creates figures `binary_BF.pdf` and `multiple_BF.pdf` using dma_tables.RData simulation summary data in `data/`
+- `population_read.R` creates tables for alpha, lambda and axiom probabilities for the single model
+- `population_robust.R` creates Tables/population_robust.txt (not there)
+- `population_single_model.R` creates Tables/poplulation_single_model.txt
+
 ### `Rmarkdown/`
+
+### `data/`
 
 ## Installation
 
@@ -51,26 +76,6 @@ You can install the development version of Population from [GitHub](https://gith
 # install.packages("pak")
 pak::pak("mccauslw/Population")
 ```
-
-## Notes on the contents of this repository
-
-### Main paper, figures, tables
-
--   Folder `Domain_tex/` gives R markdown (.Rmd, 2024) and LaTeX (.tex,
-    2021) versions of various domain descriptions
-
--   `figures.R` creates `bcp.pdf` figure only
-
--   `make_figures.R` creates figures `binary_BF.pdf` and
-    `multiple_BF.pdf` using dma_tables.RData simulation summary data.
-
--   Folder `Tables/` contains .tex files for inclusion in main paper
-
--   `population_read.R` creates tables for alpha, lambda and axiom probabilities for the single model
-
--   `population_robust.R` creates Tables/population_robust.txt (not there)
-
--   `population_single_model.R` creates Tables/poplulation_single_model.txt
 
 ### Document with preliminary tables and graphics
 
@@ -113,16 +118,6 @@ in \~/Dropbox/\_Population/Tables/population.txt`
 ### Population_study_data folder
 
 - Original data, feedback files, `RCM_population.c`, simplex figures
-
-### Population_study_design folder
-
-- Screenshots
-- Old stuff related to creation of experiment
-
-### Supplementary materials folder
-
-- Supplementary materials described in paper. See README.txt in that folder.
-- Includes human readable data, screenshots, domain descriptions, ethics approval document, consent form, recruitment procedures.
 
 ### Reproducibility Notes
 

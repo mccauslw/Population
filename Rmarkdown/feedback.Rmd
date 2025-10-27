@@ -1,0 +1,21 @@
+---
+title: "Feedback from participants"
+author: "William McCausland"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+At the end of the experiment, participants were asked if they had any comments.
+The following are two lists of responses.
+The first list is a list of all one-line responses, except for several blank lines and 36 occurrences of either "no" or "none" indicating no comment.
+The second list is a list of all multi-line responses.
+
+### Feedback comments from participants, single-line
+
+\input{feedback.txt}
+
+\pagebreak
+
+### Feedback comments from participants, multi-line
+
+\input{feedback2.txt}
