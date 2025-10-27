@@ -127,13 +127,13 @@ Let $T = \{x_1,\ldots,x_n\}$ be a universe of choice objects.
 When faced with a non-empty \menu{} $A \subseteq T$, an agent chooses a single object from $A$.
 The probability that the agent chooses $x \in A$ is denoted $P_A(x)$.
 A {\em random choice structure} (RCS) on $T$ is the complete specification of the system of choice probabilities $P_A(x)$, $x \in A \subseteq T$, and is denoted $P$.
-We will write $T = \{a,b,c,d,e\}$ for a generic universe with five elements; for the ``Colours'' domain of the experiment, $a$ is Red, $b$ is Purple, $c$ is Pink, $d$ is Blue, and $e$ is Green.
+We will write $T = \{a,b,c,d,e\}$ for a generic universe with five elements; for the ``Colours'' domain of the experiment, where participants are asked ``Which one of the following colours do you like best?'', $a$ is Red, $b$ is Purple, $c$ is Pink, $d$ is Blue, and $e$ is Green.
 One of the 26 menus is $\{a,b\}$; $P_{\{a,b\}}(a)$ and $P_{\{a,b\}}(b)$ are the probabilities of choosing Red and Purple from the menu consisting of these two options.
 We learn something about these probabilities from the experiment: 21 participants chose Red and 19 chose Purple, as we can see in the first row of Table \ref{t:colours_table} of Section \ref{s:results}, which tabulates choice counts for each of the 26 \menus{} of the ``Colours'' domain.
 Denote the observed proportion of times that an object $x$ is chosen from a \menu{} $A$, $x \in A \subseteq T$, by $\hat P_A(x)$.
 For example, we compute the observed choice proportions $\hat P_{\{a,b\}}(a) = 0.525$ and $\hat P_{\{a,b\}}(b) = 0.525$ for the ``Colours'' domain.
 
-Let $\Delta$ be the space of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of choice probabilites and the requirement that choice probabilities on each \menu{} add up to one.
+Let $\Delta$ be the set of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of choice probabilites and the requirement that choice probabilities on each \menu{} add up to one.
 
 We distinguish between two different interpretations of a RCS.
 An {\em individual} RCS governs the choices of a single individual; a {\em population} RCS, those of a random sample of individuals from a population.
@@ -177,7 +177,7 @@ However, before rejecting the hypothesis that the population RCS violates regula
 
 \citeasnoun{BlocMars60} show that the Block-Marschak inequalities are necessary for random utility and \citeasnoun{Falm78} shows they are sufficient.
 
-If $P$ satisfies the multiplicative inequality, then the probability of choosing Purple from the tripleton menu of Red, Purple and Pink has to be at least as great as the joint probability of choosing Purple over Red in pairwise choice and then Purple over Pink in pairwise choice.
+If $P$ satisfies the multiplicative inequality, then the probability of choosing Purple from the tripleton menu of Red, Purple and Pink has to be at least as great as the joint probability of two independent events: choosing Purple over Red in pairwise choice and then choosing Purple over Pink in pairwise choice.
 In the experiment, 15 out of 40 participants chose Purple from the tripleton menu, 19 out of 40 chose Purple over Red and 37 out of 40 chose Purple over Pink.
 It is easy to check that the choice proportions violate the multiplicative inequality.
 The multiplicative inequality is due to \citeasnoun{SattTver76}, who show that it is a testable implication of the independent random utility model and also of the Elimination by Aspects (EBA) model described in \citeasnoun{Tver72b} and \citeasnoun{Tver72a}.
@@ -185,9 +185,10 @@ The multiplicative inequality is due to \citeasnoun{SattTver76}, who show that i
 They also prove several results on the relationship between regularity and the multiplicative inequality.
 See \citeasnoun{LuceSupp65} and \citeasnoun{McCaMarl13} for illustrations of the logical relationships among a set of axioms that includes these three and various kinds of stochastic transitivity.
 
-We can immediately see from the definitions that for each of these axioms, every choice probability vector $P_A$ appears in many constraints.
-We can see moreover that each $P_A$ is {\em pivotal}, in the sense that for any given random choice structure satisfying the axiom in question and an arbitrary $A$, one can change $P_A$ to make the random choice structure violate the axiom.
-It is for this reason that to test an axiom such as these, it is important to observe choice data from every menu.
+We can immediately see from their definitions that all of these axioms have the following features.
+Each choice probability $P_A(x)$ appears in multiple inequalities.
+Moreover, each probability vector $P_A$ is {\em pivotal}, in the sense that for any random choice structure $P$ satisfying the axiom in question and any \menu{} $A$, one can can modify $P_A$ so that the new random choice structure violates the axiom.
+To test such an axiom as a hypothesis, it is important to observe choice data from every menu, in order to expose every implication of the axiom to possible falsification.
 
 It will be helpful to frame the three axioms as defining subsets of the space $\Delta$ of random choice structures.
 Let $\Lambda_{\mathrm{Reg}}$ be the subset of $\Delta$ where regularity holds; similarly, define $\Lambda_{\mathrm{RU}}$ and $\Lambda_{\mathrm{MI}}$ as the subsets of $\Delta$ where random utility and the multiplicative inequality hold.
@@ -285,7 +286,7 @@ Since it makes no reference to any unknown quantities, such as $P$, it can be in
 
 To test axioms, we will compare {\em encompassing} models, Bayesian discrete choice models where the prior density $f(P)$ has full support on $\Delta$, with {\em constrained} models, where the axiom of interest limits the support of $f(P)$ to the region $\Lambda \subseteq \Delta$ where the axiom holds.
 We will use subscripts to denote regions associated with particular axioms, so that $\Lambda_{\mathrm{SST}}$, for example, is the subset of $\Delta$ where strong stochastic transitivity holds.
-A constrained model is a Bayesian discrete model whose prior density over $\Delta$ is the truncation of the prior density in an encompassing model to $\Lambda$.
+A constrained model is a Bayesian discrete choice model whose prior density over $\Delta$ is the truncation of the prior density in an encompassing model to $\Lambda$.
 We will test axioms by computing Bayes factors---explained below---comparing constrained with encompassing models.
 We will provide prior sensitivity analysis by comparing these Bayes factors across a set of encompassing models.
 
