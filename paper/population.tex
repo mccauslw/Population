@@ -278,17 +278,18 @@ A {\em choice dataset} for a universe $T$ consists of choices observed, over a n
 We denote a full dataset by $\bf{X}$ when it is interpreted as a random variable, and by $\bf{x}$ when interpreted as a possible value.
 A particular fixed choice of a RCS $P \in \Delta$, together with the iid assumption, fully describes a data generating process for $\bf{X}$, the distribution ${\bf X}|P$.
 
-A {\em Bayesian discrete choice model} consists of a prior distribution over $\Delta$.
-Since the prior is a mixing distribution over choice probabilities, the mixture distribution also fully describes a data generating process for ${\bf X}$.
+A {\em Bayesian discrete choice model} consists of a prior distribution for $P$ on $\Delta$ and the data generating process ${\bf X}|P$.
+Together they define a joint distribution of $P$ and ${\bf X}$.
+We can interpret the prior as a mixing distribution over choice probabilities, and the mixture distribution (the marginal distribution of ${\bf X}$) as another data generating process for ${\bf X}$, one where $P$ has been marginalized out.
 For example, if we have a Bayesian discrete choice model $M$ with prior density $f_M(P)$ on $\Delta$, the mixture distribution is the marginal probability mass function $f_M({\bf x}) = \int_\Delta f({\bf x}|P) f_M(P) \,dP$.
 Evaluation of $f_M({\bf x})$ at the observed value ${\bf x}_{\mathrm{obs}}$ gives the {\em marginal likelihood} $f_M({\bf x}_{\mathrm{obs}})$ of the data, a number that measures the predictive performance of $M$ for the observed ${\bf x}_{\mathrm{obs}}$.
 Since it makes no reference to any unknown quantities, such as $P$, it can be interpreted as the out-of-sample prediction record of $M$ for the observed data ${\bf x}_{\mathrm{obs}}$.
 
-To test axioms, we will compare {\em encompassing} models, Bayesian discrete choice models where the prior density $f(P)$ has full support on $\Delta$, with {\em constrained} models, where the axiom of interest limits the support of $f(P)$ to the region $\Lambda \subseteq \Delta$ where the axiom holds.
-We will use subscripts to denote regions associated with particular axioms, so that $\Lambda_{\mathrm{SST}}$, for example, is the subset of $\Delta$ where strong stochastic transitivity holds.
-A constrained model is a Bayesian discrete choice model whose prior density over $\Delta$ is the truncation of the prior density in an encompassing model to $\Lambda$.
-We will test axioms by computing Bayes factors---explained below---comparing constrained with encompassing models.
-We will provide prior sensitivity analysis by comparing these Bayes factors across a set of encompassing models.
+We test axioms by comparing two Bayesian discrete choice models, an {\em encompassing} model and a {\em constrained} model using the ratio of their marginal likelihoods, known as a Bayes factor.
+Details about the comparison are described below in Section \ref{s:inference}.
+An encompassing model consists of a prior density $f(P)$ with full support on $\Delta$.
+For a given encompassing model and a given axiom, the constrained model consists of the prior density for $P$ obtained by truncating the prior density of the encompassing model to the region where the axiom holds.
+To test the regularity axiom, for example, the $\Lambda \subseteq \Delta$ 
 
 Other studies have tested axioms by computing Bayes factors in favour of a constrained model against an encompassing model, including \citeasnoun{CavaDavi14}, \citeasnoun{DaviBrowCava15}, \citeasnoun{MyunKaraIver05} and \citeasnoun{ZwilCavaRege11}.
 These used simple non-hierarchical priors on $P$ where the $P_A(\cdot)$ are {\em a priori} stochastically independent and uniformly distributed.
@@ -569,14 +570,14 @@ The final five columns show the corresponding choice proportions.
 
 Figure \ref{f:colours_figure} is a graphical representation that displays, among other things, choice proportions for all doubleton and tripleton menus of the ``Colours'' domain.
 The figure consists of ten panels, one for each tripleton subset of $\{a,b,c,d,e\}$.
-The panel for a given tripleton shows an equilateral triangle with each vertex labelled with one of its elements.
+The panel for a given tripleton shows an equilateral triangle with each vertex labelled with one of its three elements.
 Consider the first panel, for the tripleton $T \equiv \{a,b,c\}$, which we will use as an extended example.
 The vertices of the triangle are labelled $a$ (bottom left), $b$ (top) and $c$ (bottom right).
-There are four menus in this set, $\{a,b\}$, $\{a,c\}$, $\{b,c\}$ and $\{a,b,c\}$ and the choice proportions observed for these menus appear in rows 1 through 4 of Table \ref{t:colours_table}, respectively.
+There are four menus consisting of elements of $T$, $\{a,b\}$, $\{a,c\}$, $\{b,c\}$ and $\{a,b,c\}$, and the choice proportions observed for these menus are recorded in rows 1 through 4 of Table \ref{t:colours_table}, respectively.
 
-We can use an equilateral triangle as a Barycentric coordinate system for probabilities or proportions on a tripleton.
+We use the equilateral triangles as Barycentric coordinate systems for probabilities or proportions on a tripleton.
 For example, an arbitrary probability vector $(P_A(a),P_A(b),P_A(c))$ on $T$ is represented as the point on the (solid) triangle with Barycentric coordinates $(P_A(a),P_A(b),P_A(c))$.
-We have represented the observed vector $(\hat P_T(a), \hat P_T(b), \hat P_T(c)) = (\tfrac{19}{40}, \tfrac{15}{40}, \tfrac{6}{40}) = (0.475, 0.375, 0.15)$ of choice proportions observed in the experiment as a solid point in the interior of the triange.
+We have represented the observed vector $(\hat P_T(a), \hat P_T(b), \hat P_T(c)) = (\tfrac{19}{40}, \tfrac{15}{40}, \tfrac{6}{40}) = (0.475, 0.375, 0.15)$ of choice proportions observed in the experiment as a solid point in the interior of the triangle.
 There are two ways of locating this point on the triangle.
 First, we can take vertices $a$, $b$ and $c$ as points on the plane of the page or screen.
 Then the point $(\hat P_T(a),\hat P_T(b),\hat P_T(c)) = (0.475, 0.375, 0.15)$ is the convex combination of the vertices $a$, $b$ and $c$---which have Barycentric coordinates $(1,0,0)$, $(0,1,0)$ and $(0,0,1)$, respectively---with weights $0.475$, $0.375$ and $0.15$.
