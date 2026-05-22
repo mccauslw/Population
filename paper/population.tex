@@ -143,7 +143,7 @@ We learn something about these probabilities from the experiment: 21 participant
 Denote the observed proportion of times that an object $x$ is chosen from a \menu{} $A$, $x \in A \subseteq \univ$, by $\hat P_A(x)$.
 For example, we compute the observed choice proportions $\hat P_{\{a,b\}}(a) = 0.525$ and $\hat P_{\{a,b\}}(b) = 0.475$ for the ``Colours'' domain.
 
-Let $\Delta$ be the space of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of all choice probabilites and the requirement that on each \menu{} of the universe, choice probabilities add up to one.
+Let $\Delta$ be the set of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of choice probabilites and the requirement that choice probabilities on each \menu{} add up to one.
 
 We distinguish between two different interpretations of a RCS.
 An {\em individual} RCS governs the choices of a single individual; a {\em population} RCS, those of a random sample of individuals from a population.
@@ -189,7 +189,7 @@ We do exactly this in Section \ref{s:results}.
 \citeasnoun{BlocMars60} show that the Block-Marschak inequalities are necessary for random utility and \citeasnoun{Falm78} shows they are sufficient.
 Most discrete choice models used in applied work are random utility models, and thus they induce choice probabilities that satisfy the Reg and RU conditions.
 
-If $P$ satisfies the MI, then the probability of choosing Purple from the tripleton menu of Red, Purple and Pink ($a$, $b$ and $c$) has to be at least as great as the joint probability of choosing Purple over Red in pairwise choice and then Purple over Pink in pairwise choice.
+If $P$ satisfies the multiplicative inequality, then the probability of choosing Purple from the tripleton menu of Red, Purple and Pink has to be at least as great as the joint probability of two independent events: choosing Purple over Red in pairwise choice and then choosing Purple over Pink in pairwise choice.
 In the experiment, 15 out of 40 participants chose Purple from the tripleton menu, 19 out of 40 chose Purple over Red and 37 out of 40 chose Purple over Pink.
 Since $0.375 = \hat{P}_{\{a,b,c\}}(a) < \hat{P}_{\{a,b\}}(a) \hat{P}_{\{a,c\}}(a) = 0.439375$, the system of choice {\em proportions} violates the MI, but again, a test of MI (for choice {\em probabilities}) will take into account sampling variation and the multiple inequalities.
 
@@ -254,7 +254,7 @@ Other versions of each of these context effects have been proposed, and they hav
 See \citeasnoun{StobMarlMcCaTurn23} for a comprehensive discussion.
 
 The asymmetric dominance effect (sometimes known as the attraction effect) was introduced by \citeasnoun{HubePaynPuto82}, and pertains to choice environments with three objects and a dominance relation over these objects.
-The objects are a ``target'' $x$, a ``competitor'' $y$ and a ``decoy'' $z$; 
+The objects are a ``target'' $x$, a ``competitor'' $y$ and a ``decoy'' $z$;
 $x$ dominates $z$, but $y$ does not; neither $x$ nor $y$ dominates the other.
 In one experimental design from \citeasnoun{HubePaynPuto82}, objects are six-packs of beer with two attributes, price and quality rating.
 The target $x$ has a price of $\$1.80$ and a rating of 50.
@@ -307,7 +307,7 @@ See \citeasnoun{StobMarlMcCaTurn23} for details; different versions of context e
 \section{Models}\label{s:models}
 
 In this section we describe models for stochastic discrete choice data.
-These models treat choice objects as {\em a priori} indistinguishable, and we will use them to test conditions on random choice structures where objects are abstract. 
+These models treat choice objects as {\em a priori} indistinguishable, and we will use them to test conditions on random choice structures where objects are abstract.
 A {\em choice dataset} for a universe $\univ$ consists of choices observed, over a number of trials, from various \menus{} included in $\univ$.
 We denote a full dataset by $\mathbf{X}$ when it is interpreted as a random variable, and by $\mathbf{X}$ when interpreted as a possible fixed value.
 A particular choice of a RCS $P \in \Delta$, together with the iid assumption, fully describes a data generating process for $\mathbf{X}$, the distribution $\mathbf{x}|P$.
