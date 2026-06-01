@@ -17,8 +17,8 @@ TCD_triples <- list(c(3, 1, 5),
                     c(2, 1, 4),
                     c(2, 3, 4),
                     c(2, 5, 4))
-asy_dom_prior_Pr = rep(0, length(TCD_triples))
-asy_dom_post_Pr = rep(0, length(TCD_triples))
+rows <- list()
+city_names <- c("Warsaw", "London", "Vancouver", "Paris", "Seattle")
 
 for (i in 1:length(TCD_triples)) {
   TCD <- TCD_triples[[i]]
@@ -38,6 +38,21 @@ for (i in 1:length(TCD_triples)) {
   P_T_b_post_draw <- rbeta(M, alpha + N_b[1], alpha + N_b[2])
   post_Pr <- mean(pbeta(P_T_b_post_draw, alpha + N_t[[1]], 2*alpha + N_t[[2]] + N_t[[3]], lower.tail = FALSE))
 
-  cat(sprintf("%i\t%i\t%i\t(%i, %i)\t(%i, %i, %i)\t%f\t%f\n",
-         T, C, D, N_b[1], N_b[2], N_t[1], N_t[2], N_t[3], prior_Pr, post_Pr))
+  rows[[i]] <- data.frame(city_names[T], city_names[C], city_names[D],
+                          sprintf("$(%d,%d)$", N_b[1], N_b[2]),
+                          sprintf("$(%d,%d,%d)$", N_t[1], N_t[2], N_t[3]),
+                          sprintf("%.3f", prior_Pr),
+                          sprintf("%.3f", post_Pr),
+                          sprintf("%.3f", post_Pr/prior_Pr))
+  table <- do.call(rbind, rows)
+  names(table) <- c("Target", "Competitor", "Decoy",
+                    "$(N_T, N_C)$", "$(N_T, N_C, N_D)$",
+                    "Prior prob.", "Post. prob.", "Bayes factor")
+  asy_dom_table <- knitr::kable(
+    table,
+    format = "latex",
+    booktabs = TRUE,
+    escape = FALSE,
+  )
+  writeLines(asy_dom_table, con=here("paper/tables", "asy_dom_table.tex"))
 }
