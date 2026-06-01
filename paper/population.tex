@@ -26,7 +26,7 @@
 }
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}  % or inconsolata if you prefer
-%\renewcommand{\textttdefault}{lmtt}  % force Latin Modern Typewriter
+\renewcommand{\ttdefault}{lmtt}  % force Latin Modern Typewriter
 
 \graphicspath{
   {figures/}                     % figures created using R
@@ -59,10 +59,9 @@
 \setpagewiselinenumbers
 \modulolinenumbers[5]
 \linenumbers
-\doublespace
 \setstretch{1.5}
 
-\title{A choice experiment for testing stochastic discrete choice conditions}{}
+\title{A choice experiment for testing stochastic discrete choice conditions}
 \author[1]{William J. McCausland\thanks{Corresponding author, william.j.mccausland@umontreal.ca, ORCID: 0000-0002-9896-235X. Data and code are publicly available at the Github repository \texttt{https://github.com/mccauslw/Population}.}}
 \author[2]{A.A.J. Marley}
 \author[3]{Clintin P. Davis-Stober\thanks{ORCID: 0000-0002-6836-6979}}
@@ -92,8 +91,8 @@
 
 \section{Introduction}
 
-Discrete choice models are used extensively in economics, marketing, psychology and other disciplines.
-We focus on models describing the stochastic choice of a single option from each of a sequence of \menus{}.
+Discrete choice models, which describe the choices of decision makers from finite menus of options, are used extensively in economics, psychology, marketing, transportation research, health research and other disciplines.
+We focus on models describing the choice of a single option from each of a sequence of \menus{}.
 Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options, in \citeasnoun{Trai78}.
 Here, we contribute to a distinct and more abstract research agenda that collects evidence for or against, as the case may be, various testable conditions on choice probabilities, without regard to object attributes, across a wide variety of choice environments.
 An example of such a condition is {\em regularity}, which states that for all \menus{} $A$ and $B$ from a universe of objects such that $A \subseteq B$, the probability of choosing $x \in A$ when \menu{} $A$ is presented is no less than the probability of choosing $x$ when $B$ is presented.
@@ -639,6 +638,12 @@ Similarly, the upward pointing solid triangle with the red boundary is a cross-s
 For the given binary choice proportions, this solid triangle is the set of ternary choice proportions consistent with the multiplicative inequality and the observed  binary choice proportions.
 It is defined by the multiplicative inequalities on $\trip$, which simplify to $\hat P_\trip(a) \geq \hat P_{\{a,b\}}(a) \hat P_{\{a,c\}}(a)$, $\hat P_\trip(b) \geq \hat P_{\{a,b\}}(b) \hat P_{\{b,c\}}(b)$ and $\hat P_T(c) \geq \hat P_{\{a,c\}}(c) \hat P_{\{b,c\}}(c)$.
 The vector $(\hat P_\trip(a), \hat P_\trip(b), \hat P_\trip(c))$ of ternary choice proportions lies outside the red triangle and in particular, $\hat P_T(b) = 0.375$ is less than $\hat P_{\{a,b\}}(b) \hat P_{\{b,c\}}(b) = 0.475 \cdot 0.925 = 0.438375$.
+
+\begin{table}
+  \input{Tables/asy_dom_table.tex}
+  \caption{Asymmetric dominance table}
+  \label{t:asy_dom_table}
+\end{table}
 
 \begin{table}
   \input{Tables/colours_table.tex}
