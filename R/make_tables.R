@@ -35,5 +35,5 @@ bin_table <- kbl(tbl[2:33,table_vars], booktab = TRUE, digits = digits,
   add_header_above(c(' ', 'Model $M_{\\\\mathrm{ind}}$' = 3, 'Model $M_3$' = 3), escape=FALSE)
 writeLines(bin_table, con=here("paper/tables", "bin_table.tex"))
 
-count_proportion_table(RanCh::MMS_2019_counts['Colours', , ],
-                       here("paper/tables", "colours_table.tex"))
+count_proportion_table(RanCh::MMS_2019_counts['Latitude', , ],
+                       here("paper/tables", "latitude_table.tex"))

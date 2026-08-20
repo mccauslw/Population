@@ -1,14 +1,14 @@
 
 \begin{tabular}{llllllll}
 \toprule
-Target & Competitor & Decoy & $(N_T, N_C)$ & $(N_T, N_C, N_D)$ & Prior prob. & Post. prob. & Bayes factor\\
+Target & Competitor & Decoy & $(n_T^{(2)}, n_C^{(2)})$ & $(n_T^{(3)}, n_C^{(3)}, n_D^{(3)})$ & $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]$ & BF & $\ln \mathrm{BF}$\\
 \midrule
-Vancouver & Warsaw & Seattle & $(9,31)$ & $(9,30,2)$ & 0.332 & 0.452 & 1.359\\
-Vancouver & London & Seattle & $(11,29)$ & $(15,22,3)$ & 0.333 & 0.805 & 2.415\\
-Vancouver & Paris & Seattle & $(17,23)$ & $(26,14,0)$ & 0.332 & 0.969 & 2.916\\
-London & Warsaw & Paris & $(18,22)$ & $(14,24,2)$ & 0.333 & 0.162 & 0.487\\
-London & Vancouver & Paris & $(29,11)$ & $(24,14,2)$ & 0.333 & 0.096 & 0.290\\
+Vancouver & Warsaw & Seattle & $(9,31)$ & $(9,30,2)$ & 0.453 & 1.359 & 0.306\\
+Vancouver & London & Seattle & $(11,29)$ & $(15,22,3)$ & 0.805 & 2.415 & 0.882\\
+Vancouver & Paris & Seattle & $(17,23)$ & $(26,14,0)$ & 0.969 & 2.907 & 1.067\\
+London & Warsaw & Paris & $(18,22)$ & $(14,24,2)$ & 0.162 & 0.486 & -0.722\\
+London & Vancouver & Paris & $(29,11)$ & $(24,14,2)$ & 0.096 & 0.289 & -1.240\\
 \addlinespace
-London & Seattle & Paris & $(31,9)$ & $(25,7,8)$ & 0.334 & 0.056 & 0.168\\
+London & Seattle & Paris & $(31,9)$ & $(25,7,8)$ & 0.056 & 0.169 & -1.780\\
 \bottomrule
 \end{tabular}

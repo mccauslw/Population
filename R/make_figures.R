@@ -19,7 +19,7 @@ dma_table %>%
 	filter(axiom %in% c('none', 'reg', 'ru', 'mul'), model > 0, domain != 'Prior') %>%
 	ggplot(aes(x=model_ftr, y=lnBF_ma_rel, group=axiom, shape=axiom)) +
 		geom_point() + facet_wrap(nrow=4, ncol=8, vars(domain)) +
-		labs(x='Encompassing model', y='log Bayes factor') +
+		labs(x='Encompassing model', y='log Bayes factor', shape='Condition') +
     ylim(-2.5, NA)
 ggsave(here("paper/figures", "multiple_BF.pdf"))
 
@@ -35,10 +35,10 @@ for (i in 1:6)
 legend(x='topleft', legend = alpha, lty=lty_vals, title='Values of alpha')
 dev.off()
 
-# Figure with simplex plots for colours domain
-pdf(here("paper/figures", "colours_figure.pdf"), paper='special', width=12.5, height=5)
-P <- P_frequencies(RanCh::MMS_2019_counts['Colours', , ])
-op = graphics::par(mfrow=c(2, 5), mar = c(0, 0, 0.0, 0.0))
+# Figure with simplex plots for latitude domain
+pdf(here("paper/figures", "latitude_figure.pdf"), paper='special', width=7.5, height=10)
+P <- P_frequencies(RanCh::MMS_2019_counts['Latitude', , ])
+op = graphics::par(mfrow=c(4, 3), mar = c(0, 0, 0.0, 0.0))
 n <- 5
 tripletons <- u_const$tripletons[1:u_const$n_tripletons[n]]
 triple_v_list <- u_const$subset_vectors[tripletons]

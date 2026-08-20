@@ -454,126 +454,6 @@ This ratio also suggests a practical way of computing approximations of Bayes fa
 We compute prior and posterior probabilities of conditions numerically using the simulation methods described in \citeasnoun{McCaMarl14}.
 We compute numerical standard errors of prior and posterior probabilities using the OBM method and combine these standard errors to compute standard errors for Bayes factors using the delta method, introduced in \citeasnoun{Kell28}.
 
-\section{Experimental Design}\label{s:design}
-
-The experiment consisted of an internet survey conducted between August 10, 2017 and August 31, 2017.
-A total of 1042 participants completed the survey.
-Participants were recruited by Survey Sampling International (SSI) from their Canadian panel, designed to be representative of the Canadian adult population.
-According to the SSI Global Panel Book 2017, the Canadian panel consists of 577,356 members.
-SSI screens potential members for reliability and requires that all participants be at least 18 years of age.
-They also carefully verify the identity of their participants for each survey.
-The Canadian panel is 42\% male and 58\% female and has the following age distribution: the percentage of members in the age range 18-24 is 36\%; 25-34, 25\%; 35-54, 26\%; 55 and older, 13\%.
-Compensation of participants includes cash and other rewards.
-The Supplementary Materials include copies of the consent form, a Certificate of (ethics) Approval, the SSI Global Panel Book 2017, and a document describing in more detail the recruitment and compensation procedures followed by SSI.
-
-We chose not to impose any additional restrictions on our sample of participants.
-However, since invited participants must complete the survey to be included in the sample, there is some self-selection.
-We have full information on age, province or territory, and sex for all 1042 participants in our sample.
-There are 515 men (49.4\%) and 527 women (50.6\%).
-Age ranges from 18 to 88; the percentage of participants in the age bracket 18-24 is 11.4\%; 25-34, 17.8\%; 35-54, 38.3\%, 55 and older, 32.5\%.
-% quartiles of age were 32, 46 and 58.
-The number of participants in Alberta was 124; British Columbia, 136; Manitoba, 36; New Brunswick, 23; Newfoundland and Labrador, 16; Northwest Territories, 1; Nova Scotia, 29; Ontario, 391; Prince Edward Island, 4; Quebec, 251; Saskatchewan, 30; and Yukon, 1.
-No participant was in the territory of Nunavut.
-Participants could take as long as they liked to complete the survey.
-The quartiles of total duration were 7.1, 10.0 and 13.9 minutes.
-Three participants took longer than 24 hours, and the shortest duration was 1.7 minutes.
-Participants were given the opportunity to leave written feedback on the experiment upon completion.
-A complete list of participants' feedback is in the Supplementary Materials.
-Programming and hosting of the survey were provided by the Institute for Choice at the University of South Australia.
-
-Our experiment features $J=32$ choice domains, including fine art, travel itineraries and pizza toppings.
-Each domain consists of a universe of five related choice objects.
-The names of the choice domains are shown in Table \ref{t:domains}, together with the prompt (or an excerpt of the prompt, with excluded text indicated by an ellipsis) used to elicit a response from the participant.
-Figure \ref{f:screenshots} shows screenshots for the ``Travel'' and ``Coffee'' domains.
-The screenshot for the ``Travel'' domain shows a menu with two of the five choice objects in that domain.
-The screenshot for the ``Coffee'' domain shows a menu with four of the five choice objects in that domain.
-Appendix \ref{s:domains} describes each domain in more detail, including the question, the five choice objects and, where applicable, a source for the information used to construct the question.
-
-\begin{table}[h!]
-  \centering
-  \caption{Choice domains of the experiment, with prompt question}
-  \label{t:domains}
-  \begin{small}
-    \begin{tabular}{lp{12cm}}
-      Domain name & Question\\
-      \hline
-      Male stars & Which movie star would you choose to have lunch with? \\
-		  Female stars & Which movie star would you choose to have lunch with? \\
-		  Films & Judging from the following descriptions of films, which one of the films would you choose to see? \\
-		  Star pairs & Knowing only who is starring, which one of these new films would you choose to see? \\
-		  Pizzas & Which one of the following pizzas would you choose? \\
-		  Juices & Which one of the following fresh juices would you choose? \\
-		  Colours & Which one of the following colours do you like best? \\
-		  Colour combos & Which one of these colour combinations do you like best? \\
-		  Events & Which one of the following events do you think is most likely to happen in the next twenty years? \\
-		  Radio formats & Suppose you were on a two hour road trip and you have a choice among radio stations with the following formats.
-Which one would you choose? \\
-		  Music & Which one of the following musical artists do you like the best? \\
-		  Aboriginal & Which one of the following examples of Australian aboriginal art do you like the best? \\
-		  Impressionist & Which one of the following examples of Impressionist art do you like the best? \\
-		  Sentences & Which one of the following sentences do you find the most grammatically acceptable? \\
-		  Travel & Which one of the following travel destinations would you most like to visit? \\
-		  Marijuana & Which one of the following marijuana policies would you choose? \\
-		  Latitude & Which one of the following cities do you think is furthest north? \\
-		  Dots & Which one of the following boxes do you think has the greatest number of points? \\
-		  Triangles & Which one of the following triangles do you think has the greatest area? \\
-		  Population & Which one of the following countries do you think has the largest population? \\
-		  Surface area & Which one of the following countries do you think has the greatest surface area, including inland bodies of water? \\
-		  Beer & ... Given that you had to choose one brand to buy on this information alone, which one would you choose? \\
-		  Cars & Which one of the following cars would you choose to drive, all other features being equal? ... \\
-		  Restaurants & Which one of the following restaurants would you choose for your next restaurant meal...? \\
-		  Layovers & Which one of the following flight itineraries would you choose? ... \\
-		  Future & Which one of the following would you choose? \\
-		  Phone plans & Of the following cell phone plans, which one would you choose? ... \\
-		  Hotel rooms & ... Which one of the following hotels would you choose, ...? \\
-		  Itineraries & Which one of the following flight itineraries would you choose? ... \\
-		  Televisions & Which one of the following televisions would you choose to buy ...? \\
-		  Coffee & Which one of the following ground coffees would you choose? \\
-		  Charity & Suppose someone was donating a total of 100 dollars to a combination of charities, on your behalf.
-      Which one of the following divisions of the 100 dollars would you choose? \\
-    \end{tabular}
-  \end{small}
-\end{table}
-
-For each of the $J=32$ choice domains, there are $I=2^{5}-5-1=26$ \menus{} (binary and larger subsets of the five-element universe), for a total of $JI=832$ \menus{}.
-During the experiment, each participant faces exactly one \menu{} from each domain, so the number of choice trials for each participant is the same as the number of domains, $J=32$.
-
-Our experimental design assigns participants to \menus{} as follows.
-For each domain, each of the $I = 26$ \menus{} of that domain is presented $N=40$ times, once to each of $N$ distinct participants.
-So for the ``Colours'' domain, for example, $40$ different participants see the \menu{} $\{\texttt{Green}, \texttt{Blue}\}$ and another $40$ see the \menu{} $\{\texttt{Blue}, \texttt{Red},\texttt{Purple}\}$, and so on for all the menus of that domain.
-With $I=26$ menus in total, we have $NI = 40\cdot 26 = 1040$ distinct participants, each choosing a colour from some menu of colours.
-For another domain, we observe the same 1040 participants choosing one object from some menu of that other domain and again, each of the $26$ menus of the other domain is seen by $40$ different participants.
-
-Thus the total number of trials is $NIJ=40 \cdot 26 \cdot 32 = 33,280$, which we can factor in different ways.
-Each of the $NI = 1040$ particpants sees one menu from each of the $J=32$ domains for a total of $NI \cdot J$ trials.
-Each of the $J=32$ domains has $I=26$ menus and each of these $JI = 32\cdot 26 = 832$ \menus{} is seen by $N=40$ participants, for a total of $JI \cdot N$ trials.
-
-Assignments of participants to \menus{} and the positions of menu items on the screen are random.
-For each domain, the participants are randomly partitioned into $I=26$ groups of size $N=40$, with participants in each group seeing the same \menu{} from that domain.
-Random partitions are uniformly distributed and mutually independent across domains, so it is unlikely that any two participants will be in the same group and thus see the same \menu{} more than a couple of times.
-Elements of a \menu{} are presented in random position (left to right or top to bottom, as the case may be) on the screen, independently across the $N$ participants facing that same \menu{}.
-The $J$ trials assigned to each participant are presented in random order, independently across participants, so it is exceedingly unlikely that two participants see the domains in the same order.
-Random partitions, positions and trial order are mutually independent.
-
-In the event, two extra participants completed the experiment, and their choices were included in the analysis.
-For each domain, exactly two \menus{} were presented 41 times and the remaining 24 \menus{} were presented 40 times, as planned.
-Thus the actual total number of trials is 33,344.
-
-Participants are constrained to choose exactly one object from each \menu{}.
-For some domains, participants select radio buttons and in others, they select pictures, which are then identified by a border.
-Figure \ref{f:screenshots} shows one screenshot for each kind of domain.
-In each case, participants can modify their choice before they confirm it by clicking on a button labelled ``$>>$''; once they click this button, they cannot go back and change their response.
-A progress bar indicates progress through the experiment.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=15cm]{screenshot_travel.png}
-	\includegraphics[width=15cm]{screenshot_coffee.png}
-	\caption{A screenshot for the ``Travel'' domain, in which participants select pictures, and a screenshot for the ``Coffee'' domain, in which participants select radio buttons. In the experiment and in electronic versions of this paper, these photographs are in colour.}\label{f:screenshots}
-\end{figure}
-
-Data and code are available in the Supplementary Materials.
-
 \section{Results}\label{s:results}
 
 We begin by discussing constraints on generality.
@@ -640,12 +520,6 @@ It is defined by the multiplicative inequalities on $\trip$, which simplify to $
 The vector $(\hat P_\trip(a), \hat P_\trip(b), \hat P_\trip(c))$ of ternary choice proportions lies outside the red triangle and in particular, $\hat P_T(b) = 0.375$ is less than $\hat P_{\{a,b\}}(b) \hat P_{\{b,c\}}(b) = 0.475 \cdot 0.925 = 0.438375$.
 
 \begin{table}
-  \input{Tables/asy_dom_table.tex}
-  \caption{Asymmetric dominance table}
-  \label{t:asy_dom_table}
-\end{table}
-
-\begin{table}
   \input{Tables/colours_table.tex}
   \caption{Observed choice counts and proportions for the ``Colours'' domain, where the prompt is ``Which one of the following colours do you like best?'' and the universe of objects is $\{a,b,c,d,e\}$, where $a$ is Red, $b$ is Purple, $c$ is Pink, $d$ is Blue and $e$ is Green. Analogous tables for all domains are in the Supplementary Materials.}
   \label{t:colours_table}
@@ -657,7 +531,74 @@ The vector $(\hat P_\trip(a), \hat P_\trip(b), \hat P_\trip(c))$ of ternary choi
 	\includegraphics[width=16cm]{colours_figure.pdf}
 \end{figure}
 
-\subsection{Tests of conditions using Bayes factors}
+\subsection{Tests of context effects using Bayes factors}
+
+\begin{table}
+  \input{Tables/asy_dom_table.tex}
+  \caption{Data and test results for six candidate attraction effects in the Latitude domain. Each row gives a configuration of target, competitor and decoy options where we might expect an attraction effect. The fourth column gives the numbers of participants choosing the target and competitor when the menu is this pair of options. The fifth column gives the numbers of participants choosing the target, competitor and decoy when the menu is the set of these three options. The sixth and seventh columns give the prior and posterior probabilities of the hypothesis that the attraction effect holds. The last two columns give the Bayes Factor and log Bayes Factor in favour of the hypothesis that the attraction effect holds.}
+  \label{t:asy_dom_table}
+\end{table}
+
+Here we provide a worked example showing how to apply Bayesian model comparison methods, supported by Monte Carlo simulation tools, to test whether or not a context effect holds in a given situation.
+We take the Latitude domain and consider six possible attraction effects, based on the dominance relation, proposed in Section \ref{s:intro}, that puts Vancouver over Seattle and London over Paris.
+Each row of Table \ref{t:colours_table} describes one candidate attraction effect and reports test results for the hypothesis that the effect holds.
+The first three columns identify the target (T), competitor (C) and decoy (D) options that define the case.
+The fourth column gives the number of participants that choose the target and competitor, respectively, when the menu is this pair of options.
+The fifth column gives the number of participants that choose the target, competitor and decoy, respectively, when the menu is this three-element set.
+
+For the encompassing model, we choose the simple prior distribution where the two probability vectors $(P_{\{T,C\}}(T), P_{\{T,C\}}(C))$ and $(P_{\{T,C,D\}}(T), P_{\{T,C,D\}}(C), P_{\{T,C,D\}}(D))$ are independent and each is uniformly distributed on the region where its elements are non-negative and add to one.
+Thus, the prior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1,1)$ and that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1,2)$, where $\mathrm{Be}(\alpha,\beta)$ denotes the Beta distribution with shape parameters $\alpha$ and $\beta$.
+
+The prior independence of the choice probabilities $P_{\{T,C\}}(T)$ and $P_{\{T,C,D\}}(T)$ and the independence of participants choices, within and across menus, imply the posterior independence of these probabilities.
+The posterior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))$ and that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1 + N_{\{T,C,D\}}(T), 2 + N_{\{T,C,D\}}(C)) + N_{\{T,C,D\}}(D))$. 
+
+The hypothesis we wish to test is that the attraction effect holds, or equivalently, that $P_{\{T,C\}}(T) < P_{\{T,C,D\}}(T)$.
+Taking $\Lambda$ to be the event that $P_{\{T,C\}}(T) < P_{\{T,C,D\}}(T)$, we truncate the prior distribution for the encompassing model to the set $\Lambda$ and use this as the prior distribution for the constrained model.
+Then the Bayes factor in favour of the constrained model over the encompassing model is $\Pr[\Lambda|N]/\Pr[\Lambda]$, the ratio of posterior to prior probability of the effect under the encompassing model.
+
+We use Monte Carlo simulation methods to estimate the numerator $\Pr[\Lambda]$ and denominator $\Pr[\Lambda|N]$ of the Bayes factor.
+We will apply a variance reduction technique called Rao-Blackwellization to obtain high numerical precision.
+Denote the cumulative distribution function for the distribution $\mathrm{Be}(\alpha, \beta)$ by $F_{\mathrm{Be}}(\cdot;\alpha, \beta)$.
+Then $F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1, 1)$, the prior cdf of $P_{\{T,C\}}(T)$ evaluated at the random variable $P_{\{T,C,D\}}(T)$, is the conditional prior probability of $\Lambda$ given $P_{\{T,C,D\}}(T)$.
+Therefore $E[F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1, 1)]$ is the marginal prior probability $\Pr[\Lambda]$, where the expectation is taken with respect to the prior distribution of $P_{\{T,C,D\}}(T)$.
+Similarly, $F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))$ is the conditional {\em posterior} probability of $\Lambda$ given $P_{\{T,C,D\}}(T)$ and its posterior expectation is $\Pr[\Lambda|N]$.
+
+As estimators of these expectations, we use their sample mean counterparts.
+To estimate $\Pr[\Lambda]$, we first draw a iid sample of size $M$ from the {\em prior} distribution of $P_{\{T,C,D\}}(T)$: $P^{(m)}_{\{T,C,D\}}(T)$, $m=1,\ldots,M$.
+The standard strong law of large numbers for independent draws and bounded random variables ensures the following almost sure (a.s.) convergence:
+\[
+	\frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T); 1, 1)
+	\overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda],
+\]
+Similarly, for an iid sample $P^{(m)}_{\{T,C,D\}}(T)$, $m=1,\ldots,M$, from the {\em posterior} distribution of $P_{\{T,C,D\}}(T)$, the distribution $\mathrm{Be}(1 + N_{\{T,C,D\}}, 2 + N_{\{T,C,D\}}(C) + N_{\{T,C,D\}}(C))$, we have 
+\[
+	\frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T); 1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))
+	\overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda|N].
+\]
+We estimated $\Pr[\Lambda]$ and $\Pr[\Lambda|N]$ using samples of size $M = 10^6$.
+We computed the usual numerical standard errors of the estimators and found all to be less than 0.0003.
+
+Columns six and seven of Table \ref{t:asy_dom_table} give numerical estimates of $\Pr[\Lambda]$ and $\Pr[\Lambda|N]$, the prior and posterior probabilities of the attraction effect under the encompassing model.
+The final two columns give the Bayes Factor (BF), equal to the ratio $\Pr[\Lambda|N]/\Pr[\Lambda]$, and its natural logarithm.
+
+The evidence favours the attraction effect for the three cases where the target is Vancouver and the decoy is Seattle.
+In constrast, it favours the encompassing model for the three cases where the target is London and the decoy is Paris.
+Observations from menus consisting of the proposed target and decoy options provide some independent evidence on the plausibility of the two dominance relations, and these suggest that Seattle is a more convincing decoy for Vancouver than Paris is for London.
+Of the participants who saw the menu of Vancouver and Seattle, 36 chose Vancouver and 4 chose Seattle.
+Of those who saw the menu of London and Paris, only 32 chose London and 8 chose Paris.
+
+We can use the guidelines recommended by \citeasnoun{KassRaft95} to classify the strength of the evidence provided by the Bayes Factors.
+They classify log Bayes factors between 0 and 1 as ``not worth more than a bare mention'', those between 1 and 3 as providing ``positive evidence'', those between 3 and 5 as providing ``strong evidence'' and those above 5 as providing ``very strong evidence''.
+We will adopt these categories throughout the paper, but refer to the first two as giving ``weak'' evidence and ``moderate'' evidence.
+
+By this reckoning, there is moderate evidence in favour of the attraction effect when the target is Vancouver, the competitor is Paris and the decoy is Seattle and moderate evidence against the attraction effect when the target is London, the decoy is Paris and the competitor is either Vancouver or Seattle.
+
+We can also consider joint hypotheses, such as the hypothesis that the attraction effect holds in all three cases where the target is Vancouver and the decoy is Seattle.
+The log Bayes factor in favour of this joint hypothesis is the sum of the individual log Bayes factors, or 2.253.
+This is stronger evidence, but still not ``strong'' according to the standards of \citeasnoun{KassRaft95}.
+The log Bayes factor in favour of the joint hypothesis that the attraction effect holds in all three cases where the target is London and the decoy is Paris is -3.744, which implies ``strong'' evidence against the joint hypothesis.
+
+\subsection{Tests of abstract conditions using Bayes factors}
 
 For each choice domain, we computed log\footnote{All logarithms are natural (base $e$) logarithms.} marginal likelihoods for the three encompassing models, $M_1$, $M_2$ and $M_3$, and for the constrained models defined by all possible pairs of encompassing model and condition (Reg, RU or MI).
 Recall that the log marginal likelihood summarizes the out-of-sample prediction record of a model, and the log Bayes factor for comparing any two of these twelve models is the difference between their log marginal likelihoods.
@@ -665,8 +606,6 @@ Recall that the log marginal likelihood summarizes the out-of-sample prediction 
 We report log Bayes factors for all twelve models relative to the encompassing model $M_3$, to establish a reference level of zero on a scale of out-of-sample predictive performance; by definition, the log Bayes factor for $M_3$ relative to itself is zero.
 We choose $M_3$ as the reference model because it had the best out-of-sample prediction record (measured by log marginal likelihood) of the three encompassing models for 31 out of the 32 domains, but the choice is fairly arbitrary.
 All other Bayes factors can be computed as differences of these: a Bayes factor is the difference between the marginal likelihoods of two models, also equal to the difference between their respective Bayes factors relative to the {\em same} reference model, here $M_3$.
-
-\citeasnoun{KassRaft95} classify log Bayes factors between 0 and 1 as ``not worth more than a bare mention'', those between 1 and 3 as providing ``positive evidence'', those between 3 and 5 as providing ``strong evidence'' and those above 5 as providing ``very strong evidence''. We will adopt these categories, but refer to the first two as giving ``weak'' evidence and ``moderate'' evidence.
 
 Figure \ref{f:multiple_BF} gives, for each choice domain, log Bayes factors for various combinations of condition and encompassing model, relative to encompassing model $M_3$.
 Bayes factors between any two models can be read off as vertical distances between two points.
