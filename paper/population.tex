@@ -1,21 +1,17 @@
 \documentclass[11pt,letter]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage{graphicx}
-\usepackage{amssymb}
+
+\usepackage{booktabs}
 \usepackage{amsmath}
-\usepackage{multirow}
-\usepackage{epstopdf}
-\usepackage{setspace}
-\usepackage{currfile}
-\usepackage[abbr]{harvard}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{graphicx}
 \usepackage[pagewise]{lineno}
-\usepackage{xcolor}
-\usepackage{framed}
-\definecolor{shadecolor}{rgb}{0.9,0.9,0.9}
-\usepackage{tcolorbox}
-\usepackage{gensymb}
-\usepackage{array,booktabs}
+\usepackage{authblk}
+\usepackage{setspace}     % Spacing
+\usepackage{tcolorbox}    % Box around menu items
+\usepackage{gensymb}      % For degrees notation in latitudes
 \usepackage{enumitem}
 \setlist[itemize]{
   itemsep=3pt,       % spacing between items
@@ -24,21 +20,12 @@
   partopsep=0pt,     % extra space when list starts a paragraph
   before=\setlength{\baselineskip}{12pt}  % line spacing within items
 }
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}  % or inconsolata if you prefer
-\renewcommand{\ttdefault}{lmtt}  % force Latin Modern Typewriter
 
 \graphicspath{
   {figures/}                     % figures created using R
   {../experiment/screenshots/}   % screenshots from experiment
   {../experiment/figures/}       % figures used in experiment
 }
-\DeclareMathOperator{\Be}{Be}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\sd}{sd}
-\DeclareMathOperator{\var}{Var}
-\DeclareMathOperator{\cov}{Cov}
-\DeclareMathOperator{\diag}{diag}
 
 \newcommand{\menu}{menu}
 \newcommand{\menus}{menus}
@@ -46,23 +33,17 @@
 \newcommand{\univ}{U}
 \newcommand{\trip}{T}
 
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black
-}
-\usepackage{authblk}
-
 \setpagewiselinenumbers
 \modulolinenumbers[5]
 \linenumbers
 \setstretch{1.5}
 
 \title{A choice experiment for testing stochastic discrete choice conditions}
-\author[1]{William J. McCausland\thanks{Corresponding author, william.j.mccausland@umontreal.ca, ORCID: 0000-0002-9896-235X. Data and code are publicly available at the Github repository \texttt{https://github.com/mccauslw/Population}.}}
+\author[1]{William J. McCausland\thanks{Corresponding author, william.j.mccausland@umontreal.ca, ORCID: 0000-0002-9896-235X.
+This work was supported by the Social Sciences and Humanities Research Council of Canada under Insight grant SSHRC 435-2012-0451 to the University of Victoria for Marley and McCausland.
+The authors are grateful to the Institute for Choice at the University of South Australia for programming and hosting the survey; Survey Sampling International for recruiting participants; the participants themselves; audiences at various conferences for insightful questions and helpful suggestions; and referees for helpful comments and suggestions.
+We used ChatGPT for copyediting.
+Supplementary materials, including data, code and documents related to the experiment, are publicly available at the GitHub repository \texttt{https://github.com/mccauslw/Population}.}}
 \author[2]{A.A.J. Marley}
 \author[3]{Clintin P. Davis-Stober\thanks{ORCID: 0000-0002-6836-6979}}
 \affil[1]{D\'epartement de sciences \'economiques and CIREQ, Universit\'e de Montr\'eal, Canada}
@@ -77,325 +58,791 @@
 
 \begin{abstract}
   We run an experiment covering 32 different choice domains, including fine art, cars and pizza.
-  For each domain, there is a set of 5 related objects, and 26 \menus{}---the subsets of two or more objects.
-  We measure population level choice probabilities by presenting each \menu{} to 40 participants and observing their choices of a single object.
-  The purpose of the experiment is to allow tests of various conditions over choice probabilities, over a wide variety of choice domains. It is particularly well suited for testing conditions, like regularity, random utility and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
-	Each participant faces exactly one \menu{} from each domain; for between-subject designs like this, the assumption that choices are independent across trials, and on each \menu{}, identically distributed, is plausible.
-	Participants are representative of the Canadian adult population.
-	For each domain and each of the three conditions above, we report Bayes factors giving evidence for or against the condition.
-	Evidence supports regularity and random utility, conditions that most discrete models satisfy, across all domains; for the multiplicative inequality, a condition satisfied by independent random utility models and the Elimination by Aspects model, evidence ranges from favorable to strongly unfavorable.
-	\\
-	Key words: Discrete choice, Stochastic choice, Choice experiment, Context effects, Random utility, Bayesian inference \\
-	JEL codes: C11, C12, C15, C35, C91, D01, D90.
+  For each domain, there is a set of five related items, and 26 \menus{}---the subsets of two or more items.
+  We measure population-level choice probabilities by presenting, within each domain, each of its 26 \menus{} to a distinct group of at least 40 participants (1042 participants in total) and observing each participant's choice of one option.
+  Each participant faces exactly one \menu{} per domain.
+  The purpose of the experiment is to allow tests of various conditions over choice probabilities, over a wide variety of choice domains.
+  It is particularly well suited for testing conditions, like regularity, the random utility condition and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
+  For each domain and each of the three conditions above, we report Bayes factors giving evidence for or against the condition.
+  Regularity and random utility, conditions that most discrete choice models satisfy, survive this battery of tests: across the 32 domains, Bayes factors generally support them and nowhere is there more than slight evidence against them.
+  In contrast, very strong evidence against the multiplicative inequality in three domains shows that it cannot be considered as a universal condition on population-level choice.
+  Classes of models implying the multiplicative inequality---including the classes of independent random utility models and Elimination by Aspects models---are not universally adequate for modelling population-level choice.
+  \\
+  Key words: Discrete choice, Stochastic choice, Choice experiment, Context effects, Random utility, Bayesian inference \\
+  JEL codes: C11, C12, C15, C35, C91, D01, D90.
 \end{abstract}
 
-\section{Introduction}
+
+\section{Introduction}\label{s:intro}
 
 Discrete choice models, which describe the choices of decision makers from finite menus of options, are used extensively in economics, psychology, marketing, transportation research, health research and other disciplines.
-We focus on models describing the choice of a single option from each of a sequence of \menus{}.
-Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options, in \citeasnoun{Trai78}.
-Here, we contribute to a distinct and more abstract research agenda that collects evidence for or against, as the case may be, various testable conditions on choice probabilities, without regard to object attributes, across a wide variety of choice environments.
-An example of such a condition is {\em regularity}, which states that for all \menus{} $A$ and $B$ from a universe of objects such that $A \subseteq B$, the probability of choosing $x \in A$ when \menu{} $A$ is presented is no less than the probability of choosing $x$ when $B$ is presented.
-Most would find it counterintuitive if an option in a \menu{} were more likely to be chosen when another option is added to the \menu{}, whatever the choice domain and the attributes of the options in question.
-One important objective of the broader research agenda this work is a part of is to find conditions that are empirically plausible across a wide variety of choice domains.
-This is important for the development and refinement of descriptive theories of choice, which constrain choice probabilities in different ways; for example, most discrete choice models satisfy regularity.
-To this end, we abstract away from object attributes and, for the purposes of statistical inference treat choice objects in a given universe as {\em a priori} indistinguishable: before observing choices among objects, all we know about an object is its index, allowing us to follow the object across all the \menus{} that include it.
-In different applications, choice data observed over several trials may be a sequence of choices made by a single decision maker or the choices of a sample of decision makers randomly selected from a population.
+Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options (e.g. \citeauthor{Trai78}, \citeyear{Trai78}).
+Here, we contribute experimental data to a distinct and more abstract research agenda that collects evidence for or against, as the case may be, various testable conditions on choice probabilities, without regard to item attributes, across a wide variety of choice environments.
 
-This paper advances this abstract choice research agenda by contributing new experimental data and some preliminary empirical analysis.
-The data serve the research agenda in several ways.
-First, the experiment includes a wide variety of choice domains.
-We observe participants choosing from \menus{} from 32 different domains, including fine art, cars and pizza.
-One can use this data to see which choice patterns are more universal and which are more idiosyncratic.
-Second, for each domain, we observe choices from every \menu{}; that is, from each set of at least two objects from the domain.
-Each domain has five objects, and thus\footnote{From the $2^5 = 32$ subsets of a set of 5 objects, we subtract 5 singleton sets and the empty set.} 26 \menus{}.
-For each \menu{} of each domain, we observe the choices of 40 different participants, allowing us to measure population choice probabilities with some precision.
-For conditions such as regularity, which constrains choice probabilities across all \menus{} of a domain, measuring all choice probabilities allows us to expose all implications of the condition to possible falsification.\footnote{Here and elsewhere, we use the term falsification in a statistical, rather than a strict  Popperian, sense. We take it to mean strong and compelling statistical evidence, either Bayesian or frequentist, against a hypothesis.}
-Third, the experiment features a strictly between-subject design, where each participant faces exactly one \menu{} from each domain.
-For these designs, the standard assumption that choices are independent across trials, and on each \menu{} identically distributed, is plausible.
+Consider the following choice experiment, one of 32 we performed using an internet survey.
+We asked each participant ``Which one of the following cities do you think is furthest north?'' and then presented them with one {\em menu}, a list of at least two options taken from the following set of five cities: Warsaw, Poland; London, United Kingdom; Vancouver, Canada; Paris, France; and Seattle, United States.
+The experimental manipulation consisted of varying the menu across participants.
+There are 26 possible menus from the set of five cities and we presented each \menu{} to a distinct group of 40 or 41 participants (1042 participants in total).
+Table \ref{t:latitude_table} shows the choice counts we observed, by menu and item.
 
-To demonstrate the kind of empirical analysis that we can perform using these data, we perform tests of three conditions for which the new data are particularly well suited: regularity, random utility and the multiplicative inequality.
-We do this for each of the 32 choice domains of the experiment, using Bayesian methods developed in two previous papers.
-\citeasnoun{McCaMarl13} develops non-parametric models, defined up the choice of a prior distribution, for systems of choice probabilities.
-The paper also provides tools for detecting whether or not a given system of probabilities satisfies each of a variety of testable conditions.
-\citeasnoun{McCaMarl14} provides methods for the simulation of choice probabilities from their posterior distribution, for these non-parametric models.
-It also describes methods for testing conditions using Bayes factors.
-Together, the two papers establish a testing ground for various conditions, not limited to those studied in those papers.
+\begin{table}
+  \input{tables/latitude_table.tex}
+  \caption{Observed choice counts and proportions for the ``Latitude'' domain, where the prompt is ``Which one of the following cities do you think is furthest north?'' and the universe of items is $\{a,b,c,d,e\}$, where $a$ is Warsaw, Poland; $b$ is London, United Kingdom, $c$ is Vancouver, Canada; $d$ is Paris, France; and $e$ is Seattle, United States.
+  Each row gives counts and proportions for the \menu{} shown in the first column.
+  The second through sixth columns show the number of participants who chose the items $a$, $b$, $c$, $d$ and $e$, respectively, from the \menu{}.
+  $n_A(x)$ is the number of participants who chose item $x$ from \menu{} $A$, $x = a, b, c, d, e$.
+  Where an item is not in the \menu{}, a dash is displayed.
+  Thus, a zero unambiguously means that an item was available but never chosen from the \menu{} in question. 
+  The final five columns show the corresponding choice proportions.
+  $\hat{P}_A(x)$ is the proportion of participants who chose item $x$ from \menu{} $A$.
+  Analogous tables for all 32 domains are provided in the supplementary materials.}
+  \label{t:latitude_table}
+\end{table}
 
-We emphasize that the conditions we test here are three examples among many, and it is beyond the scope of this paper to consider more than a few.
-\citeasnoun{Fish99} documents many conditions, including conditions that have been proposed as reasonable assumptions about choice behaviour and conditions that are testable implications of different choice theories and choice models.
-The context effects literature has proposed several conditions that are predicted to occur in specific contexts.
-While we do not do any empirical analyses of context effects, we do discuss them here because many of the choice domains in the experiment are designed to elicit context effects.
-Including these domains contributes to the objectives of providing a wide diversity of choice domains and allowing (future) investigations of context effects.
+The following examples illustrate several themes of the paper.
+From the menu of Vancouver and Paris, 17 out of 40 participants chose Vancouver and 23 chose Paris; from the menu of Vancouver, Paris and Seattle, 26 out of 40 chose Vancouver; 14, Paris; and none, Seattle.
+It appears that adding Seattle to the menu of Vancouver and Paris increases the probability that participants choose Vancouver.
+This would be a violation of a condition on choice probabilities known as {\em regularity}, which holds that if you add an option to a menu, the probability of choosing an existing option cannot increase.
 
-We also emphasize that we make these data public, allowing others to investigate other conditions, using whatever inferential methods they wish.
+Regularity is one of many stochastic choice conditions that have been studied in the discrete choice literature.
+It is easy to understand and has some intuitive appeal as a plausible axiom of choice.
+We will see later that it is a condition that is implied by a large class of choice models.
+Regularity can be regarded as a hypothesis and tested directly, allowing us to draw conclusions about this class of models without estimating model parameters.
+It consists of a set of inequalities that jointly constrain choice probabilities across all 26 menus of the five-item universe described above.
+Finally, regularity is an abstract condition: it makes no reference to attributes of various options and can therefore be applied across very different choice environments.
 
-\subsection{Preliminaries}
+Regularity, and other conditions implied by various classes of models, are targets of a large literature on {\em context effects}.
+This literature gathers empirical evidence against these conditions, and by extension, the models that imply them.
+The attraction effect, for example, occurs when adding an option that is clearly inferior to one option in a menu increases the probability of choosing the superior option, a clear violation of regularity.
+We designed the Latitude domain to include configurations of cities conducive to an attraction effect, based on our conjecture that it would be obvious to most participants, drawn from a panel of Canadian residents, that Vancouver is north of Seattle and would be seen as a clearly superior option.
+Indeed, from the \menu{} consisting of these two cities, 36 chose Vancouver and 4 chose Seattle.
+The choice counts reported above reveal that when Seattle is added to the menu of Vancouver and Paris, the proportion of participants choosing Vancouver increased.
+This provides preliminary evidence for the attraction effect, but to assess the strength of the evidence, we must take into account sampling variation.
 
-Let $\univ = \{x_1,\ldots,x_n\}$ be a universe of choice objects.
-When faced with a non-empty \menu{} $A \subseteq \univ$, an agent chooses a single object from $A$.
-The probability that the agent chooses $x \in A$ is denoted $P_A(x)$.
-A {\em random choice structure} (RCS) on $\univ$ is the complete specification of the system of choice probabilities $P_A(x)$, $x \in A \subseteq \univ$, and is denoted $P$.
-We will write $\univ = \{a,b,c,d,e\}$ for a generic universe with five elements; for the ``Colours'' domain of the experiment, the prompt is ``Which one of the following colours do you like best?'', $a$ is Red, $b$ is Purple, $c$ is Pink, $d$ is Blue, and $e$ is Green.
-One of the 26 menus is $\{a,b\}$; $P_{\{a,b\}}(a)$ and $P_{\{a,b\}}(b)$ are the probabilities of choosing Red and Purple from the menu consisting of these two options.
-We learn something about these probabilities from the experiment: 21 participants chose Red and 19 chose Purple, as we can see in the first row of Table \ref{t:colours_table} of Section \ref{s:results}, which tabulates choice counts for each of the 26 \menus{} of the ``Colours'' domain.
-Denote the observed proportion of times that an object $x$ is chosen from a \menu{} $A$, $x \in A \subseteq \univ$, by $\hat P_A(x)$.
-For example, we compute the observed choice proportions $\hat P_{\{a,b\}}(a) = 0.525$ and $\hat P_{\{a,b\}}(b) = 0.475$ for the ``Colours'' domain.
+The main contribution of this paper is a publicly available dataset designed for testing abstract stochastic choice conditions, such as regularity, across a wide range of choice domains.
+The experiment includes 32 diverse choice domains, including fine art, cars, and pizza; this variety allows us and others to discover properties of random choice behaviour that hold widely.
+Some domains are specifically designed to be conducive to the attraction effect or other context effects.
+We do so to stress-test conditions that are inconsistent with the effects and, more generally, to promote choice patterns that many consider anomalous.
+Measuring choice probabilities on all menus allows us to test, jointly, the complete set of implications of a condition, such as regularity, that constrains choice probabilities over all menus.
+In this way, we can expose every implication of the condition to empirical scrutiny.
+Any unfavourable evidence is evidence against decision theories that imply the condition.
 
-Let $\Delta$ be the set of random choice structures; $\Delta$ is a subset of Euclidean space defined by the non-negativity of choice probabilites and the requirement that choice probabilities on each \menu{} add up to one.
+Section \ref{s:framework} develops the probabilistic framework.
+It documents three conditions on choice probabilities in detail, including regularity, and points to others in the literature.
+It discusses the applicability of population-level data to inferences about individual-level behaviour.
+It describes three context effects and outlines the motivation for designing some of the domains to favour them.
+Section \ref{s:design} describes the experimental design in detail.
+Section 4 reviews the Bayesian models and inferential methods used in the empirical illustrations.
+These methods are adapted from earlier work but are summarized here to make the paper reasonably self-contained and reproducible.
+Section \ref{s:results} illustrates some analyses that are possible using our data,
+including tests of the three conditions described in Section 2 and an example of testing for context effects.
+Section \ref{s:trans} contains statements of transparency and openness and describes where to find data, code, and documents related to the experiment.
+Section \ref{s:conclude} concludes.
 
-We distinguish between two different interpretations of a RCS.
-An {\em individual} RCS governs the choices of a single individual; a {\em population} RCS, those of a random sample of individuals from a population.
-Note that if each individual in a population is governed by an individual RCS then the population RCS will be a convex combination of individual RCSs: each population choice probability mass function $P_A(\cdot)$, $A \subseteq \univ$, is a mixture---with random sampling from the population being the common mixing distribution---of the various individual probability mass functions $P_A(\cdot)$.
+\section{Framework}\label{s:framework}
 
-In situations where choice is repeated, we assume that choices are statistically independent across trials, and that for each \menu{} $A$, the same $P_A(\cdot)$ governs every choice from $A$.
-Following others, we refer to these two assumptions together as the iid assumption; note that ``identically distributed'' applies separately to each \menu{} while ``independent'' applies globally.
+Here we set up the probabilistic choice framework by defining a {\em random choice model}.
+We define three conditions on choice probabilities we investigate in a later empirical section: regularity, the Block-Marschak inequalities and the multiplicative inequality.
+We describe versions of three context effects that motivated parts of our experimental design: the attraction, similarity and compromise effects.
+Finally, we discuss individual- and population-level choice experiments and identify an aggregation property relating conditions on individual choice to conditions on population choice.
 
-There are good reasons to be sceptical of the iid assumption in experiments featuring within-subject or mixed within/between designs; participants may be learning or their attention may be waning during the course of the experiment.
-While steps can be taken to attenuate these problems by limiting the number of repetitions of each \menu{} and by using distractor trials to make it more difficult for participants to recognize choice objects, and while we can test the assumptions to some extent, we can never be sure that the assumptions hold.
-In a strictly between-subject design, however, with no communication between participants, the iid assumption is much more plausible.
+\subsection{Random choice models}
 
-\subsection{Testible conditions for discrete stochastic choice}\label{s:axioms}
+A random choice model specifies choice probabilities for a set $\univ = \{a_1, a_2, \ldots, a_n\}$ of related choice items, which we call a universe.
+For each of the 32 choice domains in our experiment, there is a  universe containing five related and easily comparable choice items.
+We will write $\univ = \{a,b,c,d,e\}$ for a generic five-item universe.
+For the ``Latitude'' domain of the experiment, where participants see the prompt question ``Which one of the following cities do you think is furthest north?'', $a$ is Warsaw, $b$ is London, $c$ is Vancouver, $d$ is Paris and $e$ is Seattle.
 
-Various axioms, conditions, constriants, hypotheses, properties, propositions and rules about probabilistic choice behaviour can be expressed as restrictions over the various choice probabilities of a RCS.
-We have been using, and will continue to use, the term ``condition'' as a generic term to include all of these.
-Historically, many of these conditions pertain only to binary choice probabilities.
-See, for example, \citeasnoun{LuceSupp65} for various forms of stochastic transitivity and also the triangle inequality.
+Each participant sees a single \menu{} from each domain and must choose a single option from each \menu{}.
+Different participants see different \menus{}.
+Since any \menu{} may be presented, a random choice model needs to specify choice probabilities for each option of each \menu{}.
+For a given universe $\univ$, let $A$ be any non-empty subset of $\univ$ and $x$ be any option in $A$.
+Define $P_A(x)$ as the probability of choosing $x$ from $A$, and $P_A$ as the vector of all choice probabilities on \menu{} $A$.
+One of the 26 \menus{} is $\{a,b\}$; $P_{\{a,b\}}(a)$ and $P_{\{a,b\}}(b)$ are the probabilities of choosing Warsaw and London from the \menu{} consisting of these two cities and $P_{\{a,b\}}$ is the vector of both.
+We learn something about these probabilities from the experiment: 22 participants chose Warsaw and 18 chose London, as we can see in the first row of Table \ref{t:latitude_table}, which tabulates choice counts for each of the 26 \menus{} of the ``Latitude'' domain.
+We also define, for observed choice counts, $\hat P_A(x)$ as the proportion of times that an item $x$ is chosen from a \menu{} $A$, as long as $x$ is in $A$.
+For example, we compute the observed choice proportions $\hat P_{\{a,b\}}(a) = 0.55$ and $\hat P_{\{a,b\}}(b) = 0.45$ for the ``Latitude'' domain.
+Although we defined \menus{} earlier as choice sets with at least two items, the notation $P_A(x)$ allows for choice sets $A$ with a single item.
+This is to ensure that we can concisely write down conditions like the Block-Marschak inequalities below; for each item $x$ in $\univ$, the choice probability $P_{\{x\}}(x)$ is trivially equal to one.
 
-Given the nature of the experimental data we introduce in this paper, we will focus on the following three testible conditions, each of which relates choice probabilities across all \menus{} of a choice universe, not just the doubleton \menus{}.
-A random choice structure $P$ for a universe $\univ$ of choices satisfies
-\begin{description}
-	\item[Reg] {\em regularity} if and only if for all $x \in A \subseteq B \subseteq \univ$,
-	\[
-		P_A(x) \geq P_B(x),
-	\]
-	\item[RU] {\em random utility} (or the {\em Block-Marschak inequalities}) if and only if for all non-empty
-	$A \subseteq \univ$ and all $x \in A$,
-	\begin{equation}
-		\sum_{B \colon A \subseteq B \subseteq \univ} (-1)^{|B \backslash A|} P_B(x) \geq 0,
+A random choice model for the universe $\univ$ is the complete specification of all choice probabilities $P_A(x)$ for all \menus{} $A$ of $U$ and all items $x$ in $A$, and is denoted $P$.
+In the case of repeated trials, we assume that observed choices are statistically independent, both within and across menus.
+We also assume that for each menu, observed choices are identically distributed.
+Thus a random choice model $P$ for a universe gives a complete probabilistic description of an observed sequence of choices from menus of that universe.
+In a manner analogous to the definition of $P$, we define $\hat P$ as the complete specification of all the choice proportions $\hat{P}_A(x)$ observed in an experiment.
+By construction, $\hat P$ satisfies the same non-negativity and adding-up constraints that $P$ does.
+The term random choice model is often used to describe logit and other, often parametric, sets of random choice models.
+We will refer to these as {\em classes} of random choice models.
+
+One particularly important class of random choice models consists of those that describe the behaviour of random utility maximizers.
+Each time such a decision maker encounters a \menu{} in a choice trial, they draw random utility values for all items in the universe and then choose the option in that \menu{} with the highest utility.
+Random utility is drawn independently of which \menu{} is being offered.
+From trial to trial, draws are independent and identically distributed.
+Within a trial, however, the utilities of the various items may be statistically dependent.
+Henceforth, we refer to the condition defining this class of models simply as random utility.
+Most classes of random choice models used in applied work satisfy the random utility condition, including the Logit and Probit classes.
+For a detailed exposition of random utility and how it relates to random choice models, using the same notation as this paper, see \citet{McCaStobMarlParkBrow20}.
+
+\subsection{Global testable conditions for stochastic choice}\label{s:conditions}
+
+Our term ``condition'' covers any axiom, constraint, hypothesis, property, proposition or rule about probabilistic choice behaviour that can be expressed as a restriction over the various choice probabilities of a random choice model.
+
+We have already seen regularity, the condition that if you add options to a \menu{}, the probability of choosing an existing option does not go up.
+Formally, a random choice model $P$ for a universe $\univ$ of choice items satisfies regularity if and only if for all $x \in A \subseteq B \subseteq \univ$,
+\[
+  P_A(x) \geq P_B(x).
+\]
+\citet{LuceSupp65} describe regularity and show that it is necessary for the random utility condition.
+
+Recall that regularity constrains choice probabilities across all \menus{}.
+In fact, we can claim something stronger.
+Every $P_A$ is {\em pivotal}, in the sense that for any random choice model satisfying regularity and any \menu{} $A$, one can change the vector $P_A$ so that the modified model violates regularity.
+The pivotal role of every $P_A$ is a compelling reason to collect choice data from every \menu{} of a universe, if one wants to test regularity for some domain.
+
+The next condition, the Block-Marschak inequalities, is relevant because it is not only necessary but also sufficient for the random utility condition.
+A random choice model $P$ on a universe $\univ$ satisfies the Block-Marschak inequalities if and only if for all non-empty $A \subseteq U$ and all $x \in A$,
+	\begin{equation}\label{e:BM}
+		\sum_{B \colon A \subseteq B \subseteq U} (-1)^{|B \backslash A|} P_B(x) \geq 0,
 	\end{equation}
-  \item[MI] the {\em multiplicative inequality} if and only if for all $x \in A, B \subseteq \univ$,
-	\[
-		P_{A \cup B}(x) \geq P_A(x) P_B(x).
-	\]
-\end{description}
-If a random choice structure $P$ for the ``Colours'' domain satisfies Reg, then the probability of choosing Pink from a menu consisting of Red, Purple and Pink cannot be greater than the probability of choosing Pink from the doubleton menu of Purple and Pink.
-The fact that six participants out of forty chose Pink from the first \menu{} and only three participants out of forty chose Pink from the second \menu{}, a strict subset of the first, means that the observed system of choice {\em proportions} violates Reg.
-However, before rejecting the hypothesis that the population RCS violates Reg, we have to take into account sampling variability and the fact that the regularity condition consists of multiple inequalities.
-We do exactly this in Section \ref{s:results}.
+where $|B\backslash A|$ is the number of items in $B$ that are not also in $A$.
+($\backslash$ is the set difference operator and $|\cdot|$ denotes cardinality.)
+This condition is far less interpretable than regularity, although see \citet[p. 713]{BarbPatt86} for an interpretation of the sum in \eqref{e:BM} for given $A$ and $x$, in the case that the full set of conditions holds.
+\citet{BlocMars60} show that the Block-Marschak inequalities are necessary for the random utility condition and \citet{Falm78} shows they are sufficient.
+Given the equivalence of the random utility condition and the Block-Marschak inequalities, we will henceforth refer to the condition using the more concise and familiar term, random utility.
+For the random utility condition, as for regularity, each $P_A$ is pivotal: since regularity is necessary for random utility, the same change in $P_A$ that breaks regularity also breaks the random utility condition.
 
-\citeasnoun{LuceSupp65} describe Reg and show that it is necessary for RU.
-\citeasnoun{BlocMars60} show that the Block-Marschak inequalities are necessary for random utility and \citeasnoun{Falm78} shows they are sufficient.
-Most discrete choice models used in applied work are random utility models, and thus they induce choice probabilities that satisfy the Reg and RU conditions.
+The third and final condition we consider is the multiplicative inequality, introduced by \citet{SattTver76}, who claim ``it has some appeal as a principle of individual choice behaviour''.
+It states that the probability of choosing an option $x$ from a union $A \cup B$ of two \menus{} is at least as great as the probability of choosing $x$ from $A$ and then again from $B$ in independent trials. 
+Suppose, for example, a random choice model $P$ on the universe of the ``Latitude'' domain satisfies the multiplicative inequality.
+Then the probability of choosing Warsaw from the \menu{} of Warsaw, London and Vancouver must be at least as great as the joint probability of two independent events: choosing Warsaw over London in pairwise choice and then choosing Warsaw again in pairwise choice, this time over Vancouver.
+In the experiment, 17 out of 40 participants chose Warsaw from the tripleton menu, 22 out of 40 chose Warsaw over London and 31 out of 40 chose Warsaw over Vancouver.
+Since $0.425 = \hat{P}_{\{a,b,c\}}(a) < \hat{P}_{\{a,b\}}(a) \hat{P}_{\{a,c\}}(a) = 0.42625$, the system of choice {\em proportions} $\hat P$ violates the sample analogue of $P_{\{a,b,c\}}(a) \geq P_{\{a,b\}}(a) P_{\{a,c\}}(a)$, one of the multiplicative inequalities.
+A formal test of the multiplicative inequality (a condition on choice {\em probabilities}) will take into account sampling variation and the full set of inequalities.
+We perform such tests in Section \ref{s:global_tests} below.
 
-If $P$ satisfies the multiplicative inequality, then the probability of choosing Purple from the tripleton menu of Red, Purple and Pink has to be at least as great as the joint probability of two independent events: choosing Purple over Red in pairwise choice and then choosing Purple over Pink in pairwise choice.
-In the experiment, 15 out of 40 participants chose Purple from the tripleton menu, 19 out of 40 chose Purple over Red and 37 out of 40 chose Purple over Pink.
-Since $0.375 = \hat{P}_{\{a,b,c\}}(a) < \hat{P}_{\{a,b\}}(a) \hat{P}_{\{a,c\}}(a) = 0.439375$, the system of choice {\em proportions} violates the MI, but again, a test of MI (for choice {\em probabilities}) will take into account sampling variation and the multiple inequalities.
+Formally, a random choice model $P$ satisfies the {\em multiplicative inequality} if and only if for all $x \in A, B \subseteq \univ$,
+\[
+  P_{A \cup B}(x) \geq P_A(x) P_B(x).
+\]
+\citet{SattTver76} show that it is a testable implication of the independent random utility model and also of the Elimination by Aspects (EBA) model described in \citet{Tver72b} and \citet{Tver72a}.
+\citet{McCaMarl24} show that any system of binary probabilities can be extended to a random choice model in such a way that the random choice model satisfies the multiplicative inequality.
+As with regularity, each $P_A$ is pivotal.
 
-The MI is due to \citeasnoun{SattTver76}, who show that it is a testable implication of the independent random utility model and also of the Elimination by Aspects (EBA) model described in \citeasnoun{Tver72b} and \citeasnoun{Tver72a}.
-\citeasnoun{McCaMarl24} show that any system of binary probabilities can be extended to a complete random choice structure in such a way that the complete random choice structure satisfies the MI.
-They also prove several results on the relationship between Reg and the MI.
-See \citeasnoun{LuceSupp65} and \citeasnoun{McCaMarl13} for illustrations of the logical relationships among a set of conditions that includes these three and various kinds of stochastic transitivity.
+The conditions we consider here are just three examples among the many that have been studied.
+\citet{Fish99} documents these and many conditions on choice probabilities, including ones that have been proposed as reasonable assumptions about choice behaviour and some that are testable implications of different classes of random choice models.
+See \citet{LuceSupp65} and \citet{McCaMarl13} for illustrations of the logical relationships among a set of conditions that includes the three outlined here and various kinds of stochastic transitivity.
 
-It is easy to see that for each of the three conditions defined above, every choice probability vector $P_A(\cdot)$ appears in many constraints.
-Moreover, each $P_A(\cdot)$ is {\em pivotal}, in the sense that for any given random choice structure satisfying the condition in question and an arbitrary \menu{} $A$, one can change $P_A(\cdot)$ to make the random choice structure violate the condition.
-It is for this reason that to test these conditions, and others with this property, it is important to observe choice data from every \menu{} $A$.
+\subsection{Individual- and population-level choice}\label{s:aggregation}
 
-It will be useful to frame the three conditions as defining subsets of the space $\Delta$ of random choice structures.
-Let $\Lambda_{\mathrm{Reg}}$ be the subset of $\Delta$ where Reg holds; similarly, define $\Lambda_{\mathrm{RU}}$ and $\Lambda_{\mathrm{MI}}$ as the subsets of $\Delta$ where RU and the MI hold.
-Since Reg and RU consist of linear inequalities in probabilities and $\Delta$ is convex, $\Lambda_{\mathrm{Reg}}$ and $\Lambda_{\mathrm{RU}}$ are both convex.
+Most experiments involve a sequence of choice trials, where some \menu{} is presented at each trial.
+We distinguish two different types of repeated choice behaviour.
+We will qualify choice behaviour as {\em individual}-level when it consists of the repeated choices of a single individual and {\em population}-level when a participant is chosen at random from a population at each trial.
+Hybrid experiments are possible, but we are not concerned with these here.
+We have seen that our experiment has a population-level design.
 
-Whether or not an condition applies to a population RCS and whether or not it applies to individual RCSs are both of interest, but they are distinct questions.
-Nonetheless, for ``convex'' conditions such as regularity and random utility, if the RCS for all individuals in a population satisfy the condition, then the population RCS must as well.
-This is because the population RCS, being a convex combination of individual RCSs, must satisfy the condition whenever all the individual ones do.
-Expressed in contrapositive form to make plain the implications for testing, if the condition is violated for a population, than it must be violated by at least one individual.
+A random choice model can be used to describe either individual- or population-level behaviour, but we should not expect the same kinds of model to apply to both.
+For example, we would expect more heterogeneity in population-level choice, and thus fewer choice probabilities close to zero or one.
+Whether or not a condition like regularity applies to individual-level choice and whether or not it applies to  population-level choice may both be of interest, but they are two distinct scientific questions.
 
-Other conditions are not convex in this sense.
-In particular, \citeasnoun{McCaMarl24} show that $\Lambda_{\mathrm{MI}}$ is not convex, for any choice universe with at least three objects.
-Thus, the MI can hold for every individual in a population but not the population itself.
+That said, the two questions are sometimes related, through the following aggregation property: if the random choice model for all individuals in a population satisfies the condition, the model describing the population also satisfies the condition.
+Expressed in contrapositive form to make plain the implications for testing, if the condition is violated for a population, then it must be violated by at least one individual.
 
-%In Table \ref{t:notconvex}, we provide an explicit counterexample to convexity in order to show that this failure of aggregation is possible even for random choice structures satisfying RU.
-%Lines 1 and 2 of the table each show an individual RCSs on the universe $\univ = \{x,y,z\}$.
-%In both cases, the choice probabilies in columns $P_{x,y}(x)$ through $P_\univ(y)$ are tho
-% and an aggregate RCS.
-%The individual RCSs are explicitly constructed as the choice probabilities resulting from an agent choosing the highest ranked object according to a random ranking.
-%Lines 1 and 2 in Table \ref{t:notconvex} give choice probabilities for two individuals, each satisfying the MI.
-%The equal-weighted convex combination of the two gives the population RCS of line 3, which violates the multiplicative inequality since $P_{\{x,y,z\}}(y) = \tfrac{1}{2} < \bin{y}{x} \bin{y}{z} = (\tfrac{3}{4})^2 = \tfrac{9}{16}$.
+Some, but not all, conditions have this aggregation property.
+Fortunately, a simple mathematical test tells us whether or not any given condition does or does not.
+Define $\Delta$ as the set of all random choice models and $\Lambda$ as the subset of models satisfying a given condition of interest.
+Then the condition satisfies the aggregation property if and only if $\Lambda$ is a convex set.
+This is because the population random choice model is a mixture---where random sampling from the population provides the mixing distribution---of the various individual random choice models.
+If all individual random choice models lie in the same convex set, then the mixture, a convex combination, must also.
+Conversely, if the region where the condition holds is not convex, we can find two individual random choice models that satisfy the condition such that the random choice model for the population of two does not.
 
-%\begin{table}
-%	\centering
-%	\def\arraystretch{1.4}
-%	\begin{tabular}{cc|cccccc|ccccc}
-%		Line & $p_i$ & $\pi_{xyz}$ & $\pi_{xzy}$ & $\pi_{yxz}$ & $\pi_{yzx}$ & $\pi_{zxy}$ & $\pi_{zyx}$
-%		& $\bin{x}{y}$ & $\bin{y}{z}$ & $\bin{x}{z}$ & $P_T(x)$ & $P_T(y)$ \\
-%		\hline
-%		1 & $\frac{1}{2}$ & $\frac{1}{2}$ & & $\frac{1}{2}$ & & & & $\frac{1}{2}$ & 1 & 1 & $\frac{1}{2}$ & $\frac{1}{2}$ \\
-%		2 & $\frac{1}{2}$ & & & & $\frac{1}{2}$ & & $\frac{1}{2}$ & & $\frac{1}{2}$ & & & $\frac{1}{2}$ \\
-%		\hline
-%		3 & & $\frac{1}{4}$ & & $\frac{1}{4}$ & $\frac{1}{4}$ & & $\frac{1}{4}$ & $\frac{1}{4}$ & $\frac{3}{4}$ & $\frac{1}{2}$ & $\frac{1}{4}$ & $\frac{1}{2}$ \\
-%		\hline
-%	\end{tabular}
-%	\caption{An aggregation of individual choice probabilities.
-%	Each line gives a random ranking (in columns $\pi_{xyz}$ through $\pi_{zyx}$, where for example $\pi_{xyz}$ is the probability of the ranking $x, y, z$) and the implied RCS (columns $\bin{x}{y}$ through $P_T(y)$).
-%	The individual random rankings and RCS's in lines 1 and 2 aggregate (with mixing probabilities $p_i$) to the population random ranking and RCS in line 3.}
-%	\label{t:notconvex}
-%\end{table}
+We can see that regularity satisfies the aggregation property by verifying the convexity of the region where regularity holds.
+The regularity inequalities are all linear in choice probabilities, and so the regularity region is the intersection of the convex set $\Delta$ and many half-spaces, also convex.
+Therefore, the region is convex and regularity satisfies the aggregation property.
+Likewise, the Block-Marschak inequalities are also linear in choice probabilities and so the random utility condition also satisfies the aggregation property.
+The multiplicative inequality is not linear, however, and \citet{McCaMarl24} show that the region in which it holds is not convex.
+Therefore it does not satisfy the aggregation property.
 
-\subsection{Context effects}
+Another issue concerning individual- and population-level choice is the assumption, which we maintain throughout, that observed choices are statistically independent and for each \menu{}, identically distributed.
+There are good reasons to be sceptical of this assumption for individual-level choice.
+Participants may be learning or their attention may be waning during the course of an experiment.
+The hypothesis is more plausible for population-level choice, where variation across observations comes from random sampling and not from changes in the behaviour of any individual.
 
-One of the objectives of our experimental design is to include a wide variety of choice domains.
-To this end, we include choice domains designed to elicit anomalous behaviour, in the form of three well documented ``context effects'': the asymmetric dominance, similarity and compromise effects.
-In Appendix \ref{s:domains}, where we describe the choice domains in detail, we describe how some of the domains (not limited to the examples in this section) are designed to elicit these effects.
+\subsection{Context effects}\label{s:context_effects}
 
-Context effects can be seen as conditions on choice probabilities that are contingent, predicted to hold when the objects in question satisfy certain properties.
-Here we describe seminal versions of each of the three effects.
-Other versions of each of these context effects have been proposed, and they have different aggregation properties and different implications on whether systems of choice probabilities satisfy Reg, RU and other conditions not considered here, like \possessivecite{Kran67} simple scalability.
-See \citeasnoun{StobMarlMcCaTurn23} for a comprehensive discussion.
+Context effects are examples of choice behaviour that are regarded as anomalous because they violate stochastic choice conditions that are either considered plausible or implied by important classes of discrete choice models.
+To provide challenging environments for stochastic choice conditions, we deliberately design twelve of the choice domains to be conducive to one or more of three well-documented context effects: the attraction, similarity and compromise effects.
+Here we review the effects and give some examples.
+In Appendix \ref{s:domains}, where we describe all of the choice domains in detail, we describe how those twelve domains are designed to be conducive to these effects.
+Section \ref{s:context_test} gives an empirical illustration where we test directly for an attraction effect in one of the domains.
 
-The asymmetric dominance effect (sometimes known as the attraction effect) was introduced by \citeasnoun{HubePaynPuto82}, and pertains to choice environments with three objects and a dominance relation over these objects.
-The objects are a ``target'' $x$, a ``competitor'' $y$ and a ``decoy'' $z$;
-$x$ dominates $z$, but $y$ does not; neither $x$ nor $y$ dominates the other.
-In one experimental design from \citeasnoun{HubePaynPuto82}, objects are six-packs of beer with two attributes, price and quality rating.
-The target $x$ has a price of $\$1.80$ and a rating of 50.
-The competitor $y$ has a higher price ($\$2.60$) but also a higher rating (70) than the target, so neither dominates the other, in the sense of having both a lower price and a higher rating.
+The three context effects can be seen as contingent conditions on choice probabilities, conditions predicted to hold when the items in question are in certain relationships with each other.
+In the example in the introduction, the condition predicted to hold is that the probability of choosing Vancouver goes up when Seattle is added to the \menu{}.
+The prediction is contingent on Seattle being clearly ``inferior to'' (i.e. obviously further south than) Vancouver.
+We will describe seminal versions of each of the three effects.
+Other versions of these context effects have been proposed, and they have different aggregation properties and different implications on whether choice probabilities can satisfy regularity, the random utility condition, or other conditions not considered here, such as \citeauthor{Kran67}'s (\citeyear{Kran67}) simple scalability.
+See \citet{StobMarlMcCaTurn23} for a comprehensive discussion.
+
+The attraction effect (sometimes known as the asymmetric dominance effect) was introduced by \citet{HubePaynPuto82}, and pertains to choice environments with three items and some dominance relation over these items.
+In one experimental design from \citet{HubePaynPuto82}, items are six-packs of beer with two attributes, price and quality rating.
+A six-pack dominates another when its price is lower and its quality higher at the same time.
+The three items are a ``target'' $x$, a ``competitor'' $y$ and a ``decoy'' $z$; $x$ dominates $z$, but $y$ does not; neither $x$ nor $y$ dominates the other.
+In the six-pack example, the target $x$ has a price of $\$1.80$ and a rating of 50.
+The competitor $y$ has a higher price ($\$2.60$) but also a higher rating (70) than the target, so neither dominates the other.
 The decoy $z$ has a higher price ($\$2.20$) than the target and a lower rating (40).
 The target dominates the decoy because it is cheaper and has a higher rating.
+Importantly, the competitor does not dominate the decoy; this establishes an asymmetry between the target and the competitor.
 The effect is said to occur when the probability of choosing the target goes up when the decoy is added to the pair of target and competitor; that is, when $P_{\{x,y,z\}}(x) > \bin{x}{y}$.
-This condition constitutes evidence against regularity, since one of the regularity inequalities is $P_{\{x,y,z\}}(x) \leq \bin{x}{y}$, and random utility, because regularity is a necessary condition for random utility.
-The ``Beer'' domain of our experiment is based on this design, but includes five objects (and prices updated from 1982).
+This condition is inconsistent with regularity, since one of the regularity inequalities is $\bin{x}{y} \geq P_{\{x,y,z\}}(x)$; and the random utility condition, because regularity is a necessary condition for random utility.
+The ``Beer'' domain of our experiment is based on this design, but includes five items (and prices updated from 1982).
 
 We also include domains where the dominance relation is not based on explicit levels of attributes.
-Take the ``Latitude'' domain, for example, and the objects Vancouver, Seattle and Paris in particular.
-All three cities are between $47^\circ$ and $50^\circ$ north of the equator.
-The prompt is ``Which of the following cities do you think is furthest north?''.
-We propose Vancouver as target, Paris as competitor, and Seattle as decoy, reasoning that for participants, it is obvious that Vancouver is north of Seattle, but not which of Vancouver and Paris is furthest north nor which of Seattle and Paris is furthest north.
-The effect occurs for the implied dominance relation if the probability of choosing Vancouver increases when Seattle (perhaps making Vancouver appear farther north) is added to the pair of Vancouver and Paris.
-Of the 40 participants who saw the menu with Vancouver and Paris, 17 choose Vancouver and 23, Paris.
-Of the 40 participants who saw the menu with Vancouver, Paris and Seattle, 26 chose Vancouver; 14, Paris; and none, Seattle.
-The choice {\em proportions} are consistent with the asymmetric dominance effect and inconsistent with Reg and RU, but to test Reg and RU, we need to consider sampling variation and the multiple implications of these conditions, which we do in Section \ref{s:inference}.
+One example is from the ``Latitude'' domain, a configuration with Vancouver as target, Warsaw as competitor and Seattle as decoy.
+Two other configurations feature London and Paris, respectively, as competitor in place of Warsaw.
 
-\citeasnoun{Tver72a} introduces the similarity effect, defined up to the definition of a similarity relation on the choice objects under consideration.
-The similarity effect defined there occurs if there are $x$, $y$ and $z$ such that $x$ and $y$ are similar, $x$ and $z$ are not similar and $y$ and $z$ are not similar, and choice probabilities satisfy
-\[
-	\bin{x}{z} > \frac{P_{\{x,y,z\}}(x)}{P_{\{x,y,z\}}(x) + P_{\{x,y,z\}}(z)}
-	\quad \mbox{and} \quad
-	\bin{y}{z} > \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(z)}.
-\]
-The inequality on the left holds if adding the object $y$, similar to the target object $x$, to the \menu{} $\{x,z\}$ lowers the {\em relative} probability of choosing $x$, compared to $z$.
-The inequality on the right is similar, except that $y$ is the target object and $x$ is the similar object.
-Our ``Dots'' domain, similar to one of the three experimental designs in \citeasnoun{Tver72a}, includes boxes with 320, 310, 300, 290 and 280 points, or $a$, $b$, $c$, $d$ and $e$, respectively.
+\citet{Tver72a} introduced the similarity effect, also pertaining to choice environments with three items.
+Here, there is a similarity relation among the choice items under consideration.
+Our ``Dots'' domain is similar to one of the three experimental designs in \citet{Tver72a} and includes boxes with 320, 310, 300, 290 and 280 points, labelled $a$, $b$, $c$, $d$ and $e$, respectively.
 The prompt question is ``Which one of the following boxes do you think has the greatest number of points?''
-The triples $\{a, b, e\}$ and $\{a, d, e\}$ are candidates for eliciting similarity effects.
-
-\citeasnoun{Simo89} introduce a strong form of the compromise effect and \citeasnoun{TverSimo93} introduce a weaker version.
-They pertain to choice environments where objects can be described in terms of a set of real-valued attributes.
-An object $y$ is {\em between} objects $x$ and $z$, denoted $x|y|z$, if two conditions hold: first, for each attribute, $y$ has a level of that attribute intermediate between the levels of $x$ and $z$; and second, that each of $x$ and $z$ have the highest level of at least one attribute.
-The weak effect is said to occur when $x|y|z$ and the following inequalities, from page 1183 in \citeasnoun{TverSimo93}, hold:
+We can define a similarity relation that considers two adjacent boxes in this list as similar.
+The similarity effect occurs if there are items $x$, $y$ and $z$ such that $x$ and $y$ are similar, $x$ and $z$ are not similar and $y$ and $z$ are not similar and choice probabilities satisfy
 \[
-	\bin{y}{x} < \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(x)}
-	\quad \mbox{and} \quad
-	\bin{y}{z} < \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(z)}.
+  \bin{x}{z} > \frac{P_{\{x,y,z\}}(x)}{P_{\{x,y,z\}}(x) + P_{\{x,y,z\}}(z)}
+  \quad \mbox{and} \quad
+  \bin{y}{z} > \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(z)}.
 \]
-The inequality on the left holds if adding the object $z$ to the \menu{} $\{x,y\}$, making $y$ a ``compromise'' between $x$ and $z$, raises the relative probability of choosing $y$, compared to $x$.
+The inequality on the left holds if adding the option $y$, similar to the target option $x$, to the \menu{} $\{x,z\}$ lowers the {\em relative} probability of choosing $x$, compared to $z$.
+The inequality on the right is similar, except that $y$ is the target option and $x$ is the similar option.
+The tripleton set $\{a, b, e\}$ is a candidate for the similarity effect, with $a$ and $b$ as the similar items and $e$ as the dissimilar item.
+Likewise, $\{a, d, e\}$ is also a candidate, with $d$ and $e$ as the similar items.
+
+\citet{Simo89} introduces a strong form of the compromise effect and \citet{TverSimo93} introduce a weaker version.
+They pertain to choice environments where items can be described in terms of a set of real-valued attributes.
+An item $y$ is {\em between} items $x$ and $z$ if two conditions hold: first, that for each attribute, $y$ has a level of that attribute intermediate between the levels of $x$ and $z$; and second, that each of $x$ and $z$ has the highest level of at least one attribute.
+The weak effect is said to occur when $y$ is between $x$ and $z$ and the following inequalities, from page 1183 in \citet{TverSimo93}, hold:
+\[
+  \bin{y}{x} < \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(x)}
+  \quad \mbox{and} \quad
+  \bin{y}{z} < \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(z)}.
+\]
+The inequality on the left holds if adding the option $z$ to the \menu{} $\{x,y\}$, making $y$ a ``compromise'' between $x$ and $z$, raises the relative probability of choosing $y$, compared to $x$.
 The inequality on the right is similar, except that $x$ is added to $\{y,z\}$, again making $y$ a ``compromise'' between $x$ and $z$.
 Our ``Beer'' domain includes three six-packs where a betweenness relation, relative to the price and quality rating attributes, applies.
 
-The similarity and compromise effects are compatible with the conditions we consider in this paper, but not with others that may be of interest, such as the constant ratio rule described by \citeasnoun{Tver72b}.
-See \citeasnoun{StobMarlMcCaTurn23} for details; different versions of context effects may differ in terms of their compatibility with different conditions.
+The similarity and compromise effects are compatible with the conditions we consider in this paper, but not with others that may be of interest, such as the constant ratio rule described by \citet{Tver72b}.
+See \citet{StobMarlMcCaTurn23} for details; different versions of context effects may differ in terms of their compatibility with different conditions.
 
-\section{Models}\label{s:models}
+\section{Experimental design}\label{s:design}
 
-In this section we describe models for stochastic discrete choice data.
-These models treat choice objects as {\em a priori} indistinguishable, and we will use them to test conditions on random choice structures where objects are abstract.
-A {\em choice dataset} for a universe $\univ$ consists of choices observed, over a number of trials, from various \menus{} included in $\univ$.
-We denote a full dataset by $\mathbf{X}$ when it is interpreted as a random variable, and by $\mathbf{X}$ when interpreted as a possible fixed value.
-A particular choice of a RCS $P \in \Delta$, together with the iid assumption, fully describes a data generating process for $\mathbf{X}$, the distribution $\mathbf{x}|P$.
+Here we describe the experiment, pointing out design features that serve the objective of testing abstract stochastic choice conditions across a wide variety of choice environments.
 
-A {\em Bayesian discrete choice model} consists of a prior distribution over the set $\Delta$ of discrete choice models.
-Since the prior is a mixing distribution over choice probabilities, the mixture distribution also fully describes a data generating process for the choice dataset $\mathbf{x}$.
-For example, if we have a Bayesian discrete choice model $M$ with prior density $f_M(P)$ on $\Delta$, the mixture distribution is the marginal probability mass function $f_M(\mathbf{x}) = \int_\Delta f(\mathbf{x}|P) f_M(P) \,dP$.
-Evaluation of $f_M(\mathbf{x})$ at the observed value $\mathbf{x}_{\mathrm{obs}}$ gives the {\em marginal likelihood} $f_M(\mathbf{x}_{\mathrm{obs}})$ of the data, a number that measures the predictive performance of $M$ for the observed $\mathbf{x}_{\mathrm{obs}}$.
-Since it makes no reference to any unknown quantities, such as $P$, it can be interpreted as the out-of-sample prediction record of $M$ for the observed data $\mathbf{x}_{\mathrm{obs}}$.
+\subsection{Selection of choice domains}
 
-To test conditions, we will compare {\em encompassing} models, Bayesian discrete choice models where the prior density $f(P)$ has full support on $\Delta$, with {\em constrained} models, where the condition of interest limits the support of $f(P)$ to the region $\Lambda \subseteq \Delta$ where the condition holds.
-We have already seen examples $\Lambda_{\mathrm{Reg}}$, $\Lambda_{\mathrm{RU}}$ and $\Lambda_{\mathrm{MI}}$ of these regions.
-A constrained model is a Bayesian discrete model whose prior density over $\Delta$ is the truncation of the prior density in an encompassing model, where the truncation is to the region $\Lambda$.
-We will test conditions by computing Bayes factors---explained below---comparing constrained with encompassing models.
-We will provide prior sensitivity analysis by comparing these Bayes factors across a set of encompassing models.
-For example, we will perform three tests (indexed by $i \in \{1,2,3\}$) of  regularity.
-Each test $i$ involves the comparison, based on Bayes factors, of the encompassing model $M_i$, a Bayesian discrete choice model whose prior density is $f_{M_i}(P)$, with a constrained Bayesian discrete choice model whose prior density is the trunction of $f_{M_i}(P)$ to $\Lambda_{\mathrm{Reg}}$.
-The prior densities $f_{M_i}(P)$ of the encomposing models all have support $\Delta$ and the prior densities of the constrained models all have support $\Lambda_{\mathrm{Reg}}$.
+An important objective is to cover a wide variety of choice environments.
+For this reason we chose domains to span several qualitatively different kinds of choice, including consumer choice, aesthetic preference, factual judgment and perceptual discrimination.
+For example, the ``Beer'' domain mentioned above mimics domains used in consumer choice experiments where different items have different levels of various attributes.
+In the ``Juice'' domain, participants choose among different kinds of juice.
+In some domains, participants make judgments, such as the ``Sentences'' domain, where they make relative judgments about grammaticality.
+In some domains, like the ``Dots'' domain described above, choices involve perception.
+Our experiment features $32$ choice domains in total, each domain consisting of a universe of five related choice items.
 
-Other studies have tested conditions by computing Bayes factors in favour of a constrained model against an encompassing model, including \citeasnoun{CavaDavi14}, \citeasnoun{DaviBrowCava15}, \citeasnoun{MyunKaraIver05} and \citeasnoun{ZwilCavaRege11}.
-These used simple non-hierarchical priors on $P$ where the $P_A(\cdot)$ are {\em a priori} stochastically independent and uniformly distributed.
-The stochastic independence across \menus{} means, for example, a Bayesian learner with such a prior learns nothing about how likely a decision maker is to choose $a$ from $\{a,c\}$ by observing choices from $\{a,b\}$ and $\{b,c\}$, no matter how decisively $a$ is chosen from $\{a,b\}$ and $b$ from $\{b,c\}$.
+Table \ref{t:domains} shows the names of the choice domains, together with the prompt (or an excerpt of the prompt, with excluded text indicated by an ellipsis) used to elicit a response from the participant.
+Appendix \ref{s:domains} describes each domain in more detail, giving the full prompt, describing the five choice items and, where applicable, providing a source for the information used to construct the question.
+Figure \ref{f:screenshots} shows screenshots for the ``Travel'' and ``Coffee'' domains.
+The screenshot for the ``Travel'' domain shows a menu with two of the five items in that domain.
+The screenshot for the ``Coffee'' domain shows a menu with four of the five items in that domain.
 
-These studies analysed data featuring binary choice (or ternary choice where indifference between two objects is an option available to participants) and tested binary choice conditions such as different forms of stochastic transitivity and the triangle inequality.
-Prior distributions where the $P_A(\cdot)$ are {\em a priori} stochastically independent are feasible for testing binary choice conditions because the implied prior probabilities of the conditions are high enough to measure using straightforward Monte Carlo simulation.
-Conditions that constrain all choice probabilities, not just the binaries, such as regularity, the multiplicative inequality and the Block-Marschak inequalities, tend to have much lower prior probability.
-For such conditions, it is important to introduce some stochastic dependence among the various choice probability vectors $P_A(\cdot)$.
-The stochastic dependence also allows for Bayesian learning across \menus{}, even for the encompassing models.
+To better stress-test stochastic choice conditions, we include many  domains intended to be conducive to anomalous behaviour, in the form of context effects.
+Some examples we have seen above are the ``Latitude'', ``Beer'', and ``Dots'' domains.
+Appendix \ref{s:domains} describes these and several others in detail.
 
-For the encompassing models, we use a prior density for $P$ described in \citeasnoun{McCaMarl13}, defined up to the values of two parameters, $\alpha \in (0,\infty)$ and $\lambda \in [0,1]$.
-We will denote this prior density as $f(P|\alpha,\lambda)$.
-The prior has some attractive properties, described there, including invariance to permutations of object labels, which is desirable for inference whenever objects are treated as indistinguishable before seeing the data.
-
-The parameter $\alpha$ specifies the marginal distribution over the various $P_A(\cdot)$ and describes how consistent choices are likely to be across trials.
-For each \menu{} $A = \{x_1,\ldots,x_{|A|}\}$, the marginal distribution of the vector $(P_A(x_1), P_A(x_2), \ldots, P_A(x_{|A|}))$ is symmetric Dirichlet with all shape parameters set to $\alpha / |A|$.
-Take for example, the \menus{} $\{a,b,c\}$ and $\{a,b\}$.
-The distribution of choice probabilities on $\{a,b,c\}$ is $(P_{\{a,b,c\}}(a), P_{\{a,b,c\}}(a), P_{\{a,b,c\}}(a)) \sim \mathrm{Di}(\alpha/3, \alpha/3, \alpha/3)$, where $\mathrm{Di}$ denotes the Dirichlet distribution.
-The distribution of choice probabilities on $\{a,b\}$ is $(P_{\{a,b\}}(a), P_{\{a,b\}}(b)) \sim \mathrm{Di}(\alpha/2, \alpha/2)$, or in other terms $P_{\{a,b\}}(a) \sim \mathrm{Be}(\alpha/2,\alpha/2)$, the Beta distribution with both shape parameters set to $\alpha/2$.
-Figure \ref{f:bcp} shows the $\Be(\alpha/2,\alpha/2)$ densities of binary choice probabilities, for six different values of $\alpha$.
-
-Low values of $\alpha$ are associated with more consistent, or less variable, choice.
-For $\alpha < |A|$, the density of $P$ goes to infinity as any one choice probability goes to one and choice becomes deterministic; for $A = \{a,b,c\}$, this happens as $P$ approaches $(1,0,0)$, $(0,1,0)$ or $(0,0,1)$.
-We see in Figure \ref{f:bcp}, for example, that for $\alpha = 1$, the density of any binary choice probability approaches infinity as the probability goes to zero or one.
-As $\alpha$ gets closer to zero, more probability is concentrated in regions where probabilities are close to zero or one, and choice becomes more determinstic.
-
-High values of $\alpha$ are associated with more variable choice.
-For $\alpha > |A|$, $(P_A(a_1), P_A(a_2), \ldots, P_A(a_{|A|}))$ has a mode at $(1/|A|, \ldots, 1/|A|)$, which is the uniform discrete (choice) distribution over the elements of $A$, and the density approaches zero as any probability goes to zero.
-As $\alpha$ gets larger, more probability is concentrated near this uniform-discrete-choice mode and choice becomes more variable and unpredictable.
-Figure \ref{f:bcp} shows that as $\alpha$ increases from 5 to 10 to 20, the mode (and mean) of any binary choice probability stays at $\tfrac{1}{2}$ but its variance decreases.
-For the intermediate case $\alpha = |A|$, $P_A(\cdot)$ is uniformly distributed on the probability simplex, as we see in Figure \ref{f:bcp} for $\alpha=2$.
+\begin{table}[h!]
+  \centering
+  \caption{Choice domains of the experiment, with prompt questions. An ellipsis indicates missing text and is never part of a prompt. Appendix \ref{s:domains} gives the full text of all prompts.}
+  \label{t:domains}
+  \begin{small}
+    \begin{tabular}{lp{12cm}}
+      Domain name & Question\\
+      \hline
+      Male stars & Which movie star would you choose to have lunch with? \\
+      Female stars & Which movie star would you choose to have lunch with? \\
+      Films & Judging from the following descriptions of films, which one of the films would you choose to see? \\
+      Star pairs & Knowing only who is starring, which one of these new films would you choose to see? \\
+      Pizzas & Which one of the following pizzas would you choose? \\
+      Juices & Which one of the following fresh juices would you choose? \\
+      Colours & Which one of the following colours do you like best? \\
+      Colour combos & Which one of these colour combinations do you like best? \\
+      Events & Which one of the following events do you think is most likely to happen in the next twenty years? \\
+      Radio formats & Suppose you were on a two hour road trip and you have a choice among radio stations with the following formats.
+Which one would you choose? \\
+      Music & Which one of the following musical artists do you like the best? \\
+      Aboriginal & Which one of the following examples of Australian aboriginal art do you like the best? \\
+      Impressionist & Which one of the following examples of Impressionist art do you like the best? \\
+      Sentences & Which one of the following sentences do you find the most grammatically acceptable? \\
+      Travel & Which one of the following travel destinations would you most like to visit? \\
+      Marijuana & Which one of the following marijuana policies would you choose? \\
+      Latitude & Which one of the following cities do you think is furthest north? \\
+      Dots & Which one of the following boxes do you think has the greatest number of points? \\
+      Triangles & Which one of the following triangles do you think has the greatest area? \\
+      Population & Which one of the following countries do you think has the largest population? \\
+      Surface area & Which one of the following countries do you think has the greatest surface area, including inland bodies of water? \\
+      Beer & ... Given that you had to choose one brand to buy on this information alone, which one would you choose? \\
+      Cars & Which one of the following similarly priced cars would you choose to drive, based on the percentage of owners who indicated that they ``would buy again,'' and the fuel economy rating? \\
+      Restaurants & Which one of the following restaurants would you choose for your next restaurant meal...? \\
+      Layovers & Which one of the following flight itineraries would you choose? ... \\
+      Future & Which one of the following would you choose? \\
+      Phone plans & Of the following cell phone plans, which one would you choose? ... \\
+      Hotel rooms & ... Which one of the following hotels would you choose, ...? \\
+      Itineraries & Which one of the following flight itineraries would you choose? ... \\
+      Televisions & Which one of the following televisions would you choose to buy ...? \\
+      Coffee & Which one of the following ground coffees would you choose? \\
+      Charity & Suppose someone was donating a total of 100 dollars to a combination of charities, on your behalf.
+      Which one of the following divisions of the 100 dollars would you choose? \\
+    \end{tabular}
+  \end{small}
+\end{table}
 
 \begin{figure}
-	\begin{center}
-	\includegraphics[width=15cm]{bcp.pdf}
-	\caption{Density of binary choice probabilities for $\alpha = 0.5, 1, 2, 5, 10, 20$. All densities are symmetric Beta with both shape parameters set to $\alpha/2$}\label{f:bcp}
-	\end{center}
+  \centering
+  \includegraphics[width=15cm]{screenshot_travel.png}
+  \includegraphics[width=15cm]{screenshot_coffee.png}
+  \caption{A screenshot for the ``Travel'' domain, in which participants select pictures, and a screenshot for the ``Coffee'' domain, in which participants select radio buttons. In the experiment and in electronic versions of this paper, these photographs are in colour.}\label{f:screenshots}
 \end{figure}
 
-The parameter $\lambda \in [0,1]$ describes the degree of dependence of choice probabilities across \menus{}.
-The higher the value, the more a Bayesian learner updates across \menus{} and the higher the prior probability that RU holds.
-For $\lambda = 0$, the choice probability vectors $P_A(\cdot)$ are mutually independent, across $A \subseteq T$.
-As $\lambda$ increases, the dependance of the $P_A(\cdot)$ across \menu{}s resembles more the dependance associated with random utility.
-For $\lambda = 1$, the random choice structure satisfies random utility with probability one.
-For $\lambda = 1$, and only this value, the prior does not have full support on $\Delta$.
-Details on the prior distributions for $P$, including some of its desirable properties, are given in \citeasnoun{McCaMarl13}.
+\subsection{A population-level full-\menu{} design}\label{s:design1040}
 
-It remains to specify the unknown parameters $\alpha$ and $\lambda$.
-It is possible to choose fixed values, but a more flexible approach is to provide a prior distribution for $\alpha$ and $\lambda$, which allows for learning about plausible values of $\alpha$ and $\lambda$ through data.
-The result is an example of a hierarchical prior.
-Just as $P$ can be marginalized out to obtain the marginal density $f_M(\mathbf{x})$ when using a non-hierarchical prior density $f_M(P)$ for $P$, we can marginalize out $\alpha$, $\lambda$ and $P$ using a hierarchical prior consisting of a prior density $f_M(\alpha,\lambda)$ for $\alpha$ and $\lambda$ and the density $f(P|\alpha,\lambda)$ in \citeasnoun{McCaMarl13}.
-The result is the marginal density
+Many of the stochastic choice conditions one might want to test have the property that for each menu $A$, the probability vector $P_A$ is pivotal, in the sense defined in Section \ref{s:framework}.
+This is true for the three conditions we have considered in this paper.
+Because observed choices from any \menu{} have the potential to provide evidence against these conditions, it is important to observe choices from every \menu{} of a domain.
+We have settled on a purely population-level design, to ensure that for each domain, choices are plausibly independent and, \menu{} by \menu{}, identically distributed.
+For these reasons, each participant sees exactly one \menu{} from each domain, exactly once; and each \menu{} of each domain is seen by several participants.
+
+Here are the details of the design.
+There are $J=32$ choice domains, each with a 5-item universe.
+For each domain, there are $I=26$ \menus{} (binary and larger subsets of the five-item universe), for a total of $JI=832$ \menus{}.
+Since each participant faces exactly one \menu{} from each domain, once, the number of choice trials for each participant is the same as the number of domains, $J=32$.
+
+Participant assignments were generated in blocks of 26.
+Within each block and domain, the 26 participants were randomly assigned one-to-one to the 26 \menus{}, with assignments made independently across blocks and domains.
+The intended design called for 40 complete blocks, yielding $40 \times 26 = 1040$ participants and exactly 40 observations per \menu{}.
+However, two participants from the next block began the survey before the target had been reached and completed it afterward.
+Their choices were retained for analysis.
+Consequently, in each domain, two \menus{} were presented 41 times and the remaining 24 \menus{} were presented 40 times.
+Because every participant faced exactly one \menu{} in each of the $J=32$ domains, the realized dataset contains $1042 \times 32 = 33,344$ trials.
+
+\subsection{Other design features}
+
+Participants are constrained to choose exactly one option from each \menu{}.
+For some domains, participants select radio buttons and in others, they select pictures, which are then identified by a border.
+Figure \ref{f:screenshots} shows one screenshot for each kind of domain.
+In each case, participants can modify their choice before they confirm it by clicking on a button labelled ``$>>$''; once they click this button, they cannot go back and change their response.
+A progress bar indicates progress through the experiment.
+
+Assignments of participants to \menus{}, the order of trials and the positions of menu items on the screen were randomized.
+Menu assignments followed the block randomization procedure described in Section \ref{s:design1040} and were mutually independent across blocks and domains.
+Elements of a \menu{} were presented in random order (left to right or top to bottom, as the case may be) on the screen, independently across participants facing that same \menu{}.
+The $J=32$ trials assigned to each participant were presented in random order, independently across participants.
+Random assignments, positions and trial order were mutually independent.
+
+\subsection{The sample of participants}
+
+The experiment consisted of an internet survey conducted between August 10, 2017 and August 31, 2017.
+As explained in Section \ref{s:design1040}, 1042 participants completed the survey and are all included in the analysis.
+The experiment was approved by the Human Research Ethics Board at the University of Victoria and all participants gave informed consent before completing the survey.
+Participants were recruited by Survey Sampling International (SSI) from their Canadian panel, designed to be representative of the Canadian adult population.
+%According to the SSI Global Panel Book 2017, the Canadian panel consists of 577,356 members.
+SSI screens potential members for reliability and requires that all participants be at least 18 years of age.
+It also verifies the identity of their participants for each survey.
+%The Canadian panel is 42\% male and 58\% female and has the following age distribution: the percentage of members in the age range 18-24 is 36\%; 25-34, 25\%; 35-54, 26\%; 55 and older, 13\%.
+Compensation of participants includes cash and other rewards.
+Programming and hosting of the survey were provided by the Institute for Choice at the University of South Australia.
+
+We chose not to impose any additional restrictions on our sample of participants.
+%However, since invited participants must complete the survey to be included in the sample, there is some self-selection.
+We have full information on age, province or territory, and sex for all 1042 participants in our sample.
+There are 515 men (49.4\%) and 527 women (50.6\%).
+Age ranges from 18 to 88; the percentage of participants in the age bracket 18-24 is 11.4\%; 25-34, 17.8\%; 35-54, 38.3\%; 55 and older, 32.5\%.
+% quartiles of age were 32, 46 and 58.
+The number of participants in Alberta was 124; British Columbia, 136; Manitoba, 36; New Brunswick, 23; Newfoundland and Labrador, 16; Northwest Territories, 1; Nova Scotia, 29; Ontario, 391; Prince Edward Island, 4; Quebec, 251; Saskatchewan, 30; and Yukon, 1.
+%No participant was in the territory of Nunavut.
+Participants could take as long as they liked to complete the survey.
+The quartiles of total duration were 7.1, 10.0 and 13.9 minutes.
+Three participants took longer than 24 hours, and the shortest duration was 1.7 minutes.
+Participants were given the opportunity to leave written feedback on the experiment upon completion.
+
+\section{Bayesian models and inference}\label{s:models}
+
+In Section \ref{s:framework}, we defined a random choice model $P$ on a universe $U$ of items.
+The assumption that choices are independent, and for each \menu{} identically distributed, completes the description of the data generating process for data structured like ours.
+We will denote by $N$ the experimental data as a random vector, before observation.
+We will denote by $n$ a generic possible value of the data vector and by $n_{\mathrm{obs}}$ the realized data vector we observe.
+The data generating process gives the conditional distribution of $N$ given $P$.
+
+We use Bayesian inference to learn about plausible values of the unknown $P$ after observing $N = n_{\mathrm{obs}}$.
+Because the goal is to test stochastic choice conditions, we conduct inference directly on the space of all random choice models and not a reduced-dimension parametric class.
+That said, because there are a finite number of \menus{} and options, $P$ is a finite dimensional parameter vector.
+For a universe of size five, there are 75 choice probabilities subject to 26 adding-up constraints, leaving 49 free parameters.
+The parameter space, which we denote by $\Delta$, is the set of all random choice models; it consists of all values of the vector $P$ consistent with the axioms of probability.
+
+Bayesian inference requires a prior distribution for $P$.
+Once we have this, we have a joint distribution of $P$ and $N$ and we can derive, in principle, the posterior distribution of $P$ (i.e. the conditional distribution of $P$ given $N$) and the marginal distribution of $N$.
+We will call the unknown $P$, completed by a prior distribution over $P$, a {\em Bayesian random choice model}.
+The use of the word ``model'' here is consistent with its use in the term ``random choice model''.
+Just as a particular known random choice model describes an unconditional distribution for $N$, a Bayesian random choice model implies an unconditional distribution for $N$.
+
+Our main inferential objective is testing stochastic choice conditions using data, which in a Bayesian context is an exercise in model comparison.
+To test a given condition, we will compare two Bayesian random choice models, an {\em encompassing} model where no restrictions are placed on $P$ beyond the axioms of probability, with a {\em constrained} model, where $P$ is restricted to the set of random choice models that satisfy the condition.
+To do this we will use two different kinds of prior distribution.
+The encompassing model is a Bayesian random choice model where the prior distribution of $P$ does not rule out any random choice models {\em a priori}; that is, the prior has full support on $\Delta$.
+The constrained model is a Bayesian random choice model where the prior distribution is the truncation of the prior distribution of the encompassing model to the region where the condition holds.
+Throughout the paper, $\Lambda$ denotes the subset of random choice models satisfying the condition under consideration; each tested hypothesis has the form \(P\in\Lambda\).
+
+The standard summary statistic for a comparison of two Bayesian models is the Bayes factor.
+If two Bayesian random choice models, $M$ and $M'$, are both considered equally likely before seeing the data, the Bayes factor in favour of $M'$ over $M$ gives the posterior odds ratio between them, $\Pr[M'|N=n_{\mathrm{obs}}]/\Pr[M|N=n_{\mathrm{obs}}]$.
+So for example, if the two models are equally likely to begin with and the Bayes factor is 2, the posterior probability assigned to model $M'$ is twice as high as that assigned to $M$.
+
+The Bayes factor in favour of $M'$ over $M$ is defined as a ratio of marginal likelihoods:
 \[
-  f_M(\mathbf{x}) = \int f(\mathbf{x}|P) f(P|\alpha,\lambda) f_M(\alpha,\lambda) \, dP\, d\alpha\, d\lambda.
+  \mathrm{BF} \equiv
+  \frac{f_{M'}(n_\mathrm{obs})}{f_M(n_\mathrm{obs})},
 \]
-The marginal likelihood $f_M(\mathbf{x}_{\mathrm{obs}})$ is the value of this marginal density at the observed choice dataset $\mathbf{x}_{\mathrm{obs}}$.
+where $f_M(n)$ is the marginal probability mass function of the data vector under model $M$, and $f_{M'}(n)$ is the same under $M'$.
+Evaluating $f_M(\cdot)$ at the observed data $n_\mathrm{obs}$ gives a measure of the prior predictive performance of $M$ for the observed data.
+Because it averages over all parameter values rather than evaluating a model's predictive performance at a fitted estimate, it measures predictive performance on unseen data.
 
-Following \citeasnoun{McCaMarl14} and \citeasnoun{McCaStobMarlParkBrow20}, we specify an encompassing model using a hierarchical prior distribution for $P$ consisting of the prior density $f(P|\alpha,\lambda)$ and a prior distribution of $(\alpha,\lambda)$ where $\alpha$ and $\lambda$ are {\em a priori} independent, $\alpha$ has a Gamma distribution with shape parameter $a_1 + a_2$ and rate parameter $b$, $\lambda$ has a Beta distribution with shape parameters $a_1$ and $a_2$.
-As in those papers, we perform a prior sensitivity analysis, using various choices of the hyper-parameter vector $(a_1,a_2,b)$, to illustrate the sensitivity of results to the choice of prior in the encompassing model.
-The particular choices of $(a_1,a_2,b)$ we use here are different from those used in these previous studies.
-In part, this is because the present paper is concerned with population, rather than individual choice.
-Anticipating some heterogeneity across individuals, we shift prior weight towards higher values of $\alpha$, and therefore away from choice probabilities close to zero or one.
-Also, we learned from the analysis of these previous experiments that results were fairly insensitive to the prior for $\alpha$, and that values of $\lambda$ close to one were strongly favoured.
-Accordingly, we use the same prior for $\alpha$ for each encompassing model and put more prior weight on values of $\lambda$ closer to one than in \citeasnoun{McCaMarl14} and \citeasnoun{McCaStobMarlParkBrow20}.
+For the special case when $M$ is an encompassing model and $M'$ is a constrained model obtained by truncating the prior distribution of $M$ to the region $\Lambda$ of $\Delta$ where a condition of interest holds, the Bayes factor reduces to the following intuitively satisfying form:
+\begin{equation}\label{e:BF}
+  \mathrm{BF} = \frac{\Pr_M[P \in \Lambda|N = n_\mathrm{obs}]}{\Pr_M[P \in \Lambda]}.
+\end{equation}
+The numerator is the posterior probability, under the encompassing model $M$, of the hypothesis $P \in \Lambda$, the hypothesis that the condition holds.
+As such, the numerator measures the compatibility of the condition with the observed data $n_\mathrm{obs}$.
+The denominator, the prior probability of the same hypothesis under the encompassing model, is an inverse measure of model parsimony; the lower the denominator, the more restrictive the condition and the more parsimonious the constrained model.
+See \citet{KlugHoij07} for details.
+For further explanation of Bayes factors, see \citet{Berg85} or \citet{BernSmit94}.
 
-Table \ref{t:hyper} shows the values of $(a_1, a_2, b)$ for three encompassing models, $M_1$, $M_2$ and $M_3$, used in the empirical analysis.
-In Section \ref{s:results}, we will report results for these three models, illustrating the sensitivity of results to the choice of prior distribution.
-The encompassing models feature dependence of $P_A(\cdot)$ across $A$, which makes them feasible for testing the conditions like Reg, MI and RU that constrain choice probabilities over all \menus{}.
-The table also indicates the prior mean, variance and standard deviation of $\alpha$ and $\lambda$ for each encompassing model.
-As we go from model $M_1$ to $M_2$ and then $M_3$, the prior distribution of $\lambda$ concentrates more and more probability mass near $\lambda = 1$, where RU is satisfied with probability one.
+The ratio in \eqref{e:BF} also suggests a practical way of computing numerical estimates of Bayes factors.
+Since the probability of an event is just the expectation of an indicator function for the event, we can estimate numerator and denominator using Monte Carlo methods for estimating expectations.
+In the next section we turn to some empirical analyses, where we report Bayes factors estimated numerically in this way in order to compare various Bayesian random choice models.
+
+\section{Empirical Illustrations}\label{s:results}
+
+We begin, in Section \ref{s:context_test}, with a simple context effect analysis involving the comparison of just two choice probabilities.
+This illustrates the Bayesian testing framework in a simple setting.
+Then, in Section \ref{s:global_tests}, we perform global tests of the three stochastic choice conditions outlined in Section \ref{s:framework}.
+We end, in Section \ref{s:simplices}, by showing a graphical representation of all binary and ternary choice proportions for a domain, a representation that can reveal potential violations of regularity and the multiplicative inequality.
+
+\subsection{Tests of context effects using Bayes factors}\label{s:context_test}
+
+\begin{table}
+  \input{tables/asy_dom_table.tex}
+  \caption{Data and test results for six candidate attraction effects in the Latitude domain. Each row gives a configuration of target, competitor and decoy options where we might expect an attraction effect. The fourth column gives the numbers of participants choosing the target and competitor when the menu is this pair of options. The fifth column gives the numbers of participants choosing the target, competitor and decoy when the menu is the set of these three options. The inconsistent but compact notation in the 4th and 5th column names is used only here.
+  The sixth column gives the posterior probability of the hypothesis that the attraction effect holds. The last two columns give the Bayes factor and log Bayes factor in favour of the hypothesis that the attraction effect holds.}
+  \label{t:asy_dom_table}
+\end{table}
+
+Here we provide a worked example showing how to test the hypothesis that a context effect holds in a given situation.
+We consider six possible configurations of target, competitor and decoy in the ``Latitude'' domain, based on the dominance relation that puts Vancouver over Seattle, as proposed in Section \ref{s:intro}, and London over Paris.
+Each row of Table \ref{t:asy_dom_table} describes one configuration, provides the relevant choice counts and reports test results for the hypothesis that the effect holds.
+The first three columns identify the target (T), competitor (C) and decoy (D) options that define the configuration.
+The fourth column gives $n_{\{T,C\}}(T)$ and $n_{\{T,C\}}(C)$, the number of participants choosing the target and competitor, respectively, from the \menu{} of these two options.
+The fifth column gives $n_{\{T,C,D\}}(T)$, $n_{\{T,C,D\}}(C)$ and $n_{\{T,C,D\}}(D)$, the number of participants choosing the target, competitor and decoy, respectively, from the \menu{} of these three options.
+We see that the number of people choosing Vancouver goes up in the presence of Seattle, the decoy, when the competitor is either London or Paris.
+This is suggestive evidence for two attraction effects.
+
+Observations from menus consisting of the proposed target and decoy options provide some independent evidence on the plausibility of the two dominance relations, and these suggest that Seattle is a more convincing decoy for Vancouver than Paris is for London.
+Of the participants who saw the menu of Vancouver and Seattle, 36 chose Vancouver and 4 chose Seattle.
+Of those who saw the menu of London and Paris, only 32 chose London and 8 chose Paris.
+
+For each configuration, the hypothesis is that the probability of choosing the target increases when the decoy is added to the menu.
+The analysis therefore reduces to inference about two unknown probabilities and whether one exceeds the other.
+We use an encompassing model with a prior distribution where all probability vectors are independent and uniformly distributed.
+In particular, the probability vectors of interest, $P_{\{T,C\}} = (P_{\{T,C\}}(T), P_{\{T,C\}}(C))$ and $P_{\{T,C,D\}} = (P_{\{T,C,D\}}(T), P_{\{T,C,D\}}(C), P_{\{T,C,D\}}(D))$ are independent and each is uniformly distributed on the region where its elements are non-negative and add to one.
+The hypothesis we wish to test is that the attraction effect holds, or equivalently, that $P_{\{T,C,D\}}(T) > P_{\{T,C\}}(T)$.
+Taking $\Lambda$ to be the region of $\Delta$ where $P_{\{T,C,D\}}(T) > P_{\{T,C\}}(T)$, the constrained model has a prior distribution for $P$ that is the truncation of the prior distribution in the encompassing model to the region $\Lambda$.
+
+We use standard results for the Dirichlet-multinomial and beta-binomial models (see for example \citet{gelman:95}) to analytically derive the posterior distribution of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$ under the encompassing model.
+In the following derivation, we denote by $\mathrm{Be}(\alpha,\beta)$ the beta distribution with shape parameters $\alpha$ and $\beta$.
+The prior independence of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$ and the assumed independence of participants' choices imply the posterior independence of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$.
+The uniform distributions of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$ imply that the prior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1,1)$ and that that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1,2)$.
+Then the posterior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1 + n_{\{T,C\}}(T), 1 + n_{\{T,C\}}(C))$ and that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1 + n_{\{T,C,D\}}(T), 2 + n_{\{T,C,D\}}(C) + n_{\{T,C,D\}}(D))$.
+
+The test for the attraction effect is based on the Bayes factor in favour of the constrained model over the encompassing model, computed as  $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]/\Pr[P \in \Lambda]$, the ratio of posterior to prior probability of the effect under the encompassing model.
+We computed $\Pr[P \in \Lambda] = \tfrac{1}{3}$ analytically.
+We estimated $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]$ numerically with Monte Carlo simulation methods, using Rao-Blackwellization to reduce variance.
+We computed numerical standard errors, which measure the standard deviation of simulation error.
+
+Column six of Table \ref{t:asy_dom_table} gives numerical estimates of $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]$, the posterior probability of the attraction effect under the encompassing model.
+All numerical standard errors are less than 0.0001.
+The final two columns give the Bayes factor (BF), equal to the ratio $\Pr[P \in \Lambda|N=n_{\mathrm{obs}}]/\Pr[P \in \Lambda]$, and its natural logarithm.
+
+The evidence favours the attraction effect for the three cases where the target is Vancouver and the decoy is Seattle.
+In contrast, it favours the encompassing model for the three cases where the target is London and the decoy is Paris.
+
+We can use the guidelines recommended by \citet{KassRaft95} to classify the strength of the evidence provided by the Bayes factors.
+They classify log Bayes factors between 0 and 1 as ``not worth more than a bare mention'', those between 1 and 3 as providing ``positive evidence'', those between 3 and 5 as providing ``strong evidence'' and those above 5 as providing ``very strong evidence''.
+We will adopt these categories throughout the paper, but refer to the first two as giving ``weak'' and ``moderate'' evidence.
+
+By this reckoning, there is moderate evidence in favour of the attraction effect when the target is Vancouver, the competitor is Paris and the decoy is Seattle and moderate evidence against the attraction effect when the target is London, the decoy is Paris and the competitor is either Vancouver or Seattle.
+
+We can also consider joint hypotheses, such as the hypothesis that the attraction effect holds in all three cases where the target is Vancouver and the decoy is Seattle.
+This hypothesis consists of three inequalities and the log Bayes factor in favour of it is the sum of the individual log Bayes factors, or 2.253.
+This is stronger evidence, but still not strong according to the standards of \citet{KassRaft95}.
+The log Bayes factor in favour of the joint hypothesis that the attraction effect holds in all three cases where the target is London and the decoy is Paris is -3.744, which implies strong evidence against this joint hypothesis.
+
+\subsection{Tests of three global abstract stochastic choice conditions}\label{s:global_tests}
+
+Regularity, the random utility condition and the multiplicative inequality are also joint hypotheses.
+However, the number of inequalities involved is much greater.
+Regularity, for example, consists of 70 distinct and non-redundant inequalities when the universe consists of five items.
+
+It is natural to choose a prior distribution where the $P_A$ are mutually independent across \menus{}.
+We did this above when we tested for multiple attraction effects.
+\citet{CavaDavi14}, \citet{DaviBrowCava15}, \citet{MyunKaraIver05} and \citet{ZwilCavaRege11} do the same for testing simpler and less restrictive conditions than the three we investigate here.
+
+Although the simplicity of such a prior is in its favour, some kinds of prior correlation between choice probabilities on different \menus{} are intuitively compelling.
+Suppose you observe choices only from the \menu{} $\{a,b,c\}$.
+You don't know what the options $a$, $b$ and $c$ are but see that many more people choose $a$ than $b$.
+Now you appraise choice probabilities on the smaller set $\{a,b\}$.
+We suspect most people would put more weight on higher values of the probability $P_{\{a,b\}}(a)$ than they would before observing the choices from $\{a,b,c\}$; this, despite not knowing what the options are and having no direct evidence from observing choices from $\{a,b\}$.
+This is consistent with Bayesian reasoning, but not when $P_{\{a,b\}}$ and $P_{\{a,b,c\}}$ are deemed {\em a priori} independent.
+
+Furthermore, computational problems arise when we test our three conditions using a prior where the $P_A$ are independent.
+For a universe of five items, the prior probabilities of these conditions are so tiny that the amount of simulation required to measure them using straightforward simulation would be prohibitively high.
+The low prior probability of these conditions is a measure of how restrictive they are, compared with, for example, conditions on binary choice probabilities studied in the work cited above.
+
+\citet{McCaMarl13} address both these issues by introducing a parametric prior distribution for $P$ where the $P_A$ are dependent.
+For testing abstract stochastic choice conditions, the prior has some attractive properties, such as invariance to relabelling choice items.
+Following \citet{McCaMarl14}, we used this class of priors for our empirical analysis.
+In order to describe a prior sensitivity analysis we do below and to explain a difference between our analysis here and that in \citet{McCaMarl14}, we digress to describe the parameters of this prior distribution.
+
+The prior has two parameters, $\lambda \in [0,1]$ and $\alpha > 0$.
+The $\lambda$ parameter controls the degree of dependence of choice probabilities across \menus{}.
+When $\lambda = 0$, the $P_A$ are mutually independent.
+Thus, if you adopt a prior where $\lambda=0$, you learn nothing about $P_{\{a,b\}}(a)$, even if you observe a thousand people out of a thousand choosing $a$ from $\{a,b,c\}$.
+As $\lambda$ increases, the prior probability of regularity and the random utility condition both increase.
+The marginal distribution of each $P_A$ does not depend on $\lambda$, but correlations of choice probabilities across \menus{} do.
+For example, the correlation between $P_{\{a,b,c\}}(a)$ and $P_{\{a,b\}}(a)$ increases in $\lambda$, even though their two marginal distributions do not depend on $\lambda$.
+The prior is constructed so that at the maximal value $\lambda=1$, the probabilities of regularity and the random utility condition are both one.
+
+The $\alpha$ parameter governs the degree to which choice probabilities concentrate near zero or one, with lower values of $\alpha$ corresponding to more probability mass near zero or one.
+Thus, low values of $\alpha$ are associated with more extreme choice probabilities and high values of $\alpha$ with less extreme choice probabilities.
+\iffalse
+For $\alpha$ less than the number of options in a \menu{} $A$, the prior density is unbounded as any choice probability approaches one.
+For $\alpha$ greater, there is a prior mode at the uniform discrete distribution on $A$, where all options are equally likely to be chosen.
+As $\alpha$ increases, more prior probability mass concentrates near this mode.
+
+For example, Figure \ref{f:bcp} illustrates how the prior density of any binary choice probability varies with $\alpha$.
+For $\alpha < 2$, the density is unbounded, approaching infinity as the probability gets close to zero or one.
+For $\alpha = 2$, the probability is uniformly distributed on the interval $[0,1]$.
+For $\alpha > 2$, there is a mode at $\tfrac{1}{2}$, and as $\alpha$ increases, the variance decreases.
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=15cm]{bcp.pdf}
+  \caption{Density of binary choice probabilities for $\alpha = 0.5, 1, 2, 5, 10, 20$. All densities are symmetric Beta with both shape parameters set to $\alpha/2$}\label{f:bcp}
+  \end{center}
+\end{figure}
+\fi
+While we use the same family of priors here that we did for previous analyses in \citet{McCaMarl14} and \citet{McCaStobMarlParkBrow20}, some details are different.
+The main reason is that the previous papers study individual-level choice and the current paper studies population-level choice.
+We expect heterogeneity across individuals.
+Therefore we anticipate more choice variability and thus less extreme choice probabilities at the population level.
+For this reason, we favour higher values of $\alpha$ and therefore less prior probability mass for choice probabilities near zero and one, compared with those previous papers.
+
+As in these previous papers, we conducted a prior sensitivity analysis.
+Here, we tested each stochastic choice condition using three different encompassing models, $M_1$, $M_2$ and $M_3$, which differ only in terms of the prior distribution of $\lambda$.
+$M_1$ favours lower values of $\lambda$ than $M_2$ and $M_3$ favours higher values.
+The priors were chosen to represent progressively stronger prior belief in dependence of choice probabilities across \menus{}.
+The prior probability of the random utility condition is $0.002$ under $M_1$, $0.051$ under $M_2$ and $0.228$ under $M_3$.
+We provide details of the three prior specifications in Appendix \ref{s:prior}.
+
+We used the posterior simulation and model comparison methods described in \citet{McCaMarl14} for the computation of all results reported in Section \ref{s:global_tests}.
+For each choice domain, we computed log\footnote{All logarithms are natural (base $e$) logarithms.} Bayes factors in favour of the encompassing models $M_1$ and $M_2$, over the encompassing model $M_3$.
+For each encompassing model, we computed log Bayes factors in favour of three constrained models, over the encompassing model.
+Those constrained models are the ones obtained by truncating the prior density for the encompassing model to the regions where regularity, random utility and the multiplicative inequality, respectively, hold.
+
+Recall that log marginal likelihoods measure a model's prior predictive performance.
+Log Bayes factors, which compare prior predictive performance between two models, are the differences of their log marginal likelihoods.
+Therefore we can compute the log Bayes factor of any of the twelve models over any other as a difference between two of the log Bayes factors mentioned above.
+
+We report log Bayes factors for the twelve models, all relative to the encompassing model $M_3$.
+The choice of $M_3$ as a reference model, which is the most favoured encompassing model for 31 out of the 32 domains, just serves to establish a level of zero on a scale of prior predictive performance; by definition, the log Bayes factor for $M_3$ relative to itself is zero.
+
+Figure \ref{f:multiple_BF} gives, for each choice domain, log Bayes factors for various combinations of condition and encompassing model, relative to encompassing model $M_3$.
+There is a panel for each domain, and the vertical scale in each panel measures the log Bayes factor of models relative to $M_3$.
+Each symbol represents a model; the higher the symbol, the greater the log Bayes factor relative to $M_3$, and the better the model's prior predictive performance.
+Symbols in column $i$, $i=1,2,3$, represent models based on the encompassing model $M_i$.
+Circles represent the encompassing models themselves; triangles, squares and crosses represent constrained models obtained by imposing regularity, the random utility condition and the multiplicative inequality, respectively.
+
+Within a panel, log Bayes factors between any two models out of twelve can be read off as the vertical distances between two points.
+The most relevant log Bayes factors are those comparing a constrained model with its corresponding encompassing model.
+Each of these log Bayes factors summarizes the evidence for a stochastic choice condition, using a particular encompassing model.
+They are given by the vertical distance between a symbol and the circle in the same column.
+So for example, the vertical distance between the triangle and the circle in column $1$ of the top left panel ``Male stars'' gives the evidence in favour of regularity, using the encompassing model $M_1$, for the Male stars domain.
+
+Recall that variation in results among the three encompassing models is used for prior sensitivity analysis.
+Comparisons of Bayes factors across columns illustrate how results depend on changes to the prior specification.
+
+There are no crosses for the choice domains ``Latitude'', ``Layovers'' and ``Future'', regardless of the encompassing model.
+This is because the posterior probability of the multiplicative inequality is too close to zero to measure, implying very strong evidence against that condition for those domains.
+Evidence in support of the multiplicative inequality varies a lot across choice domains, from moderate evidence in favour to very strong evidence against.
+In each case, evidence is fairly robust to the choice of encompassing model.
+
+The evidence for regularity and the random utility condition tends to be weaker, but more consistent across choice domains.
+In most cases, the log Bayes factors either favour the random utility condition and regularity over the encompassing models, or are very close to zero, representing little evidence either way.
+Across domains and encompassing models, the evidence for the random utility condition is generally similar to that for regularity, which is implied by random utility.
+When the two differ, the evidence for regularity is usually slightly stronger, indicating some evidence against the higher order features of random utility, but this evidence is quite weak.
+For individual domains, the evidence in favour of regularity and the random utility condition are at best slight, but collectively, the evidence is stronger.
+
+Figure \ref{f:multiple_BF} also allows us to compare two different ways of generating structure in choice probabilities: on the one hand, imposing a condition such as regularity or the random utility condition, and on the other, increasing prior dependence across \menus{} through $\lambda$.
+We see that the variation in predictive performance of the random utility condition across encompassing models (height of the square, across columns, for a particular domain) is much less than the variation in predictive performance across the encompassing models themselves (height of the circle, across columns, for the same domain).
+We interpret this as follows.
+Increasing $\lambda$ induces coherence across \menus{}.
+So does imposing the random utility condition, in its own way.
+The results suggest that some of the predictive gains from imposing the random utility condition can be replicated by increasing $\lambda$.
+The same observation applies to regularity.
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=16cm]{multiple_BF}
+  \caption{Log Bayes factors for 32 domains, by encompassing model and condition. The vertical scale gives log Bayes factors relative to the encompassing model $M_3$. The ``Encompassing model'' indices 1, 2 and 3 on the horizontal axes correspond to models $M_1$, $M_2$ and $M_3$. The circle (none) represents an encompassing model. The triangle (reg), square (ru) and cross (mul) represent constrained models, subject to regularity, the random utility condition and the multiplicative inequality, respectively. For any given domain, the vertical distance between a symbol and the circle in the same column is the log Bayes factor in favour of the corresponding condition for a given encompassing model.}\label{f:multiple_BF}
+  \end{center}
+\end{figure}
+
+\subsection{Data visualization for observed choice proportions}\label{s:simplices}
+
+The analyses above summarize evidence through Bayes factors.
+We conclude with a graphical representation of the observed choice proportions on all binary and ternary \menus{} of the ``Latitude'' domain.
+While purely descriptive and not inferential, the representation can reveal patterns that suggest violations of regularity and the multiplicative inequality.
+Corresponding representations for all 32 domains are available in the supplementary materials.
+
+We apply a graphical representation introduced by \citet{McCaMarl13} for plotting a random choice model, for a universe of size three, as a set of four points in a Barycentric coordinate system.
+The random choice model can always be the restriction to a universe of size three of a random choice model on a larger universe.
+Because systems of observed choice {\em proportions} satisfy the same non-negativity and adding-up constraints that random choice models do, the same graphical representation can be used to plot the observed choice proportions for all the \menus{} of size two and three from the same set of three choice items.
+
+Recall that for the ``Latitude'' domain, the universe of items is $\{a,b,c,d,e\}$ where $a$ is Warsaw, $b$ is London, $c$ is Vancouver, $d$ is Paris, and $e$ is Seattle.
+Table \ref{t:latitude_table} tabulates observed choice counts and choice proportions for all \menus{} of this domain.
+
+Figure \ref{f:latitude_figure} displays ten panels, one for each tripleton subset of $\{a,b,c,d,e\}$.
+The panel for a given tripleton shows an equilateral triangle with each vertex labelled with one of the items of that subset.
+Consider the single panel in the fourth row, for the tripleton $\trip \equiv \{c,d,e\}$, which we will use as an extended example.
+This triple corresponds to the configuration of Vancouver ($c$), Paris ($d$) and Seattle ($e$) where we saw the most pronounced evidence for an attraction effect.
+The vertices of the triangle are labelled $c$ (bottom right), $d$ (top) and $e$ (bottom left).
+Four menus are subsets of $\trip$, $\{c,d\}$, $\{c,e\}$, $\{d,e\}$ and $\{c,d,e\}$; the choice proportions observed for these menus appear in rows 8, 15, 19 and 23 of Table \ref{t:latitude_table}, respectively.
+
+We use the graphical representation introduced by \citet{McCaMarl13} to plot the observed choice proportions for these four menus, using an equilateral triangle as a Barycentric coordinate system.
+It uses a single triangle to display all binary and ternary choice probabilities (or observed proportions) for a universe of three items.
+For example, an arbitrary probability vector $(P_\trip(c),P_\trip(d),P_\trip(e))$ on $\trip$ is represented as the point with Barycentric coordinates $(P_\trip(c),P_\trip(d),P_\trip(e))$ in the triangle.
+We have represented the vector $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e)) = (\tfrac{26}{40}, \tfrac{14}{40}, \tfrac{0}{40}) = (0.65, 0.35, 0.00)$ of choice proportions observed in the experiment as a solid point.
+There are two ways of locating this point on the triangle.
+First, we can take vertices $c$, $d$ and $e$ as points on the plane of the page or screen.
+Then the point $(\hat P_\trip(c),\hat P_\trip(d),\hat P_\trip(e))$ is the convex combination of the vertices $c$, $d$ and $e$---which have Barycentric coordinates $(1,0,0)$, $(0,1,0)$ and $(0,0,1)$, respectively---with weights $0.65$, $0.35$ and $0.00$.
+Thus, the solid point is at $0.65 c + 0.35 d$.
+The second way relies on the fact that the triangle is equilateral.
+Taking the triangle to have unit height, the point representing $(\hat P_\trip(c),\hat P_\trip(d),\hat P_\trip(e))$ is at a distance of $\hat P_\trip(c) = 0.65$ to the left side of the triangle, at a distance of $\hat P_\trip(d) = 0.35$ to the base and at a distance of $\hat P_\trip(e) = 0.00$ to the right side.
+The upward sloping grid lines, the horizontal grid lines, and the downward sloping grid lines measure out the choice proportions of $c$, $d$ and $e$, respectively.
+
+The hollow dots on the right, left and bottom sides of the triangle represent the choice proportions $\hat P_{\{c,d\}}(c) = \tfrac{17}{40} = 0.425$, $\hat P_{\{d,e\}}(d) = \tfrac{26}{40} = 0.65$ and $\hat P_{\{c,e\}}(c) = \tfrac{36}{40} = 0.9$, respectively.
+For example, the hollow dot on the right side of the triangle is the convex combination of the vertices labelled $c$ and $d$, with weights $0.425$ and $0.575$ respectively.
+Equivalently, the distance from this hollow dot to vertex $c$ and the distance to vertex $d$ are in the proportions 0.575 and 0.425.
+
+The two triangles in the interior allow readers to detect, at a glance, if binary and ternary choice proportions for the tripleton set $\trip$ violate regularity or the multiplicative inequality.
+(Strictly speaking, regularity and the multiplicative inequality are restrictions on choice probabilities, not proportions.
+But a system of choice proportions has the same structure as a random choice model and belongs to the same space $\Delta$.
+We define regularity and the multiplicative inequality for a system of choice proportions as the analogous conditions, with choice proportions replacing choice probabilities.)
+Suppose that we know the binary choice proportions $\hat P_{\{c,d\}}(c) = \tfrac{17}{40} = 0.425$, $\hat P_{\{d,e\}}(d) = \tfrac{26}{40} = 0.65$ and $\hat P_{\{c,e\}}(c) = \tfrac{36}{40} = 0.90$, but we have not yet observed the ternary choice proportions $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e))$.
+
+The downward pointing solid triangle with the blue boundary is a cross-section of the region where regularity holds.
+For the three given binary choice proportions (indicated by the three hollow dots) the solid triangle with the blue boundary is the set of possible ternary choice proportions consistent with regularity and the three observed binary choice proportions.
+The observed ternary proportions (the solid dot) may or may not lie in the blue triangle; here they do not.
+The blue triangle is defined by the regularity inequalities on $\trip$, which simplify to
+$\hat P_\trip(c) \leq \min(\hat P_{\{c,d\}}(c), \hat P_{\{c,e\}}(c))$,
+$\hat P_\trip(d) \leq \min(\hat P_{\{c,d\}}(d), \hat P_{\{d,e\}}(d))$ and
+$\hat P_\trip(e) \leq \min(\hat P_{\{c,e\}}(e), \hat P_{\{d,e\}}(e))$.
+The observed choice proportion vector from \menu{} $\trip$, $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e))$, lies outside the triangle with the blue boundary because $\hat P_\trip(c) = 0.65$ is greater than $\hat P_{\{c,d\}}(c) = 0.425$; we conclude that the binary and ternary choice proportions on $\trip$ do not satisfy regularity.
+It is important to remember that the observed choice proportions are subject to sampling variation and so the fact that choice proportions violate regularity does not constitute a rejection of the regularity hypothesis.
+We are describing here a data visualization method and not the results of statistical tests.
+
+Similarly, the upward pointing solid triangle with the red boundary is a cross-section of the region where the multiplicative inequality holds.
+For the given binary choice proportions, this solid triangle is the set of ternary choice proportions consistent with the multiplicative inequality and the observed  binary choice proportions.
+The multiplicative inequality on $\trip$ reduces to
+$\hat P_\trip(c) \geq \hat P_{\{c,d\}}(c) \hat P_{\{c,e\}}(c)$ and
+$\hat P_\trip(d) \geq \hat P_{\{c,d\}}(d) \hat P_{\{d,e\}}(d)$ and
+$\hat P_\trip(e) \geq \hat P_{\{c,e\}}(e) \hat P_{\{d,e\}}(e)$.
+The vector $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e))$ of ternary choice proportions lies outside the red triangle and in particular, $\hat P_\trip(d) = 0.35$ is less than $\hat P_{\{c,d\}}(d) \hat P_{\{d,e\}}(d) = 0.575 \times 0.65 = 0.37375$.
+
+\begin{figure}
+  \caption{Observed binary and ternary choice proportions for the ``Latitude'' domain. In each panel, hollow points represent binary choice proportions and the solid point represents ternary choice proportions. The downward- and upward-pointing triangles indicate the regions consistent with regularity and the multiplicative inequality, respectively. Analogous figures for all domains are in the supplementary materials.}\label{f:latitude_figure}
+  \centering
+  \includegraphics[width=16cm]{latitude_figure.pdf}
+\end{figure}
+
+\section{Transparency and openness}\label{s:trans}
+
+Supplementary materials, including data, code, experimental materials and other documents, are publicly available in the GitHub repository \texttt{https://github.com/mccauslw/Population}.
+The folder \texttt{data} includes the data from the experiment.
+The folder \texttt{R} contains R code used in the analysis.
+The folder \texttt{documents} includes the certificate of (ethics) approval, the consent form for participants, information on the recruitment and compensation procedures followed by SSI, the SSI Global Panel Book 2017, and participants' written feedback.
+Documents with figures analogous to Figure \ref{f:screenshots} and Figure \ref{f:latitude_figure} and tables analogous to Table \ref{t:latitude_table}, for each of the 32 domains, are in the folder \texttt{domains}.
+The authors declare no conflicts of interest.
+The study and analysis plan were not preregistered.
+
+\section{Conclusions}\label{s:conclude}
+
+We have collected new experimental data featuring observations of population-level choice.
+Several features of the experimental design make the data suitable for testing abstract stochastic choice conditions at the population level.
+First, it includes a wide variety of choice domains.
+Some choice domains involve subjective aesthetic judgments, on such matters as food and drink, art, music, politics and the grammaticality of sentences.
+Other choice domains resemble choice domains that naturally occur in markets, such as those for mobile phone plans, hotel rooms, beer, cars and flights.
+Still others involve options having an objective rank order.
+Some choice domains have options that are distinguished only by the levels of numerical attributes, others do not.
+Some domains are designed to be conducive to context effects, in order to stress-test conditions that are inconsistent with the effects.
+This variety helps us and others to discover properties of random choice structures that hold widely.
+
+Second, for each choice domain, we observed repeated choices from all \menus{} of a universe of five items, allowing us to test any condition by exposing every implication of it to empirical scrutiny.
+This is particularly important for testing conditions like regularity, random utility and the multiplicative inequality, where every \menu{}-specific choice probability vector $P_A$ is pivotal, in the sense defined in Section \ref{s:conditions}.
+Third, by arranging that every participant saw only one \menu{} from each choice domain, we obtained data on population choices that are plausibly independent and, \menu{} by \menu{}, identically distributed.
+
+The interpretation and generalizability of the results are necessarily tied to these design features.
+The data consist of population-level rather than individual-level choices, and implications for individual choice depend on the aggregation property discussed in Section \ref{s:aggregation}.
+Participants were members of a Canadian online panel, so the results do not necessarily generalize to other populations, periods or elicitation methods.
+Although the 32 domains are deliberately diverse, they are not exhaustive.
+
+The experimental dataset we have collected complements earlier work, including the abstract choice models introduced in \citet{McCaMarl13} and the inferential methods described in \citet{McCaMarl14}.
+The data, supported by these models and methods, serve as a testing ground for the conditions we have considered in this paper and any others that one may wish to investigate.
+That said, the data are publicly available and stand alone, amenable to analysis using other models and methods.
+
+Evidence in support of regularity and the random utility condition is fairly consistent across choice domains.
+While the evidence in favour of these conditions for any one choice domain is modest, the direction of the evidence is robust to the choice of prior and the consistency of the evidence across diverse domains constitutes important evidence in favour of the broad applicability of these conditions.
+While the literature on the attraction effect provides evidence against regularity and therefore random utility in special cases, these conditions hold up across the wide variety of choice domains we explore, including a few domains designed to be conducive to the attraction effect.
+This is reassuring given the prevalence of random utility models in the literature.
+
+Evidence regarding the multiplicative inequality, in contrast, varies considerably across domains.
+There is very strong evidence against it for three domains, so we can conclude that it cannot be considered as a universal condition for population-level stochastic choice.
+However, the multiplicative inequality does not have the aggregation property discussed in Section \ref{s:aggregation} so we cannot conclude that it is unsuitable for individual-level choice.
+\citet{Tver72a} introduced the EBA class of models to accommodate the similarity effect, introduced in the same paper, but since the multiplicative inequality is a necessary condition for EBA models, there are population-level choice patterns that it cannot capture well.
+At the same time, the multiplicative inequality is favoured more than the random utility condition in many domains, which raises the question of what common features these domains might have.
+In future work we wish to investigate the multiplicative inequality in more detail, using a variety of data sources, complementing some theoretical work on that condition in \citet{McCaMarl24}.
+
+The dataset can be reused to evaluate other conditions on probabilistic choice behaviour, including behavioural axioms and conditions implied by different competing theories. 
+A better understanding of choice behaviour requires evidence not only about specific anomalies, but also the broad applicability of such conditions.
+By providing a diverse population-level choice dataset, the present study aims to contribute to this endeavour.
+
+\appendix
+
+\section{Prior distributions used in the prior sensitivity analysis}\label{s:prior}
+
+The prior distribution for $P$ used for the three encompassing models is hierarchical: rather than choosing fixed values for $\alpha$ and $\lambda$, which is quite inflexible, we specify a prior for them in turn.
+Because results are somewhat sensitive to the choice of prior for $\lambda$ (although less so to the choice of $\alpha$) we did a prior sensitivity analysis.
+
+Table \ref{t:hyper} gives the exact specification of the prior distributions of $\alpha$ and $\lambda$ for the encompassing models $M_1$, $M_2$ and $M_3$ used in the prior sensitivity analysis in Section \ref{s:global_tests}.
+Each prior is defined in terms of the value of three tabulated hyper-parameters, $a_1$, $a_2$ and $b$.
+The table also provides the prior mean, variance and standard deviation of $\alpha$ and $\lambda$ for each of the encompassing models.
+
+In each case, $\alpha$ and $\lambda$ are {\em a priori} independent.
+The prior distribution of the concentration parameter $\alpha$ is Gamma with shape parameter $a_1 + a_2$ and scale parameter $b$.
+The prior distribution of the dependence parameter $\lambda$ is Beta with shape parameters $a_1$ and $a_2$.
+
+Moving from $M_1$ to $M_3$ increases prior concentration near $\lambda = 1$, favouring progressively stronger dependence across \menus{}, while holding the prior distribution of $\alpha$ constant.
 
 \begin{table}
   \centering
@@ -403,315 +850,12 @@ As we go from model $M_1$ to $M_2$ and then $M_3$, the prior distribution of $\l
     & $a_1$ & $a_2$ & b &
     $E[\alpha]$ & $\mathrm{Var}[\alpha]$ & $\sigma_\alpha$ & $E[\lambda]$ & $\mathrm{Var}[\lambda]$ & $\sigma_\lambda$ \\
     \hline
-%    $M_{\mathrm{ind}}$ & 0.00 & 3.00 & 3.00 & 9.00 & 27.00 & 5.196 & 0 & 0 & 0 \\
-%    \hline
-    %$M_0$ & 2.00 & 0.25 & 4.00 & 9.00 & 36.00 & 6.000 & 0.889 & 0.030 & 0.174 \\
     $M_1$ & 2.00 & 1.00 & 3.00 & 9.00 & 27.00 & 5.196 & 0.667 & 0.0556 & 0.236 \\
-    $M_2$ & 2.50 & 0.50 & 3.00 & 9.00 & 27.00 & 5.196 & 0.883 & 0.0347 & 0.186 \\
+    $M_2$ & 2.50 & 0.50 & 3.00 & 9.00 & 27.00 & 5.196 & 0.833 & 0.0347 & 0.186 \\
     $M_3$ & 2.75 & 0.25 & 3.00 & 9.00 & 27.00 & 5.196 & 0.917 & 0.0191 & 0.138 \\
     \hline
-  \end{tabular}\caption{Prior hyper-parameters and moments for various encompassing models}\label{t:hyper}
+  \end{tabular}\caption{For the three encompassing models $M_1$, $M_2$ and $M_3$, the table shows the values of three hyper-parameters, $a_1$, $a_2$ and $b$, defining the prior distribution of $\alpha$ and $\lambda$; the prior mean, variance and standard deviation of $\alpha$; and the same prior moments of $\lambda$.}\label{t:hyper}
 \end{table}
-
-\section{Inferential Methods}\label{s:inference}
-
-For any given choice dataset, our principal inferential objective is to test various discrete choice conditions, using Bayes factors comparing models that are constrained by these condition, to encompassing models, that are unconstrained.
-A secondary inferential objective, not pursued extensively here, is to describe the posterior distribution of $P$ and the parameters $\alpha$ and $\lambda$ of the encompassing or the constrained models.
-Both inferential exercises are based on posterior simulation methods outlined in \citeasnoun{McCaMarl14}.
-For an overview of Bayesian theory, see \citeasnoun{BernSmit94} or \citeasnoun{Berg85}.
-For more on Bayes factors in particular and their interpretation, see \citeasnoun{KassRaft95}.
-
-The posterior distribution $\alpha,\lambda,P|\mathbf{x}_\mathrm{opt}$, represents what we learn, relative to the prior distribution of $\alpha$, $\lambda$ and $P$, from the choice dataset $\mathbf{x}_\mathrm{opt}$.
-The posterior distribution is analytically intractable and we use Markov chain Monte Carlo (MCMC) methods to obtain a large posterior sample targeting the posterior distribution.
-The posterior sample does not consist of independent draws, but there are standard methods for quantifying simulation error; that is, the difference between posterior sample moments and their population counterparts.
-We use the overlapping batch means (OBM) method, whose properties are described in \citeasnoun{FlegJone10}, to compute the numerical standard error of posterior sample means.
-
-We numerically compute Bayes factors for all model comparisons.
-Suppose we are comparing any two Bayesian discrete choice models $M$ and $M'$, and we observe a choice dataset $\mathbf{x}$.
-Then the posterior odds ratio giving the relative posterior probabilities of $M$ and $M'$ can be expressed as
-\[
-  \frac{\Pr[M|\mathbf{x}_\mathrm{opt}]}{\Pr[M'|\mathbf{x}_\mathrm{opt}]} = \frac{\Pr[M]}{\Pr[M']}
-  \cdot
-  \frac{f_{M}(\mathbf{x}_\mathrm{opt})}{f_{M'}(\mathbf{x}_\mathrm{opt})}
-  %\frac{\Pr[\mathbf{x}|M]}{\Pr[\mathbf{x}|M']}
-\]
-This result follows easily from Bayes' rule and does not depend on how many models are under consideration.
-The expression on the right hand side is the product of two factors.
-The first is the prior odds ratio and the second is a ratio of marginal likelihoods called the {\em Bayes factor}---see \citeasnoun{Berg85} or \citeasnoun{BernSmit94} for further explanation.
-The marginal likelihoods $f_{M}(\mathbf{x}_\mathrm{opt})$ and $f_{M'}(\mathbf{x}_\mathrm{opt})$ are the probabilities of observing the choice data $\mathbf{x}_\mathrm{opt}$ if the models $M$ and $M'$ (respectively) are true.
-The ratio measures the relative out-of-sample predictive performance of the two models, with a value greater t{}han one favouring model $M$.
-
-In the special case where the denominator model is an encompassing model $M_e$ and the numerator model is the constrained model $M_c$ obtained by truncating the density $f_{M_e}(P)$ associated with $M_e$ to the region $\Lambda$ defining a condition, then the Bayes factor becomes
-\begin{equation}\label{e:BF}
-  \frac{f_{M_c}(\mathbf{x}_\mathrm{opt})}{f_{M_e}(\mathbf{x}_\mathrm{opt})} =
-  \frac{\Pr_{M_e}[\mathbf{x} = \mathbf{x}_\mathrm{opt}|P \in \Lambda]}{\Pr_{M_e}[\mathbf{x} = \mathbf{x}_\mathrm{opt}]} = \frac{\Pr_{M_e}[P \in \Lambda|\mathbf{x} = \mathbf{x}_\mathrm{opt}]}{\Pr_{M_e}[P \in \Lambda]}.
-\end{equation}
-
-The second equation of \eqref{e:BF} follows from Bayes' rule; see \citeasnoun{KlugHoij07} for details; the far right hand side of \eqref{e:BF} is the ratio of posterior to prior probability of the condition holding according to the encompassing model.{}
-The larger the numerator, the more probable the condition is in light of the data; the smaller the denominator, the more restrictive the condition is.
-This ratio also suggests a practical way of computing approximations of Bayes factors: since the probability of an event is just the expectation of an indicator function for the event, we can approximate numerator and denominator using Monte Carlo methods.
-
-We compute prior and posterior probabilities of conditions numerically using the simulation methods described in \citeasnoun{McCaMarl14}.
-We compute numerical standard errors of prior and posterior probabilities using the OBM method and combine these standard errors to compute standard errors for Bayes factors using the delta method, introduced in \citeasnoun{Kell28}.
-
-\section{Results}\label{s:results}
-
-We begin by discussing constraints on generality.
-We then show some data summaries for one of the experimental domains, for illustrative purposes.
-The document \texttt{all\_domains\_data.pdf} in the folder ``Supplementary materials'' of the Github repository \texttt{https://github.com/mccauslw/Population} provides the same data summary for the other domains.
-We then report Bayes factors in favour of constrained models against encompassing models, for several choices of condition and encompassing model.
-Finally, we briefly describe the posterior distributions of $\alpha$ and $\lambda$ for the various choice domains.
-
-\subsection{Constraints on generality}
-
-We would expect choice proportions for the domains studied here to vary across populations and through time.
-We suspect, for example, that other populations may be more or less knowledegable about the latitude of North American and European cities and that tastes in actors evolve over time.
-We conjecture that the patterns of choice probabilities that we find here, in terms of their adherence to various conditions on discrete choice, are more universal, but this is ultimately an empirical question.
-
-\subsection{Observed choice counts and proportions}
-
-We illustrate here in detail the data for the ``Colours'' domain.
-Correpsonding illustrations for all 32 domains are available in the Supplementary Materials.
-For the ``Colours'' domain, the prompt is ``Which one of the following colours do you like best?'' and the universe of objects is $\{a,b,c,d,e\}$ where $a$ is the response Red, $b$ is Purple, $c$ is Pink, $d$ is Blue and $e$ is Green.
-
-Table \ref{t:colours_table} shows the observed choice counts and choice proportions for all menus of the ``Colours'' domain.
-Each row gives counts and proportions for the menu shown in the first column.
-The second through sixth columns show the number of participants who chose the objects $a$, $b$, $c$, $d$ and $e$, respectively, from the menu.
-Where an object is not in the menu, a dash is displayed.
-The final five columns show the corresponding choice proportions.
-
-Figure \ref{f:colours_figure} is a graphical representation that displays, among other things, choice proportions for all doubleton and tripleton menus of the ``Colours'' domain.
-It consists of ten panels, one for each tripleton subset of $\{a,b,c,d,e\}$.
-The panel for a given tripleton shows an equilateral triangle with each vertex labelled with one of the elements of that subset.
-Consider the top leftmost panel, for the tripleton $\trip \equiv \{a,b,c\}$, which we will use as an extended example.
-The vertices of the triangle are labelled $a$ (bottom right), $b$ (top) and $c$ (bottom left).
-Four menus are subsets of $\trip$, $\{a,b\}$, $\{a,c\}$, $\{b,c\}$ and $\{a,b,c\}$; the choice proportions observed for these menus appear in rows 1 through 4 of Table \ref{t:colours_table}, respectively.
-
-We use a graphical representation introduced by \citeasnoun{McCaMarl13} to plot the observed choice proportions for these four menus, using an equilateral triangle as a Barycentric coordinate system.
-It uses a single triangle to display all binary and ternary choice probabilities (or observed proportions) for a set of three object.
-For example, an arbitrary probability vector $(P_\trip(a),P_\trip(b),P_\trip(c))$ on $\trip$ is represented as the point with Barycentric coordinates $(P_\trip(a),P_\trip(b),P_\trip(c))$ in the triangle.
-We have represented the vector $(\hat P_\trip(a), \hat P_\trip(b), \hat P_\trip(c)) = (\tfrac{19}{40}, \tfrac{15}{40}, \tfrac{6}{40}) = (0.475, 0.375, 0.15)$ of choice proportions observed in the experiment as a solid point in the interior of the triange.
-There are two ways of locating this point on the triangle.
-First, we can take vertices $a$, $b$ and $c$ as points on the plane of the page or screen.
-Then the point $(\hat P_T(a),\hat P_T(b),\hat P_T(c)) = (0.475, 0.375, 0.15)$ is the convex combination of the vertices $a$, $b$ and $c$---which have Barycentric coordinates $(1,0,0)$, $(0,1,0)$ and $(0,0,1)$, respectively---with weights $0.475$, $0.375$ and $0.15$.
-Thus, the solid point is at $0.475 a + 0.375 b + 0.15 c$.
-The second way relies on the fact that the triangle is equilateral.
-Taking the triangle to have unit height, the point representing $(\hat P_T(a),\hat P_T(b),\hat P_T(c)) = (0.475, 0.375, 0.15)$ is at a distance of $\hat P_T(a) = 0.475$, to the left side of the triangle, at a distance of $\hat P_T(b) = 0.375$ to the base and at a distance of $\hat P_T(c) = 0.15$ to the right side.
-The upward sloping grid lines, the horizontal grid lines, and the downward sloping grid lines measure out the choice probabilities (or proportions, as the case may be) of $a$, $b$ and $c$, respectively.
-
-The hollow dots on the right, left and bottom sides of the triangle represent the choice proportions $\hat P_{\{a,b\}}(a) = \tfrac{21}{40} = 0.525$, $\hat P_{\{b,c\}}(b) = \tfrac{37}{40} = 0.925$ and $\hat P_{\{(a,c)\}}(c) = \tfrac{28}{40} = 0.7$, repectively.
-For example, the hollow dot on the right side of the triangle is the convex combination of the vertices labelled $a$ and $b$, with weights $0.525$ and $0.475$ respectively.
-Equivalently, the distance from this hollow dot to vertex $a$ and the distance to vertex $b$ are in the proportions 0.525 and 0.475.
-
-The two triangles in the interior allow readers to detect, at a glance, if binary and ternary choice proportions for the tripleton set $A$ violate regularity or the  multiplicative inequality.
-Suppose that we know the binary choice proportions $\hat P_{\{a,b\}}(a) = \tfrac{21}{40} = 0.525$, $\hat P_{\{b,c\}}(b) = \tfrac{37}{40} = 0.925$ and $\hat P_{\{(a,c)\}}(c) = \tfrac{28}{40} = 0.7$, but we have not yet observed the ternary choice proportions $(\hat P_A(a), \hat P_A(b), \hat P_A(c))$.
-
-The downward pointing solid triangle with the blue boundary is a cross-section of the region where regularity holds.
-For the three given binary choice proportions (indicated by the three hollow dots) the solid triangle with the blue boundary is the set of possible ternary choice proportions consistent with regularity and the three observed binary choice proportions.
-The observed ternary proportions (the solid dot) may or may not lie in the blue triangle.
-The blue triangle is defined by the regularity conditions on $\trip$ for proportions, which simplify to $\hat P_T(a) \leq \min(\hat P_{\{a,b\}}(a)), \hat P_{\{a,c\}}(a)$, $\hat P_T(b) \leq \min(\hat P_{\{a,b\}}(b), \hat P_{\{b,c\}}(b))$ and $\hat P_T(c) \leq \min(\hat P_{\{a,c\}}(c), \hat P_{\{b,c\}}(c))$.
-In the event, $(\hat P_T(a), \hat P_T(b), \hat P_T(c))$ lies outside the triangle with the blue boundary because $\hat P_A(c) = 0.15$ is greater than $\hat P_{\{b,c\}}(c) = 0.075$; we conclude that the binary and ternary choice proportions on $\trip$ do not satisfy regularity.
-It is important to remember that the observed choice proportions are subject to sampling variation and so the fact that choice proportions violate regularity does not constitute a rejection of the hypothesis that population probabilities violate regularity.
-We are describing here a data visualization method and not the results of statistical tests.
-
-Similarly, the upward pointing solid triangle with the red boundary is a cross-section of the region where the multiplicative inequality holds.
-For the given binary choice proportions, this solid triangle is the set of ternary choice proportions consistent with the multiplicative inequality and the observed  binary choice proportions.
-It is defined by the multiplicative inequalities on $\trip$, which simplify to $\hat P_\trip(a) \geq \hat P_{\{a,b\}}(a) \hat P_{\{a,c\}}(a)$, $\hat P_\trip(b) \geq \hat P_{\{a,b\}}(b) \hat P_{\{b,c\}}(b)$ and $\hat P_T(c) \geq \hat P_{\{a,c\}}(c) \hat P_{\{b,c\}}(c)$.
-The vector $(\hat P_\trip(a), \hat P_\trip(b), \hat P_\trip(c))$ of ternary choice proportions lies outside the red triangle and in particular, $\hat P_T(b) = 0.375$ is less than $\hat P_{\{a,b\}}(b) \hat P_{\{b,c\}}(b) = 0.475 \cdot 0.925 = 0.438375$.
-
-\begin{table}
-  \input{Tables/colours_table.tex}
-  \caption{Observed choice counts and proportions for the ``Colours'' domain, where the prompt is ``Which one of the following colours do you like best?'' and the universe of objects is $\{a,b,c,d,e\}$, where $a$ is Red, $b$ is Purple, $c$ is Pink, $d$ is Blue and $e$ is Green. Analogous tables for all domains are in the Supplementary Materials.}
-  \label{t:colours_table}
-\end{table}
-
-\begin{figure}
-	\caption{Observed binary and ternary choice proportions for the ``Colours'' domain. Analogous figures for all domains are in the Supplementary Materials.'}\label{f:colours_figure}
-	\centering
-	\includegraphics[width=16cm]{colours_figure.pdf}
-\end{figure}
-
-\subsection{Tests of context effects using Bayes factors}
-
-\begin{table}
-  \input{Tables/asy_dom_table.tex}
-  \caption{Data and test results for six candidate attraction effects in the Latitude domain. Each row gives a configuration of target, competitor and decoy options where we might expect an attraction effect. The fourth column gives the numbers of participants choosing the target and competitor when the menu is this pair of options. The fifth column gives the numbers of participants choosing the target, competitor and decoy when the menu is the set of these three options. The sixth and seventh columns give the prior and posterior probabilities of the hypothesis that the attraction effect holds. The last two columns give the Bayes Factor and log Bayes Factor in favour of the hypothesis that the attraction effect holds.}
-  \label{t:asy_dom_table}
-\end{table}
-
-Here we provide a worked example showing how to apply Bayesian model comparison methods, supported by Monte Carlo simulation tools, to test whether or not a context effect holds in a given situation.
-We take the Latitude domain and consider six possible attraction effects, based on the dominance relation, proposed in Section \ref{s:intro}, that puts Vancouver over Seattle and London over Paris.
-Each row of Table \ref{t:colours_table} describes one candidate attraction effect and reports test results for the hypothesis that the effect holds.
-The first three columns identify the target (T), competitor (C) and decoy (D) options that define the case.
-The fourth column gives the number of participants that choose the target and competitor, respectively, when the menu is this pair of options.
-The fifth column gives the number of participants that choose the target, competitor and decoy, respectively, when the menu is this three-element set.
-
-For the encompassing model, we choose the simple prior distribution where the two probability vectors $(P_{\{T,C\}}(T), P_{\{T,C\}}(C))$ and $(P_{\{T,C,D\}}(T), P_{\{T,C,D\}}(C), P_{\{T,C,D\}}(D))$ are independent and each is uniformly distributed on the region where its elements are non-negative and add to one.
-Thus, the prior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1,1)$ and that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1,2)$, where $\mathrm{Be}(\alpha,\beta)$ denotes the Beta distribution with shape parameters $\alpha$ and $\beta$.
-
-The prior independence of the choice probabilities $P_{\{T,C\}}(T)$ and $P_{\{T,C,D\}}(T)$ and the independence of participants choices, within and across menus, imply the posterior independence of these probabilities.
-The posterior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))$ and that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1 + N_{\{T,C,D\}}(T), 2 + N_{\{T,C,D\}}(C)) + N_{\{T,C,D\}}(D))$. 
-
-The hypothesis we wish to test is that the attraction effect holds, or equivalently, that $P_{\{T,C\}}(T) < P_{\{T,C,D\}}(T)$.
-Taking $\Lambda$ to be the event that $P_{\{T,C\}}(T) < P_{\{T,C,D\}}(T)$, we truncate the prior distribution for the encompassing model to the set $\Lambda$ and use this as the prior distribution for the constrained model.
-Then the Bayes factor in favour of the constrained model over the encompassing model is $\Pr[\Lambda|N]/\Pr[\Lambda]$, the ratio of posterior to prior probability of the effect under the encompassing model.
-
-We use Monte Carlo simulation methods to estimate the numerator $\Pr[\Lambda]$ and denominator $\Pr[\Lambda|N]$ of the Bayes factor.
-We will apply a variance reduction technique called Rao-Blackwellization to obtain high numerical precision.
-Denote the cumulative distribution function for the distribution $\mathrm{Be}(\alpha, \beta)$ by $F_{\mathrm{Be}}(\cdot;\alpha, \beta)$.
-Then $F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1, 1)$, the prior cdf of $P_{\{T,C\}}(T)$ evaluated at the random variable $P_{\{T,C,D\}}(T)$, is the conditional prior probability of $\Lambda$ given $P_{\{T,C,D\}}(T)$.
-Therefore $E[F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1, 1)]$ is the marginal prior probability $\Pr[\Lambda]$, where the expectation is taken with respect to the prior distribution of $P_{\{T,C,D\}}(T)$.
-Similarly, $F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))$ is the conditional {\em posterior} probability of $\Lambda$ given $P_{\{T,C,D\}}(T)$ and its posterior expectation is $\Pr[\Lambda|N]$.
-
-As estimators of these expectations, we use their sample mean counterparts.
-To estimate $\Pr[\Lambda]$, we first draw a iid sample of size $M$ from the {\em prior} distribution of $P_{\{T,C,D\}}(T)$: $P^{(m)}_{\{T,C,D\}}(T)$, $m=1,\ldots,M$.
-The standard strong law of large numbers for independent draws and bounded random variables ensures the following almost sure (a.s.) convergence:
-\[
-	\frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T); 1, 1)
-	\overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda],
-\]
-Similarly, for an iid sample $P^{(m)}_{\{T,C,D\}}(T)$, $m=1,\ldots,M$, from the {\em posterior} distribution of $P_{\{T,C,D\}}(T)$, the distribution $\mathrm{Be}(1 + N_{\{T,C,D\}}, 2 + N_{\{T,C,D\}}(C) + N_{\{T,C,D\}}(C))$, we have 
-\[
-	\frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T); 1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))
-	\overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda|N].
-\]
-We estimated $\Pr[\Lambda]$ and $\Pr[\Lambda|N]$ using samples of size $M = 10^6$.
-We computed the usual numerical standard errors of the estimators and found all to be less than 0.0003.
-
-Columns six and seven of Table \ref{t:asy_dom_table} give numerical estimates of $\Pr[\Lambda]$ and $\Pr[\Lambda|N]$, the prior and posterior probabilities of the attraction effect under the encompassing model.
-The final two columns give the Bayes Factor (BF), equal to the ratio $\Pr[\Lambda|N]/\Pr[\Lambda]$, and its natural logarithm.
-
-The evidence favours the attraction effect for the three cases where the target is Vancouver and the decoy is Seattle.
-In constrast, it favours the encompassing model for the three cases where the target is London and the decoy is Paris.
-Observations from menus consisting of the proposed target and decoy options provide some independent evidence on the plausibility of the two dominance relations, and these suggest that Seattle is a more convincing decoy for Vancouver than Paris is for London.
-Of the participants who saw the menu of Vancouver and Seattle, 36 chose Vancouver and 4 chose Seattle.
-Of those who saw the menu of London and Paris, only 32 chose London and 8 chose Paris.
-
-We can use the guidelines recommended by \citeasnoun{KassRaft95} to classify the strength of the evidence provided by the Bayes Factors.
-They classify log Bayes factors between 0 and 1 as ``not worth more than a bare mention'', those between 1 and 3 as providing ``positive evidence'', those between 3 and 5 as providing ``strong evidence'' and those above 5 as providing ``very strong evidence''.
-We will adopt these categories throughout the paper, but refer to the first two as giving ``weak'' evidence and ``moderate'' evidence.
-
-By this reckoning, there is moderate evidence in favour of the attraction effect when the target is Vancouver, the competitor is Paris and the decoy is Seattle and moderate evidence against the attraction effect when the target is London, the decoy is Paris and the competitor is either Vancouver or Seattle.
-
-We can also consider joint hypotheses, such as the hypothesis that the attraction effect holds in all three cases where the target is Vancouver and the decoy is Seattle.
-The log Bayes factor in favour of this joint hypothesis is the sum of the individual log Bayes factors, or 2.253.
-This is stronger evidence, but still not ``strong'' according to the standards of \citeasnoun{KassRaft95}.
-The log Bayes factor in favour of the joint hypothesis that the attraction effect holds in all three cases where the target is London and the decoy is Paris is -3.744, which implies ``strong'' evidence against the joint hypothesis.
-
-\subsection{Tests of abstract conditions using Bayes factors}
-
-For each choice domain, we computed log\footnote{All logarithms are natural (base $e$) logarithms.} marginal likelihoods for the three encompassing models, $M_1$, $M_2$ and $M_3$, and for the constrained models defined by all possible pairs of encompassing model and condition (Reg, RU or MI).
-Recall that the log marginal likelihood summarizes the out-of-sample prediction record of a model, and the log Bayes factor for comparing any two of these twelve models is the difference between their log marginal likelihoods.
-
-We report log Bayes factors for all twelve models relative to the encompassing model $M_3$, to establish a reference level of zero on a scale of out-of-sample predictive performance; by definition, the log Bayes factor for $M_3$ relative to itself is zero.
-We choose $M_3$ as the reference model because it had the best out-of-sample prediction record (measured by log marginal likelihood) of the three encompassing models for 31 out of the 32 domains, but the choice is fairly arbitrary.
-All other Bayes factors can be computed as differences of these: a Bayes factor is the difference between the marginal likelihoods of two models, also equal to the difference between their respective Bayes factors relative to the {\em same} reference model, here $M_3$.
-
-Figure \ref{f:multiple_BF} gives, for each choice domain, log Bayes factors for various combinations of condition and encompassing model, relative to encompassing model $M_3$.
-Bayes factors between any two models can be read off as vertical distances between two points.
-There is a panel for each domain, and each panel shows three columns of points, corresponding to the three encompassing models $M_1$, $M_2$ and $M_3$.
-Each column $i=1,2,3$ shows the Bayes factors for all models based on the encompassing model $M_i$: the circle gives the Bayes factor for the (unconstrained) encompassing model $M_i$ itself, relative to $M_3$.
-The Bayes factor for $M_3$, relative to itself is zero by definition and so the solid dot in the third column always indicates the value zero.
-In each column $i=1,2,3$, the triangle, square and cross give log Bayes factors of the constrained model consisting of the restriction of $M_i$ to the regions $\Lambda_{\mathrm{Reg}}$, $\Lambda_{\mathrm{RU}}$ and $\Lambda_{\mathrm{MI}}$, respectively, all relative to the reference model $M_3$.
-Thus, for example, the vertical distance between the triangle and the dot in column $i$ gives the Bayes factor in favour of regularity, for the encompassing model $M_i$.
-
-Recall that variation in results among the three encompassing models is used for prior sensitivity analysis.
-Comparisons of Bayes factors across columns illustrate how results depend on changes to the prior specification.
-
-Note that there are no crosses for the choice domains ``Latitude'', ``Itineraries I'' and ``Payoffs'', whatever the encompassing model.
-This is because the posterior probability of the multiplicative inequality is very close to zero.
-This makes it very difficult to measure the log Bayes factor precisely, but we can conclude that it is very large, implying a strong rejection of that condition for those domains.
-Evidence in support of the multiplicative inequality varies a lot across choice domain, from moderate evidence in favour to very strong evidence against.
-The evidence is fairly robust to the choice of encompassing model.
-
-For regularity and random utility, the evidence for a given domain tends to be weaker, but more consistent across choice domains.
-In most cases, the log Bayes factors either favour random utility and regularity over the encompassing models, or are very close to zero, representing little evidence either way.
-Across domains and encompassing models, the evidence in favour of random utility is very similar to the evidence in favour of regularity, which is a necessary condition for random utility.
-In most cases, the evidence in favour of regularity is greater than that in favour of random utility, indicating some evidence against the higher order features of random utility, but this evidence is quite weak.
-For individual domains, the evidence in favour of random utility and regularity are at best slight, but collectively, the evidence is much stronger: the log Bayes factor in favour of regularity holding jointly across domains is the sum over domains of the log Bayes factors in favour of regularity, and likewise for random utility.
-We see that the variation in predictive performance of random utility across encompassing models (height of the square, across columns, for a particular domain) is much less than the variation in predictive performance across the encompassing models themselves (height of the circle, across columns, for the same domain).
-This is consistent with a kind of model mimicry, whereby imposing random utility, on one hand, and increasing the prior dependence of $P_A(\cdot)$ across \menus{} $A$, as measured by $\lambda$, on the other hand, have similar implications for observables.
-The same observation applies to regularity.
-
-\begin{figure}
-	\begin{center}
-	\includegraphics[width=16cm]{multiple_BF}
-	\caption{Log Bayes factors for 32 domains, by encompassing model and condition. All log Bayes factors are relative to encompassing model $M_3$. The ``encompassing model'' indices 1, 2 and 3 correspond to models $M_1$, $M_2$ and $M_3$.}\label{f:multiple_BF}
-	\end{center}
-\end{figure}
-
-\subsection{Posterior distributions of $\alpha$ and $\lambda$}
-
-Recall that the concentration parameter $\alpha$ governs how consistent choices are likely to be from trial to trial.
-As $\alpha$ approaches zero, choice probabilities near zero or one become more probable, and choice becomes more consistent from trial to trial; as $\alpha$ approaches infinity, choice probabilities near the discrete uniform (where objects in a menu are equally likely to be chosen) become more probable and choice becomes more variable across trials.
-We would expect $\alpha$ to vary considerably across domains.
-Not surprisingly, the posterior distribution of $\alpha$ varies from domain to domain.
-The domain with the least posterior median was ``Surface area'', where the posterior median was 5.6 and the $90\%$ credible set\footnote{computed as the interval from the 5th percentile to the 95th} was $[3.1,9.4]$.
-The domain with the greatest posterior median was ``Colour Combos'', with a posterior median of 17.4 and a credible set of $[9.1,30.5]$.
-
-Values of the posterior median of $\alpha$ are much higher than those reported in \citeasnoun{McCaMarl14} and \citeasnoun{McCaStobMarlParkBrow20}, which analysed data from experiments with a within-subject design.
-Again, this is not surprising.
-We would expect the repeated choices of a single individual to be more consistent than the choices of a sample of individuals.
-
-The $\lambda \in [0,1]$ parameter is of more theoretical interest because it governs the degree of dependence of choice probabilities across \menus{}.
-At one extreme, $\lambda = 0$, they are mutually independent, and at the other, $\lambda = 1$, the random choice structure satisfies random utility with probability one.
-The posterior quantiles of $\lambda$ for $p=0.75$ and $p=0.95$ are very close to one for all domains and so the details are not very informative.
-This concentration of posterior probability very near $\lambda = 1$ is similar to what \citeasnoun{McCaStobMarlParkBrow20} found for a large majority of the 140 participants in the within-subject experiment described there.
-However, while there were a few exceptions in that previous experiment, there are no domains in the present experiment that are exceptional in this regard.
-This gives strong evidence for a kind of posterior dependence of the $P_A(\cdot)$ across \menus{} $A$ similar to that induced by the random utility condition.
-In some sense, putting higher prior probability mass near $\lambda = 1$ on the one hand, and imposing random utility on the other, have similar implications for observables: Figure \ref{f:multiple_BF} above shows that for every domain, the Bayes factors in favour of random utility (the three black squares in each panel) vary much less across the three underlying encompassing models than the Bayes factors in favour of the encompassing models themselves (the black circles).
-
-\section{Conclusions}\label{s:conclude}
-
-We have collected new experimental data for population choice probabilities.
-Several features of the experimental design make the data suitable for testing conditions on discrete probabilistic choice at the population level.
-
-First, it includes a wide variety of choice domains.
-Some choice domains involve subjective aesthetic judgements, on such matters as food and drink, art, music, politics and the grammaticality of sentences.
-Other choice domains resemble choice domains that naturally occur in markets, such as those for mobile phone plans, hotel rooms, beer, cars and flights.
-Still others involve options having an objective rank order.
-Some choice domains have options that are distinguished only by the levels of numerical attributes, others do not.
-Some domains are designed to elicit context effects, others are not.
-This variety helps us and others to discover properties of random choice structures that hold widely.
-An unintended but welcome additional consequence was the high level of engagement on the part of participants.
-Evidence for this comes from written feedback left by participants, much of which indicated a high level of interest in the experiment.
-A complete compilation of feedback from participants is available in the document \texttt{feedback.pdf} in the folder ``Supplementary materials'' of the Github repository \texttt{https://github.com/mccauslw/Population}.
-
-%The median participant took $18.75s$ per domain; three quarters of them took longer than $13.31s$ per domain.
-%The domain ``Latitude'', where participants are prompted with the question ``Which one of the following cities do you think is furthest north'' is one of the domains whose elements have an objective order.
-%In this domain, there are two pairs of cities where the objective order of latitude should be familiar to most people: one is ``London, United Kingdom'' and ``Paris, France''; the other is ``Vancouver, Canada'' and ``Seattle, United States''.
-%We would expect most attentive participants to choose the city that is actually furthest north.
-%Indeed, of the 40 participants offered the binary choice between London and Paris, 32 chose London and of the 40 participants offered the binary choice between Vancouver and Seattle, 36 chose Vancouver.
-%Recall that the participants are residents of Canada.
-
-Second, for each choice domain, we observed repeated choices from all 26 doubleton and larger subsets of a universe of five objects, allowing us to test any condition on discrete probabilistic choice by exposing every implication of it to possible falsification.
-This is particularly important for testing conditions like Reg, RU and MI, for which the choice probability vector for every menu is pivotal, in the sense defined in Section \ref{s:axioms}.
-
-Third, by arranging that every participant saw exactly one \menu{} from each choice domain, we obtain data on population choices that are plausibly independent as well as identically distributed, \menu{} by \menu{}.
-
-The experimental data we have collected complement the models introduced in \citeasnoun{McCaMarl13} and the inferential methods described in \citeasnoun{McCaMarl14}.
-Together, the models, methods and data serve as a testing ground for the conditions we have considered in this paper and any others that one may wish to investigate.
-That said, the data are publicly available and others can use different statistical methods for analyzing them.
-
-Evidence in support of regularity and random utility is fairly consistent across choice domains.
-Both conditions correspond to convex regions ($\Lambda_{Reg}$ and $\Lambda_{RU}$) of the space $\Delta$ of RCSs, and therefore aggregate across individuals.
-While the evidence in favour of these conditions for any one choice domain is not strong, the collective evidence is quite favourable.
-It is important to note too, that the encompassing models used for computing Bayes factors already feature a great deal of prior dependence among choice probability vectors $P_A(\cdot)$ (as measured by $\lambda$) similar to the kind of dependence associated with random utility, and that encompassing models with a higher prior mean of $\lambda$ are favoured.
-While the literature on the assymmetric dominance effect provides evidence against regularity and therefore random utility in special cases, these conditions hold up across the wide variety of choice domains we explore, including a few domains designed to elicit asymmetric dominance effects.
-This is reassuring given the prevalence of random utility models in the wide literature on discrete choice.
-
-Evidence regarding the multiplicative inequality, in contrast, varies considerably across domains.
-There is very strong evidence against it for three domains, so we can conclude that it is not a promising candidate for a universal condition governing probabilistic discrete choice.
-\citeasnoun{Tver72a} introduced the EBA class of models to accommodate the similarity effect introduced in the same paper, but since the multiplicative inequality is a necessary condition for EBA models, there are clearly other observed choice patterns that it cannot capture well.
-
-However, the multiplicative inequality is favoured more than random utility in many domains, which raises the question of what common features these domains might have.
-In future work we wish to investigate the multiplicative inequality in more detail, using a variety of data sources, complementing some theoretical work on that condition in \citeasnoun{McCaMarl24}.
-Using the data from the experiment described in the present paper, we hope to explore the occurrence (or not) of context effects in those domains that are designed to elicit them, and also to see if similar patterns of probabilities occur in domains where choice objects do not have obvious numerical attributes.
-
-In ongoing work, McCausland (unpublished) computes marginal likelihoods for random preference models corresponding to $\lambda = 1$ in the model of \citeasnoun{McCaMarl13}.
-This will allow for cleaner tests of random preference and random utility models, against a wider set of alternative models.
-
-\appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -725,20 +869,26 @@ This will allow for cleaner tests of random preference and random utility models
 
 We describe here the complete set of 32 choice domains featured in the experiment.
 We classify choice domains into four categories.
-In the first category, objects have no numerical attributes.
-In the second category, objects have a single attribute, whose level is not explicitly given. In the third category, objects have two numerical attributes and the experimental design is intended to elicit one or more context effects.
-In the fourth category, objects have many attributes, and they are chosen to resemble objects in discrete choice experiments used in Marketing.
+In the first category, items have no numerical attributes.
+In the second category, items have a single attribute, whose level is not explicitly given.
+In the third category, items have two numerical attributes and the experimental design is intended to be conducive to one or more context effects.
+In the fourth category, items have many attributes, and they are chosen to resemble items in discrete choice experiments used in Marketing.
 
-The section titles, ``Male stars'' for example, give the names of the domains for the purpose of reporting results.
-The specification of a domain is shown in a grey box and consists of a question and five choice objects, or responses.
-In the actual experiment, for a given domain, all participants see the same question (such as ``Which movie star would you choose to have lunch with?'') but not the same set of responses; different participants will see from two to five of the possible responses, in random order, as described in Section \ref{s:design}.
-For the purpose of reporting results, the choice objects in each domain are labelled $a$, $b$, $c$, $d$ and $e$, in the order presented in the grey boxes.
-The participants do not see these labels, and accordingly, we do not use them within the boxes.
+For many of the domains, we identify candidate dominance, similarity and betweenness relations.
+We designed these domains with these relations in mind, so that some configurations of stimuli would be conducive to attraction, similarity and compromise effects, respectively.
 
-We adopt the convention that whenever there is a natural order for the items in a list, we order them in decreasing order.
+The section title (``Male stars'' for example) for each domain gives the name of the domain for the purpose of reporting results.
+The specification of a domain is shown in a grey box and consists of a question and five choice items.
+In the actual experiment, for a given domain, all participants see the same question (such as ``Which movie star would you choose to have lunch with?'') but not the same set of options; different participants see different \menus{}, consisting of from two to five of the five choice items, in random order, as described in Section \ref{s:design}.
+For the purpose of reporting results, the choice items in each domain are labelled $a$, $b$, $c$, $d$ and $e$, in the order presented in the grey boxes.
+Because participants do not see these labels, we do not include them in the boxes.
+
+We adopt the convention that whenever there is a natural order for the items in a list, we put them in decreasing order.
 Again, this is only for the purposes of reporting results; each participant sees the items in a \menu{} in random order.
 
 \subsection{No numerical attributes}
+
+Many of the domains in this section were selected primarily to provide a diverse collection of straightforward and familiar choice environments without explicit numerical attributes.
 
 \subsubsection{Male stars}
 
@@ -806,7 +956,7 @@ Again, this is only for the purposes of reporting results; each participant sees
 
 \subsection{Single attributes, not directly observed}
 
-The five domains in this section contain choice objects with an objective rank order.
+The five domains in this section contain choice items with an objective rank order.
 
 \subsubsection{Latitude}
 
@@ -828,37 +978,37 @@ The five domains in this section contain choice objects with an objective rank o
 
 \input{domain_tex/surface_area}
 
-\subsection{Objects with two attributes}
+\subsection{Items with two attributes}
 
-Here we describe domains whose choice objects have exactly two real-valued attributes.
+Here we describe domains whose choice items have exactly two real-valued attributes.
 In all cases, the levels of these attributes are presented directly to the participant.
-Figure \ref{f:CE} plots the five objects of each of these domains in attribute space, revealing potential conditions for context effects.
+Figure \ref{f:CE} plots the five items of each of these domains in attribute space, revealing candidate relations of dominance, similarity and betweenness.
 
 \begin{figure}
-	\caption{Designs for context effects. Each panel plots the five objects of a domain in attribute space. The domains are, in row major order, Beer, Cars, Restaurants, Flights I, Delayed Choice, Phone Plans, Hotels}\label{f:CE}
-	\centering
-	\includegraphics[width=15cm]{design_patterns.pdf}
+  \caption{Designs for context effects. Each panel plots the five items of a domain in attribute space. The domains are Beer, Cars, Restaurants, Layovers, Future, Phone Plans, and Hotels.}\label{f:CE}
+  \centering
+  \includegraphics[width=15cm]{design_patterns.pdf}
 \end{figure}
 
-Table \ref{t:CE} shows, for the first four of these domains, dominance, similarity and betweenness relations that we might expect to generate context effects.
-Following usual practice, we exclude similarity relations for two objects in which there is also a dominance relation between the two; and betweenness relations among three objects when two of them are similar and the third is not similar to either of the first two.
+Table \ref{t:CE} shows, for the first four of these domains, candidate dominance, similarity and betweenness relations.
+Following usual practice, we exclude similarity relations for two items for which there is also a dominance relation between the two; and betweenness relations among three items when two of them are similar and the third is not similar to either of the first two.
 
 \begin{table}
-	\centering
-	\begin{tabular}{cccc}
-		Domain & Dominance & Similarity w/o dominance & Betweenness w/o similarity \\
-		\hline
-		Beer
-		& $e>c$, $b>c$, $d>c$ & $b \sim d$, $d \sim e$, $b \sim e$
-		& $a|b|e$ \\
-		Cars
-		& $a>d$, $b>e$ & & $a|c|b$, $a|c|e$, $a|c|b$, $d|c|e$ \\
-		Restaurants
-		& $b>e$, $c>e$ & $b \sim c$ & $a|b|d$, $a|c|d$, $a|e|d$ \\
-		Flights I
-		& & $b \sim c$, $c \sim d$, $b \sim d$ & $a|b|e$, $a|c|e$, $a|d|e$ \\
-		\hline
-	\end{tabular}\caption{Relations of dominance, similarity and betweenness in two-attribute domains}\label{t:CE}
+  \centering
+  \begin{tabular}{cccc}
+    Domain & Dominance & Similarity w/o dominance & Betweenness w/o similarity \\
+    \hline
+    Beer
+    & $b>c$, $d>c$, $e>c$ & $b \sim d$, $d \sim e$
+    & $a|b|e$ \\
+    Cars
+    & $b>a$, $e>d$ & & $a|c|e$, $b|c|e$, $a|c|d$, $b|c|d$ \\
+    Restaurants
+    & $b>e$, $c>e$ & $b \sim c$ & $a|b|d$, $a|c|d$, $a|e|d$ \\
+    Layovers
+    & & $b \sim c$, $c \sim d$, $b \sim d$ & $a|b|e$, $a|c|e$, $a|d|e$ \\
+    \hline
+  \end{tabular}\caption{Candidate relations of dominance, similarity and betweenness in two-attribute domains. For items $x$, $y$ and $z$, $x>y$ means that $x$ dominates $y$, $x \sim y$ means that $x$ and $y$ are similar, and $x|y|z$ means that $y$ is between $x$ and $z$, in the sense defined in Section \ref{s:context_effects}.}\label{t:CE}
 \end{table}
 
 \subsubsection{Beer}
@@ -889,7 +1039,7 @@ Following usual practice, we exclude similarity relations for two objects in whi
 
 \input{domain_tex/hotel_rooms}
 
-\subsection{Objects with multiple attributes}
+\subsection{Items with more than two attributes}
 
 \subsubsection{Itineraries}
 
@@ -907,35 +1057,53 @@ Following usual practice, we exclude similarity relations for two objects in whi
 
 \input{domain_tex/charity}
 
-\section*{Statements and Declarations}
+\iffalse
 
-\subsection*{Supplementary Materials}
+\section{Outtakes}
 
-Supplementary Materials can be found in the folder \texttt{Supplementary\_materials} of the Github repository \texttt{https://github.com/mccauslw/Population}.
+To estimate the prior probability $\Pr[\Lambda]$, it would be possible to draw large samples from the prior distribution of $P_{\{T,C\}}(T)$ and $P_{\{T,C,D\}}(T)$ and use the proportion of draws where $P_{\{T,C\}}(T) < P_{\{T,C,D\}}(T)$ as a numerical estimate of $\Pr[\Lambda]$.
+We could similarly estimate the posterior probability using the posterior distributions of $P_{\{T,C\}}(T)$ and $P_{\{T,C,D\}}(T)$.
 
-Figures analogous to Figure \ref{f:colours_figure} and tables analogous to Table \ref{t:colours_table} for each of the 32 domains are in the document \texttt{all\_domains\_data.pdf}.
-A copy of the consent form that participants must complete before participating in the experiment is in the file \texttt{Consent\_form.pdf}.
-A copy of the Certifical of Approval issued by Human Research Ethics Board at the University of Victoria is in the file \texttt{Certificate\_of\_approval.pdf}.
-A document describing in more detail the recruitment and compensation procedures followed by SSI is in the file \texttt{Recruitment\_compensation\_procedures.pdf}.
+The experiment above was designed to elicit a context effect known as the attraction effect.
+The effect pertains to choice environments with three items, a {\em target}, a {\em competitor} and a {\em decoy}, and a dominance relation over these items.
+The target dominates the decoy but the competitor does not.
+Neither the target nor the competitor dominate the other.
+The effect is said to occur when the probability of choosing the target goes up when the decoy is added to the pair of target and competitor.
+We propose Vancouver as target, Paris as competitor and Seattle as decoy, reasoning that it is obvious to participants that Vancouver is north of Seattle, but not obvious which of Vancouver and Paris is further north, nor which of Seattle and Paris is furthest north.
 
-\subsection*{Authors' Contribution Statement}
+We must consider sampling variability to assess the strength of this evidence.
 
-McCausland contributed to conceptualization, data curation, formal analysis, funding acquisition, investigation, project administration, software, visualization and writing (initial draft, review and editing).
-Marley contributed to the conceptualization, funding acquisition, investigation, project administration, and writing-review and editing.
-Davis-Stober contributed to the conceptualization, investigation, and writing - review and editing.
+The experimental design delivers observations from every menu, allowing the measurement of all choice probabilities.
 
-\subsection*{Acknowledgements}
+We observe exactly one choice of city from each of the 1040 participants.
+Variation comes from sampling variation and not the variation of an individual's choice behaviour from trial to trial.
 
-The authors thank the Institute for Choice at the University of South Australia for programming and hosting the survey, Survey Sampling International for recruiting participants, and the participants themselves.
-They also thank audiences at various conferences for insightful questions and helpful suggestions.
+\subsection{Attraction effect inference}
 
-\subsection*{Competing Interests}
+We will apply a variance reduction technique called Rao-Blackwellization to obtain high numerical precision.
+Denote the cumulative distribution function for $\mathrm{Be}(\alpha, \beta)$ by $F_{\mathrm{Be}}(\cdot;\alpha, \beta)$.
+Then $F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1, 1)$, the prior cdf of $P_{\{T,C\}}(T)$ evaluated at the random variable $P_{\{T,C,D\}}(T)$, is the conditional prior probability of $\Lambda$ given $P_{\{T,C,D\}}(T)$.
+Therefore $E[F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1, 1)]$ is the marginal prior probability $\Pr[\Lambda]$, where the expectation is taken with respect to the prior distribution of $P_{\{T,C,D\}}(T)$.
+Similarly, $F_{\mathrm{Be}}(P_{\{T,C,D\}}(T); 1 + N_{\{T,C\}}(T), 1 + N_{\{T,C\}}(C))$ is the conditional {\em posterior} probability of $\Lambda$ given $P_{\{T,C,D\}}(T)$ and its posterior expectation is $\Pr[\Lambda|N]$.
 
-The authors declare none.
+We use the sample mean counterparts of these expectations to estimate them numerically.
+To estimate $\Pr[\Lambda]$, we first draw a iid sample of size $M$ from the {\em prior} distribution of $P_{\{T,C,D\}}(T)$.
+Denote the $m$'th draw by $P^{(m)}_{\{T,C,D\}}(T)$.
+The standard strong law of large numbers for independent draws and bounded random variables ensures the following almost sure (a.s.) convergence:
+\[
+  \frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T); 1, 1)
+  \overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda].
+\]
+Similarly, for an iid sample $P^{(m)}_{\{T,C,D\}}(T)$, $m=1,\ldots,M$, from the {\em posterior} distribution of $P_{\{T,C,D\}}(T)$, the distribution $\mathrm{Be}(1 + N_T^{(3)}, 2 + N_C^{(3)} + N_D^{(3)}$, we have 
+\[
+  \frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T);
+  1 + N_T^{(2)}, 1 + N_C^{(2)})
+  \overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda|N].
+\]
+We estimated $\Pr[\Lambda]$ and $\Pr[\Lambda|N]$ using samples of size $M = 10^6$.
+We computed the usual numerical standard errors of the estimators and found all to be less than 0.0003.
 
-\subsection*{Financial Support}
-
-This work was supported by the Social Sciences and Humanities Research Council of Canada under Insight grant SSHRC 435-2012-0451 to the University of Victoria for Marley and McCausland.
+\fi
 
 \bibliographystyle{agsm}
 \bibliography{bibliography}

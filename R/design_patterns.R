@@ -33,7 +33,7 @@ plot(NULL, NULL, main='Beer', xlab='Price/sixpack', ylab='Average quality rating
 for (i in 1:5) {
 	points(design1.x[i], design1.y[i], pch=pch[i])
 }
-plot(NULL, NULL, main='Cars', xlab='Would buy again (%)', ylab='Litres per 100km', xlim=c(60,80), ylim=c(7,10))
+plot(NULL, NULL, main='Cars', xlab='Would buy again (%)', ylab='Litres per 100 km', xlim=c(60,80), ylim=c(7,10))
 for (i in 1:5) {
 	points(design2.x[i], design2.y[i], pch=pch[i])
 }
