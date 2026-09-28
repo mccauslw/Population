@@ -20,6 +20,7 @@
   partopsep=0pt,     % extra space when list starts a paragraph
   before=\setlength{\baselineskip}{12pt}  % line spacing within items
 }
+\usepackage{titlesec} % To get "Appendix B Domains" rather than "B Domains"
 
 \graphicspath{
   {figures/}                     % figures created using R
@@ -59,7 +60,8 @@ Supplementary materials, including data, code and documents related to the exper
 \begin{abstract}
   We run an experiment covering 32 different choice domains, including fine art, cars and pizza.
   For each domain, there is a set of five related items, and 26 \menus{}---the subsets of two or more items.
-  We measure population-level choice probabilities by presenting, within each domain, each of its 26 \menus{} to a distinct group of at least 40 participants (1042 participants in total) and observing each participant's choice of one option.
+  We measure the probability of choosing each item from each \menu{}, at the population level.
+  We do this by presenting, within each domain, each of its 26 \menus{} to a distinct group of at least 40 participants (1042 participants in total) and observing each participant's choice of one option.
   Each participant faces exactly one \menu{} per domain.
   The purpose of the experiment is to allow tests of various conditions over choice probabilities, over a wide variety of choice domains.
   It is particularly well suited for testing conditions, like regularity, the random utility condition and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
@@ -77,7 +79,8 @@ Supplementary materials, including data, code and documents related to the exper
 
 Discrete choice models, which describe the choices of decision makers from finite menus of options, are used extensively in economics, psychology, marketing, transportation research, health research and other disciplines.
 Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options (e.g. \citeauthor{Trai78}, \citeyear{Trai78}).
-Here, we contribute experimental data to a distinct and more abstract research agenda that collects evidence for or against, as the case may be, various testable conditions on choice probabilities, without regard to item attributes, across a wide variety of choice environments.
+Here we contribute to a distinct and more abstract research agenda that tests various conditions on choice probabilities, without regard to item characteristics, across a wide variety of choice environments.
+The contribution new experimental data suited to this endeavour.
 
 Consider the following choice experiment, one of 32 we performed using an internet survey.
 We asked each participant ``Which one of the following cities do you think is furthest north?'' and then presented them with one {\em menu}, a list of at least two options taken from the following set of five cities: Warsaw, Poland; London, United Kingdom; Vancouver, Canada; Paris, France; and Seattle, United States.
@@ -584,7 +587,7 @@ We will adopt these categories throughout the paper, but refer to the first two 
 By this reckoning, there is moderate evidence in favour of the attraction effect when the target is Vancouver, the competitor is Paris and the decoy is Seattle and moderate evidence against the attraction effect when the target is London, the decoy is Paris and the competitor is either Vancouver or Seattle.
 
 We can also consider joint hypotheses, such as the hypothesis that the attraction effect holds in all three cases where the target is Vancouver and the decoy is Seattle.
-This hypothesis consists of three inequalities and the log Bayes factor in favour of it is the sum of the individual log Bayes factors, or 2.253.
+This joint hypothesis consists of three inequalities; the log Bayes factor in favour of the hypothesis is the sum of the individual log Bayes factors, or 2.253.
 This is stronger evidence, but still not strong according to the standards of \citet{KassRaft95}.
 The log Bayes factor in favour of the joint hypothesis that the attraction effect holds in all three cases where the target is London and the decoy is Paris is -3.744, which implies strong evidence against this joint hypothesis.
 
@@ -746,9 +749,9 @@ For example, the hollow dot on the right side of the triangle is the convex comb
 Equivalently, the distance from this hollow dot to vertex $c$ and the distance to vertex $d$ are in the proportions 0.575 and 0.425.
 
 The two triangles in the interior allow readers to detect, at a glance, if binary and ternary choice proportions for the tripleton set $\trip$ violate regularity or the multiplicative inequality.
-(Strictly speaking, regularity and the multiplicative inequality are restrictions on choice probabilities, not proportions.
+\footnote{Strictly speaking, regularity and the multiplicative inequality are restrictions on choice probabilities, not proportions.
 But a system of choice proportions has the same structure as a random choice model and belongs to the same space $\Delta$.
-We define regularity and the multiplicative inequality for a system of choice proportions as the analogous conditions, with choice proportions replacing choice probabilities.)
+We define regularity and the multiplicative inequality for a system of choice proportions as the analogous conditions, with choice proportions replacing choice probabilities.}
 Suppose that we know the binary choice proportions $\hat P_{\{c,d\}}(c) = \tfrac{17}{40} = 0.425$, $\hat P_{\{d,e\}}(d) = \tfrac{26}{40} = 0.65$ and $\hat P_{\{c,e\}}(c) = \tfrac{36}{40} = 0.90$, but we have not yet observed the ternary choice proportions $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e))$.
 
 The downward pointing solid triangle with the blue boundary is a cross-section of the region where regularity holds.
@@ -828,6 +831,13 @@ A better understanding of choice behaviour requires evidence not only about spec
 By providing a diverse population-level choice dataset, the present study aims to contribute to this endeavour.
 
 \appendix
+%\renewcommand{\thesection}{Appendix \Alph{section}}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {Appendix \thesection}
+  {1em}
+  {}
 
 \section{Prior distributions used in the prior sensitivity analysis}\label{s:prior}
 
