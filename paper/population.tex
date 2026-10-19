@@ -123,14 +123,15 @@ The choice counts reported above reveal that when Seattle is added to the menu o
 This provides preliminary evidence for the attraction effect, but to assess the strength of the evidence, we must take into account sampling variation.
 
 The main contribution of this paper is a publicly available dataset designed for testing abstract stochastic choice conditions, such as regularity, across a wide range of choice domains.
-The experiment includes 32 diverse choice domains, including fine art, cars, and pizza; this variety allows us and others to discover properties of random choice behaviour that hold widely.
+The experiment includes 32 diverse choice domains, spanning qualitatively different kinds of choice, including consumer choice (cars, beer) aesthetic preference (colours, art), factual judgment (latitude, population), and perceptual discrimination (triangle areas).
+This variety allows us and others to discover properties of random choice behaviour that hold widely.
 Some domains are specifically designed to be conducive to the attraction effect or other context effects.
 We do so to stress-test conditions that are inconsistent with the effects and, more generally, to promote choice patterns that many consider anomalous.
 Measuring choice probabilities on all menus allows us to test, jointly, the complete set of implications of a condition, such as regularity, that constrains choice probabilities over all menus.
 In this way, we can expose every implication of the condition to empirical scrutiny.
 Any unfavourable evidence is evidence against decision theories that imply the condition.
 
-Section \ref{s:framework} develops the probabilistic framework.
+Section \ref{s:framework} develops the theoretical framework for choice probabilities.
 It documents three conditions on choice probabilities in detail, including regularity, and points to others in the literature.
 It discusses the applicability of population-level data to inferences about individual-level behaviour.
 It describes three context effects and outlines the motivation for designing some of the domains to favour them.
@@ -192,9 +193,9 @@ Our term ``condition'' covers any axiom, constraint, hypothesis, property, propo
 
 We have already seen regularity, the condition that if you add options to a \menu{}, the probability of choosing an existing option does not go up.
 Formally, a random choice model $P$ for a universe $\univ$ of choice items satisfies regularity if and only if for all $x \in A \subseteq B \subseteq \univ$,
-\[
+\begin{equation}
   P_A(x) \geq P_B(x).
-\]
+\end{equation}
 \citet{LuceSupp65} describe regularity and show that it is necessary for the random utility condition.
 
 Recall that regularity constrains choice probabilities across all \menus{}.
@@ -209,12 +210,12 @@ A random choice model $P$ on a universe $\univ$ satisfies the Block-Marschak ine
 	\end{equation}
 where $|B\backslash A|$ is the number of items in $B$ that are not also in $A$.
 ($\backslash$ is the set difference operator and $|\cdot|$ denotes cardinality.)
-This condition is far less interpretable than regularity, although see \citet[p. 713]{BarbPatt86} for an interpretation of the sum in \eqref{e:BM} for given $A$ and $x$, in the case that the full set of conditions holds.
+This condition is far less interpretable than regularity, although see \citet[p. 713]{BarbPatt86} for an interpretation of the sum in Equation \eqref{e:BM} for given $A$ and $x$, in the case that the full set of conditions holds.
 \citet{BlocMars60} show that the Block-Marschak inequalities are necessary for the random utility condition and \citet{Falm78} shows they are sufficient.
 Given the equivalence of the random utility condition and the Block-Marschak inequalities, we will henceforth refer to the condition using the more concise and familiar term, random utility.
 For the random utility condition, as for regularity, each $P_A$ is pivotal: since regularity is necessary for random utility, the same change in $P_A$ that breaks regularity also breaks the random utility condition.
 
-The third and final condition we consider is the multiplicative inequality, introduced by \citet{SattTver76}, who claim ``it has some appeal as a principle of individual choice behaviour''.
+The third and final testable condition we consider is the multiplicative inequality, introduced by \citet{SattTver76}, who claim ``it has some appeal as a principle of individual choice behaviour''.
 It states that the probability of choosing an option $x$ from a union $A \cup B$ of two \menus{} is at least as great as the probability of choosing $x$ from $A$ and then again from $B$ in independent trials.
 Suppose, for example, a random choice model $P$ on the universe of the ``Latitude'' domain satisfies the multiplicative inequality.
 Then the probability of choosing Warsaw from the \menu{} of Warsaw, London and Vancouver must be at least as great as the joint probability of two independent events: choosing Warsaw over London in pairwise choice and then choosing Warsaw again in pairwise choice, this time over Vancouver.
@@ -224,11 +225,11 @@ A formal test of the multiplicative inequality (a condition on choice {\em proba
 We perform such tests in Section \ref{s:global_tests} below.
 
 Formally, a random choice model $P$ satisfies the {\em multiplicative inequality} if and only if for all $x \in A, B \subseteq \univ$,
-\[
+\begin{equation}
   P_{A \cup B}(x) \geq P_A(x) P_B(x).
-\]
+\end{equation}
 \citet{SattTver76} show that it is a testable implication of the independent random utility model and also of the Elimination by Aspects (EBA) model described in \citet{Tver72b} and \citet{Tver72a}.
-\citet{McCaMarl24} show that any system of binary probabilities can be extended to a random choice model in such a way that the random choice model satisfies the multiplicative inequality.
+\citet{McCaMarl24} show that any given configuration of choice probabilities on the binary \menus{} of a universe can be extended to a random choice model (by specifying choice probabilities on the remaining, larger, \menus{}) in such a way that the random choice model satisfies the multiplicative inequality.
 As with regularity, each $P_A$ is pivotal.
 
 The conditions we consider here are just three examples among the many that have been studied.
@@ -279,7 +280,8 @@ In Appendix \ref{s:domains}, where we describe all of the choice domains in deta
 Section \ref{s:context_test} gives an empirical illustration where we test directly for an attraction effect in one of the domains.
 
 The three context effects can be seen as contingent conditions on choice probabilities, conditions predicted to hold when the items in question are in certain relationships with each other.
-In the example in the introduction, the condition predicted to hold is that the probability of choosing Vancouver goes up when Seattle is added to the \menu{}.
+The example of the attraction effect in the introduction pertains to the items Vancouver, Seattle and Paris.
+The condition predicted to hold is that the probability of choosing Vancouver goes up when Seattle is added to the \menu{} of Vancouver and Paris.
 The prediction is contingent on Seattle being clearly ``inferior to'' (i.e. obviously further south than) Vancouver.
 We will describe seminal versions of each of the three effects.
 Other versions of these context effects have been proposed, and they have different aggregation properties and different implications on whether choice probabilities can satisfy regularity, the random utility condition, or other conditions not considered here, such as \citeauthor{Kran67}'s (\citeyear{Kran67}) simple scalability.
@@ -308,11 +310,11 @@ Our ``Dots'' domain is similar to one of the three experimental designs in \cite
 The prompt question is ``Which one of the following boxes do you think has the greatest number of points?''
 We can define a similarity relation that considers two adjacent boxes in this list as similar.
 The similarity effect occurs if there are items $x$, $y$ and $z$ such that $x$ and $y$ are similar, $x$ and $z$ are not similar and $y$ and $z$ are not similar and choice probabilities satisfy
-\[
+\begin{equation}
   \bin{x}{z} > \frac{P_{\{x,y,z\}}(x)}{P_{\{x,y,z\}}(x) + P_{\{x,y,z\}}(z)}
   \quad \mbox{and} \quad
   \bin{y}{z} > \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(z)}.
-\]
+\end{equation}
 The inequality on the left holds if adding the option $y$, similar to the target option $x$, to the \menu{} $\{x,z\}$ lowers the {\em relative} probability of choosing $x$, compared to $z$.
 The inequality on the right is similar, except that $y$ is the target option and $x$ is the similar option.
 The tripleton set $\{a, b, e\}$ is a candidate for the similarity effect, with $a$ and $b$ as the similar items and $e$ as the dissimilar item.
@@ -322,11 +324,11 @@ Likewise, $\{a, d, e\}$ is also a candidate, with $d$ and $e$ as the similar ite
 They pertain to choice environments where items can be described in terms of a set of real-valued attributes.
 An item $y$ is {\em between} items $x$ and $z$ if two conditions hold: first, that for each attribute, $y$ has a level of that attribute intermediate between the levels of $x$ and $z$; and second, that each of $x$ and $z$ has the highest level of at least one attribute.
 The weak effect is said to occur when $y$ is between $x$ and $z$ and the following inequalities, from page 1183 in \citet{TverSimo93}, hold:
-\[
+\begin{equation}
   \bin{y}{x} < \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(x)}
   \quad \mbox{and} \quad
   \bin{y}{z} < \frac{P_{\{x,y,z\}}(y)}{P_{\{x,y,z\}}(y) + P_{\{x,y,z\}}(z)}.
-\]
+\end{equation}
 The inequality on the left holds if adding the option $z$ to the \menu{} $\{x,y\}$, making $y$ a ``compromise'' between $x$ and $z$, raises the relative probability of choosing $y$, compared to $x$.
 The inequality on the right is similar, except that $x$ is added to $\{y,z\}$, again making $y$ a ``compromise'' between $x$ and $z$.
 Our ``Beer'' domain includes three six-packs where a betweenness relation, relative to the price and quality rating attributes, applies.
@@ -465,7 +467,7 @@ We have full information on age, province or territory, and sex for all 1042 par
 There are 515 men (49.4\%) and 527 women (50.6\%).
 Age ranges from 18 to 88; the percentage of participants in the age bracket 18-24 is 11.4\%; 25-34, 17.8\%; 35-54, 38.3\%; 55 and older, 32.5\%.
 % quartiles of age were 32, 46 and 58.
-The number of participants in Alberta was 124; British Columbia, 136; Manitoba, 36; New Brunswick, 23; Newfoundland and Labrador, 16; Northwest Territories, 1; Nova Scotia, 29; Ontario, 391; Prince Edward Island, 4; Quebec, 251; Saskatchewan, 30; and Yukon, 1.
+%The number of participants in Alberta was 124; British Columbia, 136; Manitoba, 36; New Brunswick, 23; Newfoundland and Labrador, 16; Northwest Territories, 1; Nova Scotia, 29; Ontario, 391; Prince Edward Island, 4; Quebec, 251; Saskatchewan, 30; and Yukon, 1.
 %No participant was in the territory of Nunavut.
 Participants could take as long as they liked to complete the survey.
 The quartiles of total duration were 7.1, 10.0 and 13.9 minutes.
@@ -476,7 +478,8 @@ Participants were given the opportunity to leave written feedback on the experim
 
 In Section \ref{s:framework}, we defined a random choice model $P$ on a universe $U$ of items.
 The assumption that choices are independent, and for each \menu{} identically distributed, completes the description of the data generating process for data structured like ours.
-We will denote by $N$ the experimental data as a random vector, before observation.
+We will denote by $N$ the complete set of experimental data as a random vector, before observation.
+This includes choice counts from every item of every \menu{}.
 We will denote by $n$ a generic possible value of the data vector and by $n_{\mathrm{obs}}$ the realized data vector we observe.
 The data generating process gives the conditional distribution of $N$ given $P$.
 
@@ -504,10 +507,10 @@ If two Bayesian random choice models, $M$ and $M'$, are both considered equally 
 So for example, if the two models are equally likely to begin with and the Bayes factor is 2, the posterior probability assigned to model $M'$ is twice as high as that assigned to $M$.
 
 The Bayes factor in favour of $M'$ over $M$ is defined as a ratio of marginal likelihoods:
-\[
+\begin{equation}
   \mathrm{BF} \equiv
   \frac{f_{M'}(n_\mathrm{obs})}{f_M(n_\mathrm{obs})},
-\]
+\end{equation}
 where $f_M(n)$ is the marginal probability mass function of the data vector under model $M$, and $f_{M'}(n)$ is the same under $M'$.
 Evaluating $f_M(\cdot)$ at the observed data $n_\mathrm{obs}$ gives a measure of the prior predictive performance of $M$ for the observed data.
 Because it averages over all parameter values rather than evaluating a model's predictive performance at a fitted estimate, it measures predictive performance on unseen data.
@@ -560,7 +563,7 @@ The analysis therefore reduces to inference about two unknown probabilities and 
 We use an encompassing model with a prior distribution where all probability vectors are independent and uniformly distributed.
 In particular, the probability vectors of interest, $P_{\{T,C\}} = (P_{\{T,C\}}(T), P_{\{T,C\}}(C))$ and $P_{\{T,C,D\}} = (P_{\{T,C,D\}}(T), P_{\{T,C,D\}}(C), P_{\{T,C,D\}}(D))$ are independent and each is uniformly distributed on the region where its elements are non-negative and add to one.
 The hypothesis we wish to test is that the attraction effect holds, or equivalently, that $P_{\{T,C,D\}}(T) > P_{\{T,C\}}(T)$.
-Taking $\Lambda$ to be the region of $\Delta$ where $P_{\{T,C,D\}}(T) > P_{\{T,C\}}(T)$, the constrained model has a prior distribution for $P$ that is the truncation of the prior distribution in the encompassing model to the region $\Lambda$.
+Taking $\Lambda$ to be the region of $\Delta$ where the condition $P_{\{T,C,D\}}(T) > P_{\{T,C\}}(T)$ holds, the constrained model has a prior distribution for $P$ that is the truncation of the prior distribution in the encompassing model to the region $\Lambda$.
 
 We use standard results for the Dirichlet-multinomial and beta-binomial models (see for example \citet{gelman:95}) to analytically derive the posterior distribution of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$ under the encompassing model.
 In the following derivation, we denote by $\mathrm{Be}(\alpha,\beta)$ the beta distribution with shape parameters $\alpha$ and $\beta$.
@@ -568,7 +571,8 @@ The prior independence of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$ and the assumed inde
 The uniform distributions of $P_{\{T,C\}}$ and $P_{\{T,C,D\}}$ imply that the prior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1,1)$ and that that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1,2)$.
 Then the posterior distribution of $P_{\{T,C\}}(T)$ is $\mathrm{Be}(1 + n_{\{T,C\}}(T), 1 + n_{\{T,C\}}(C))$ and that of $P_{\{T,C,D\}}(T)$ is $\mathrm{Be}(1 + n_{\{T,C,D\}}(T), 2 + n_{\{T,C,D\}}(C) + n_{\{T,C,D\}}(D))$.
 
-The test for the attraction effect is based on the Bayes factor in favour of the constrained model over the encompassing model, computed as  $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]/\Pr[P \in \Lambda]$, the ratio of posterior to prior probability of the effect under the encompassing model.
+The test for the attraction effect is based on the Bayes factor in favour of the constrained model, where the condition $P_{\{T,C,D\}}(T) > P_{\{T,C\}}(T)$ holds, over the encompassing model, where there are no restrictions on any choice probabilities.
+This is computed as $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]/\Pr[P \in \Lambda]$, the ratio of posterior to prior probability of the effect under the encompassing model.
 We computed $\Pr[P \in \Lambda] = \tfrac{1}{3}$ analytically.
 We estimated $\Pr[P \in \Lambda|N = n_{\mathrm{obs}}]$ numerically with Monte Carlo simulation methods, using Rao-Blackwellization to reduce variance.
 We computed numerical standard errors, which measure the standard deviation of simulation error.
@@ -1100,16 +1104,16 @@ We use the sample mean counterparts of these expectations to estimate them numer
 To estimate $\Pr[\Lambda]$, we first draw a iid sample of size $M$ from the {\em prior} distribution of $P_{\{T,C,D\}}(T)$.
 Denote the $m$'th draw by $P^{(m)}_{\{T,C,D\}}(T)$.
 The standard strong law of large numbers for independent draws and bounded random variables ensures the following almost sure (a.s.) convergence:
-\[
+\begin{equation}
   \frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T); 1, 1)
   \overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda].
-\]
+\end{equation}
 Similarly, for an iid sample $P^{(m)}_{\{T,C,D\}}(T)$, $m=1,\ldots,M$, from the {\em posterior} distribution of $P_{\{T,C,D\}}(T)$, the distribution $\mathrm{Be}(1 + N_T^{(3)}, 2 + N_C^{(3)} + N_D^{(3)}$, we have
-\[
+\begin{equation}
   \frac{1}{M} \sum_{m=1}^M F_{\mathrm{Be}}(P^{(m)}_{\{T,C,D\}}(T);
   1 + N_T^{(2)}, 1 + N_C^{(2)})
   \overset{\text{a.s.}}{\longrightarrow} \Pr[\Lambda|N].
-\]
+\end{equation}
 We estimated $\Pr[\Lambda]$ and $\Pr[\Lambda|N]$ using samples of size $M = 10^6$.
 We computed the usual numerical standard errors of the estimators and found all to be less than 0.0003.
 
