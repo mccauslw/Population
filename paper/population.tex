@@ -64,7 +64,8 @@ Supplementary materials, including data, code and documents related to the exper
   We do this by presenting, within each domain, each of its 26 \menus{} to a distinct group of at least 40 participants (1042 participants in total) and observing each participant's choice of one option.
   Each participant faces exactly one \menu{} per domain.
   The purpose of the experiment is to allow tests of various conditions over choice probabilities, over a wide variety of choice domains.
-  It is particularly well suited for testing conditions, like regularity, the random utility condition and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
+  Such conditions include constraints implied by classes of choice models and axioms for probabilistic choice.
+  The experiment is particularly well suited for testing conditions, like regularity, the random utility condition and the multiplicative inequality, which constrain choice probabilities across all \menus{} of a domain.
   For each domain and each of the three conditions above, we report Bayes factors giving evidence for or against the condition.
   Regularity and random utility, conditions that most discrete choice models satisfy, survive this battery of tests: across the 32 domains, Bayes factors generally support them and nowhere is there more than slight evidence against them.
   In contrast, very strong evidence against the multiplicative inequality in three domains shows that it cannot be considered as a universal condition on population-level choice.
@@ -80,7 +81,7 @@ Supplementary materials, including data, code and documents related to the exper
 Discrete choice models, which describe the choices of decision makers from finite menus of options, are used extensively in economics, psychology, marketing, transportation research, health research and other disciplines.
 Most empirical applications seek to measure how attributes of choice options affect choice probabilities in particular cases; for example, how commute times and other features affect the probabilities of choosing various transportation options (e.g. \citeauthor{Trai78}, \citeyear{Trai78}).
 Here we contribute to a distinct and more abstract research agenda that tests various conditions on choice probabilities, without regard to item characteristics, across a wide variety of choice environments.
-The contribution new experimental data suited to this endeavour.
+Specifically, we contribute new experimental data particularly suited to this endeavour.
 
 Consider the following choice experiment, one of 32 we performed using an internet survey.
 We asked each participant ``Which one of the following cities do you think is furthest north?'' and then presented them with one {\em menu}, a list of at least two options taken from the following set of five cities: Warsaw, Poland; London, United Kingdom; Vancouver, Canada; Paris, France; and Seattle, United States.
@@ -123,7 +124,7 @@ The choice counts reported above reveal that when Seattle is added to the menu o
 This provides preliminary evidence for the attraction effect, but to assess the strength of the evidence, we must take into account sampling variation.
 
 The main contribution of this paper is a publicly available dataset designed for testing abstract stochastic choice conditions, such as regularity, across a wide range of choice domains.
-The experiment includes 32 diverse choice domains, spanning qualitatively different kinds of choice, including consumer choice (cars, beer) aesthetic preference (colours, art), factual judgment (latitude, population), and perceptual discrimination (triangle areas).
+The experiment includes 32 diverse choice domains, spanning qualitatively different kinds of choice, including consumer choice (cars, beer), aesthetic preference (colours, art), factual judgment (latitude, population), and perceptual discrimination (triangle areas).
 This variety allows us and others to discover properties of random choice behaviour that hold widely.
 Some domains are specifically designed to be conducive to the attraction effect or other context effects.
 We do so to stress-test conditions that are inconsistent with the effects and, more generally, to promote choice patterns that many consider anomalous.
@@ -179,13 +180,13 @@ The term random choice model is often used to describe logit and other, often pa
 We will refer to these as {\em classes} of random choice models.
 
 One particularly important class of random choice models consists of those that describe the behaviour of random utility maximizers.
-Each time such a decision maker encounters a \menu{} in a choice trial, they draw random utility values for all items in the universe and then choose the option in that \menu{} with the highest utility.
-Random utility is drawn independently of which \menu{} is being offered.
-From trial to trial, draws are independent and identically distributed.
+Each time such a decision maker encounters a \menu{} in a choice trial, they draw, from some probability distribution, utility values for all items in the universe and then choose the option in that \menu{} with the highest realized utility.
+Utility is drawn independently of which \menu{} is being offered.
+From trial to trial, utilities are independent and identically distributed.
 Within a trial, however, the utilities of the various items may be statistically dependent.
-Henceforth, we refer to the condition defining this class of models simply as random utility.
+We refer to the condition that given choice probabilities agree with the choice probabilities of some random utility maximizer as {\em random utility}.
+For a precise definition as well as a detailed exposition of random utility and how it relates to random choice models, using the same notation as this paper, see \citet{McCaStobMarlParkBrow20}.
 Most classes of random choice models used in applied work satisfy the random utility condition, including the Logit and Probit classes.
-For a detailed exposition of random utility and how it relates to random choice models, using the same notation as this paper, see \citet{McCaStobMarlParkBrow20}.
 
 \subsection{Global testable conditions for stochastic choice}\label{s:conditions}
 
@@ -233,7 +234,10 @@ Formally, a random choice model $P$ satisfies the {\em multiplicative inequality
 As with regularity, each $P_A$ is pivotal.
 
 The conditions we consider here are just three examples among the many that have been studied.
-\citet{Fish99} documents these and many conditions on choice probabilities, including ones that have been proposed as reasonable assumptions about choice behaviour and some that are testable implications of different classes of random choice models.
+\citet{Fish99} documents these and many other conditions on choice probabilities, including ones that have been proposed as reasonable assumptions about choice behaviour and some that are testable implications of different classes of random choice models.
+For example, the paper lists nine conditions on binary choice probabilities that are ``motivated in part'' by the transitivity axiom on preferences that underlies most of economic theory.
+Another condition on binary choice probabilities, the triangle inequality, is a necessary condition for regularity and is therefore implied by any random utility model.
+A further example of a condition that jointly constrains choice probabilities across all \menus{} is order-independence, which is necessary and sufficient for models satisfying simple scalability.
 See \citet{LuceSupp65} and \citet{McCaMarl13} for illustrations of the logical relationships among a set of conditions that includes the three outlined here and various kinds of stochastic transitivity.
 
 \subsection{Individual- and population-level choice}\label{s:aggregation}
@@ -255,15 +259,14 @@ Some, but not all, conditions have this aggregation property.
 Fortunately, a simple mathematical test tells us whether or not any given condition does or does not.
 Define $\Delta$ as the set of all random choice models and $\Lambda$ as the subset of models satisfying a given condition of interest.
 Then the condition satisfies the aggregation property if and only if $\Lambda$ is a convex set.
-This is because the population random choice model is a mixture---where random sampling from the population provides the mixing distribution---of the various individual random choice models.
-If all individual random choice models lie in the same convex set, then the mixture, a convex combination, must also.
+A set is convex if every non-negatively weighted average of points in the set also belongs to the set.
+Here, the points represent random choice models, and taking a weighted average corresponds to combining the choice probabilities of different individuals into population choice probabilities.
+If all individual random choice models lie in the same convex set, then the population random choice model must also.
 Conversely, if the region where the condition holds is not convex, we can find two individual random choice models that satisfy the condition such that the random choice model for the population of two does not.
 
-We can see that regularity satisfies the aggregation property by verifying the convexity of the region where regularity holds.
-The regularity inequalities are all linear in choice probabilities, and so the regularity region is the intersection of the convex set $\Delta$ and many half-spaces, also convex.
-Therefore, the region is convex and regularity satisfies the aggregation property.
-Likewise, the Block-Marschak inequalities are also linear in choice probabilities and so the random utility condition also satisfies the aggregation property.
-The multiplicative inequality is not linear, however, and \citet{McCaMarl24} show that the region in which it holds is not convex.
+Regularity and random utility satisfy the aggregation property because the regions in which they hold are convex.\footnote{The regularity inequalities are all linear in choice probabilities, and so the regularity region is the intersection of the convex set $\Delta$ and many half-spaces, also convex.
+Likewise, the Block-Marschak inequalities are also linear in choice probabilities and so the random utility region is convex.}
+\citet{McCaMarl24} show that the region in which the multiplicative inequality holds is not convex.
 Therefore it does not satisfy the aggregation property.
 
 Another issue concerning individual- and population-level choice is the assumption, which we maintain throughout, that observed choices are statistically independent and for each \menu{}, identically distributed.
@@ -480,7 +483,8 @@ In Section \ref{s:framework}, we defined a random choice model $P$ on a universe
 The assumption that choices are independent, and for each \menu{} identically distributed, completes the description of the data generating process for data structured like ours.
 We will denote by $N$ the complete set of experimental data as a random vector, before observation.
 This includes choice counts from every item of every \menu{}.
-We will denote by $n$ a generic possible value of the data vector and by $n_{\mathrm{obs}}$ the realized data vector we observe.
+We will denote by $n$ a generic possible value of the data vector.
+We denote by $n_{\mathrm{obs}}$ the realized data vector we observe, such as the set of counts displayed in columns two through six of Table \ref{t:latitude_table}.
 The data generating process gives the conditional distribution of $N$ given $P$.
 
 We use Bayesian inference to learn about plausible values of the unknown $P$ after observing $N = n_{\mathrm{obs}}$.
@@ -541,7 +545,7 @@ We end, in Section \ref{s:simplices}, by showing a graphical representation of a
 \begin{table}
   \input{tables/asy_dom_table.tex}
   \caption{Data and test results for six candidate attraction effects in the Latitude domain. Each row gives a configuration of target, competitor and decoy options where we might expect an attraction effect. The fourth column gives the numbers of participants choosing the target and competitor when the menu is this pair of options. The fifth column gives the numbers of participants choosing the target, competitor and decoy when the menu is the set of these three options. The inconsistent but compact notation in the 4th and 5th column names is used only here.
-  The sixth column gives the posterior probability of the hypothesis that the attraction effect holds. The last two columns give the Bayes factor and log Bayes factor in favour of the hypothesis that the attraction effect holds.}
+  The sixth column gives the posterior probability of the hypothesis that the attraction effect holds. The last two columns give the Bayes factor and (natural) log Bayes factor in favour of the hypothesis that the attraction effect holds.}
   \label{t:asy_dom_table}
 \end{table}
 
@@ -585,7 +589,7 @@ The evidence favours the attraction effect for the three cases where the target 
 In contrast, it favours the encompassing model for the three cases where the target is London and the decoy is Paris.
 
 We can use the guidelines recommended by \citet{KassRaft95} to classify the strength of the evidence provided by the Bayes factors.
-They classify log Bayes factors between 0 and 1 as ``not worth more than a bare mention'', those between 1 and 3 as providing ``positive evidence'', those between 3 and 5 as providing ``strong evidence'' and those above 5 as providing ``very strong evidence''.
+They classify log Bayes factors\footnote{All logarithms are natural (base $e$) logarithms.} between 0 and 1 as ``not worth more than a bare mention'', those between 1 and 3 as providing ``positive evidence'', those between 3 and 5 as providing ``strong evidence'' and those above 5 as providing ``very strong evidence''.
 We will adopt these categories throughout the paper, but refer to the first two as giving ``weak'' and ``moderate'' evidence.
 
 By this reckoning, there is moderate evidence in favour of the attraction effect when the target is Vancouver, the competitor is Paris and the decoy is Seattle and moderate evidence against the attraction effect when the target is London, the decoy is Paris and the competitor is either Vancouver or Seattle.
@@ -663,7 +667,7 @@ The prior probability of the random utility condition is $0.002$ under $M_1$, $0
 We provide details of the three prior specifications in Appendix \ref{s:prior}.
 
 We used the posterior simulation and model comparison methods described in \citet{McCaMarl14} for the computation of all results reported in Section \ref{s:global_tests}.
-For each choice domain, we computed log\footnote{All logarithms are natural (base $e$) logarithms.} Bayes factors in favour of the encompassing models $M_1$ and $M_2$, over the encompassing model $M_3$.
+For each choice domain, we computed log Bayes factors in favour of the encompassing models $M_1$ and $M_2$, over the encompassing model $M_3$.
 For each encompassing model, we computed log Bayes factors in favour of three constrained models, over the encompassing model.
 Those constrained models are the ones obtained by truncating the prior density for the encompassing model to the regions where regularity, random utility and the multiplicative inequality, respectively, hold.
 
@@ -702,10 +706,7 @@ For individual domains, the evidence in favour of regularity and the random util
 
 Figure \ref{f:multiple_BF} also allows us to compare two different ways of generating structure in choice probabilities: on the one hand, imposing a condition such as regularity or the random utility condition, and on the other, increasing prior dependence across \menus{} through $\lambda$.
 We see that the variation in predictive performance of the random utility condition across encompassing models (height of the square, across columns, for a particular domain) is much less than the variation in predictive performance across the encompassing models themselves (height of the circle, across columns, for the same domain).
-We interpret this as follows.
-Increasing $\lambda$ induces coherence across \menus{}.
-So does imposing the random utility condition, in its own way.
-The results suggest that some of the predictive gains from imposing the random utility condition can be replicated by increasing $\lambda$.
+These results show that the two ways of generating structure in choice probabilities are somewhat complementary; some of the predictive gains from imposing the random utility condition can be replicated by increasing $\lambda$.
 The same observation applies to regularity.
 
 \begin{figure}
@@ -736,10 +737,8 @@ This triple corresponds to the configuration of Vancouver ($c$), Paris ($d$) and
 The vertices of the triangle are labelled $c$ (bottom right), $d$ (top) and $e$ (bottom left).
 Four menus are subsets of $\trip$, $\{c,d\}$, $\{c,e\}$, $\{d,e\}$ and $\{c,d,e\}$; the choice proportions observed for these menus appear in rows 8, 15, 19 and 23 of Table \ref{t:latitude_table}, respectively.
 
-We use the graphical representation introduced by \citet{McCaMarl13} to plot the observed choice proportions for these four menus, using an equilateral triangle as a Barycentric coordinate system.
-It uses a single triangle to display all binary and ternary choice probabilities (or observed proportions) for a universe of three items.
-For example, an arbitrary probability vector $(P_\trip(c),P_\trip(d),P_\trip(e))$ on $\trip$ is represented as the point with Barycentric coordinates $(P_\trip(c),P_\trip(d),P_\trip(e))$ in the triangle.
-We have represented the vector $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e)) = (\tfrac{26}{40}, \tfrac{14}{40}, \tfrac{0}{40}) = (0.65, 0.35, 0.00)$ of choice proportions observed in the experiment as a solid point.
+The equilateral triangle in the fourth row is a Barycentric coordinate system; in it, we plot the observed choice proportions for these four menus.
+We represent the vector $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e)) = (\tfrac{26}{40}, \tfrac{14}{40}, \tfrac{0}{40}) = (0.65, 0.35, 0.00)$ of choice proportions observed in the experiment as a solid point.
 There are two ways of locating this point on the triangle.
 First, we can take vertices $c$, $d$ and $e$ as points on the plane of the page or screen.
 Then the point $(\hat P_\trip(c),\hat P_\trip(d),\hat P_\trip(e))$ is the convex combination of the vertices $c$, $d$ and $e$---which have Barycentric coordinates $(1,0,0)$, $(0,1,0)$ and $(0,0,1)$, respectively---with weights $0.65$, $0.35$ and $0.00$.
@@ -755,7 +754,7 @@ Equivalently, the distance from this hollow dot to vertex $c$ and the distance t
 The two triangles in the interior allow readers to detect, at a glance, if binary and ternary choice proportions for the tripleton set $\trip$ violate regularity or the multiplicative inequality.
 \footnote{Strictly speaking, regularity and the multiplicative inequality are restrictions on choice probabilities, not proportions.
 But a system of choice proportions has the same structure as a random choice model and belongs to the same space $\Delta$.
-We define regularity and the multiplicative inequality for a system of choice proportions as the analogous conditions, with choice proportions replacing choice probabilities.}
+We define regularity and the multiplicative inequality for a system of choice {\em proportions} as the analogous conditions, with choice proportions replacing choice probabilities.}
 Suppose that we know the binary choice proportions $\hat P_{\{c,d\}}(c) = \tfrac{17}{40} = 0.425$, $\hat P_{\{d,e\}}(d) = \tfrac{26}{40} = 0.65$ and $\hat P_{\{c,e\}}(c) = \tfrac{36}{40} = 0.90$, but we have not yet observed the ternary choice proportions $(\hat P_\trip(c), \hat P_\trip(d), \hat P_\trip(e))$.
 
 The downward pointing solid triangle with the blue boundary is a cross-section of the region where regularity holds.
